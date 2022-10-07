@@ -4,23 +4,24 @@ info:
     email: info@librematch.org
     name: Libre:Match Team
     url: https://librematch.org
-  description: "stable, reliable and feature-rich API for match information, leaderboards,\
+  description:
+    "stable, reliable and feature-rich API for match information, leaderboards,\
     \ and tournament organisation for the Age of Empires multiplayer community"
   license:
     name: GNU AGPLv3
     url: https://www.gnu.org/licenses/agpl.txt
     x-last-modified: 1663947772699
   title: Libre:Match API
-  version: 1.0.0
+  version: 1.0.0-DRAFT
   x-logo:
     url: ""
 servers:
-- description: ""
-  url: https://api.librematch.org/v1
-  x-last-modified: 1663947810574
+  - description: ""
+    url: https://api.librematch.org/v1
+    x-last-modified: 1663947810574
 security:
-- BasicAuth: []
-- X-Api-Key: []
+  - BasicAuth: []
+  - X-Api-Key: []
 paths:
   /games:
     get:
@@ -33,10 +34,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedError'
+                $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
-      summary: Retrieve a list of all game identifiers for games using Relic Link
+      summary:
+        Retrieve a list of all game identifiers for games using Relic Link
         API
       tags: []
     summary: Endpoint for game-specific data
@@ -45,18 +47,19 @@ paths:
     get:
       operationId: get_definition_collection_for_game
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for games that use the Relic
-          Link API
-        explode: false
-        in: path
-        name: game_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949717971
+        - deprecated: false
+          description:
+            The unique identifier (ULID) we use for games that use the Relic
+            Link API
+          explode: false
+          in: path
+          name: game_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1663949717971
       responses:
         "200":
           description: Operation succeeded
@@ -65,10 +68,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedError'
+                $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
-      summary: Retrieve all available definitions for a specific game using Relic
+      summary:
+        Retrieve all available definitions for a specific game using Relic
         Link API
       tags: []
     summary: "game-specific definitions, e.g. map names, civilisation names, translations"
@@ -77,18 +81,19 @@ paths:
     get:
       operationId: get_info_collection_for_game
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for games that use the Relic
-          Link API
-        explode: false
-        in: path
-        name: game_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949717971
+        - deprecated: false
+          description:
+            The unique identifier (ULID) we use for games that use the Relic
+            Link API
+          explode: false
+          in: path
+          name: game_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1663949717971
       responses:
         "200":
           description: Operation succeeded
@@ -97,31 +102,34 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedError'
+                $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
-      summary: Retrieve all available information for a specific game using Relic
+      summary:
+        Retrieve all available information for a specific game using Relic
         Link API
       tags: []
-    summary: "information about server maintenance times, DLC stuff, patch releases,\
+    summary:
+      "information about server maintenance times, DLC stuff, patch releases,\
       \ etc."
     x-last-modified: 1663948169247
   /games/{game_id}/matches:
     get:
       operationId: get_match_collection_for_game
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for games that use the Relic
-          Link API
-        explode: false
-        in: path
-        name: game_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949717971
+        - deprecated: false
+          description:
+            The unique identifier (ULID) we use for games that use the Relic
+            Link API
+          explode: false
+          in: path
+          name: game_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1663949717971
       responses:
         "200":
           description: Operation succeeded
@@ -130,12 +138,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedError'
+                $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Retrieve all matches for a specific game using Relic Link API
       tags: []
-    summary: "match data spanning over the complete game (all leaderboards, basically\
+    summary:
+      "match data spanning over the complete game (all leaderboards, basically\
       \ a log"
     x-last-modified: 1663948210036
   /tournaments:
@@ -153,7 +162,8 @@ paths:
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
-      summary: Retrieve all available tournaments for all games available on the Relic
+      summary:
+        Retrieve all available tournaments for all games available on the Relic
         Link platform
       tags: []
     patch:
@@ -193,7 +203,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedError'
+                $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Retrieve all available profiles from the Relic Link API
@@ -204,17 +214,18 @@ paths:
     get:
       operationId: get_details_for_profile
       parameters:
-      - deprecated: false
-        description: The unique identifier used by the Relic Link API for a player
-          on their platform
-        explode: false
-        in: path
-        name: relic_link_id
-        required: true
-        schema:
-          type: integer
-        style: simple
-        x-last-modified: 1663949613648
+        - deprecated: false
+          description:
+            The unique identifier used by the Relic Link API for a player
+            on their platform
+          explode: false
+          in: path
+          name: relic_link_id
+          required: true
+          schema:
+            type: integer
+          style: simple
+          x-last-modified: 1663949613648
       responses:
         "200":
           description: Operation succeeded
@@ -223,7 +234,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedError'
+                $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Retrieve the details for a specific profile from the Relic Link API
@@ -234,17 +245,18 @@ paths:
     get:
       operationId: get_match_collection_for_profile
       parameters:
-      - deprecated: false
-        description: The unique identifier used by the Relic Link API for a player
-          on their platform
-        explode: false
-        in: path
-        name: relic_link_id
-        required: true
-        schema:
-          type: integer
-        style: simple
-        x-last-modified: 1663949613648
+        - deprecated: false
+          description:
+            The unique identifier used by the Relic Link API for a player
+            on their platform
+          explode: false
+          in: path
+          name: relic_link_id
+          required: true
+          schema:
+            type: integer
+          style: simple
+          x-last-modified: 1663949613648
       responses:
         "200":
           description: Operation succeeded
@@ -253,7 +265,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedError'
+                $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Retrieve all matches for a specific profile from the Relic Link API
@@ -272,7 +284,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedError'
+                $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Remove all users from our platform
@@ -287,7 +299,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedError'
+                $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Retrieve all users of our platform
@@ -303,7 +315,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedError'
+                $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Partially update details for all user profiles
@@ -321,7 +333,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedError'
+                $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Create a new user for our platform
@@ -336,7 +348,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedError'
+                $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Bulk update of all users of our platform
@@ -347,17 +359,17 @@ paths:
       description: ""
       operationId: remove_user
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for users of our API
-        explode: false
-        in: path
-        name: user_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1665078217885
+        - deprecated: false
+          description: The unique identifier (ULID) we use for users of our API
+          explode: false
+          in: path
+          name: user_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1665078217885
       responses:
         "200":
           description: Operation succeeded
@@ -366,24 +378,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedError'
+                $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Remove user from our platform if it exists
     get:
       operationId: get_details_for_user
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for users of our API
-        explode: false
-        in: path
-        name: user_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1665078217885
+        - deprecated: false
+          description: The unique identifier (ULID) we use for users of our API
+          explode: false
+          in: path
+          name: user_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1665078217885
       responses:
         "200":
           description: Operation succeeded
@@ -392,7 +404,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedError'
+                $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Retrieve details for a specific user profile on our platform
@@ -401,17 +413,17 @@ paths:
       description: ""
       operationId: partial_update_user
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for users of our API
-        explode: false
-        in: path
-        name: user_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1665078217885
+        - deprecated: false
+          description: The unique identifier (ULID) we use for users of our API
+          explode: false
+          in: path
+          name: user_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1665078217885
       responses:
         "200":
           description: Operation succeeded
@@ -420,7 +432,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedError'
+                $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Update details for a specific user profile on our platform if it exists
@@ -428,17 +440,17 @@ paths:
       description: ""
       operationId: bulk_update_all_user_details
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for users of our API
-        explode: false
-        in: path
-        name: user_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1665078217885
+        - deprecated: false
+          description: The unique identifier (ULID) we use for users of our API
+          explode: false
+          in: path
+          name: user_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1665078217885
       responses:
         "200":
           description: Operation succeeded
@@ -447,10 +459,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedError'
+                $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
-      summary: Bulk update details for a specific user profile on our platform if
+      summary:
+        Bulk update details for a specific user profile on our platform if
         it exists
     summary: user profile for an API user
     x-last-modified: 1663948686307
@@ -475,7 +488,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedError'
+                $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
       tags: []
@@ -492,14 +505,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedError'
+                $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
       tags: []
     summary: Registering as a new User to our API
     x-last-modified: 1663948797787
   /users/validate:
-    description: "Validate API tokens, can give information about how long a token\
+    description:
+      "Validate API tokens, can give information about how long a token\
       \ is still valid and help automating updating a token"
     get:
       operationId: get_user_validation_details
@@ -511,7 +525,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedError'
+                $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
       tags: []
@@ -525,7 +539,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedError'
+                $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
       tags: []
@@ -542,12 +556,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedError'
+                $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Retrieve a list of available application information
       tags: []
-    summary: "General information and data about Libre:Match app, e.g. API updates,\
+    summary:
+      "General information and data about Libre:Match app, e.g. API updates,\
       \ possible upcoming maintenance and other news/stuff"
     x-last-modified: 1663948904071
   /application/statistics:
@@ -561,12 +576,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedError'
+                $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Retrieve a list of only application statistics
       tags: []
-    summary: "Statistics of Libre:Match, e.g. usage statistics, collection rate, overall\
+    summary:
+      "Statistics of Libre:Match, e.g. usage statistics, collection rate, overall\
       \ amount of users, etc."
     x-last-modified: 1663948946628
   /application/status:
@@ -580,7 +596,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedError'
+                $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
         "503":
@@ -594,18 +610,19 @@ paths:
     get:
       operationId: get_details_for_game
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for games that use the Relic
-          Link API
-        explode: false
-        in: path
-        name: game_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949717971
+        - deprecated: false
+          description:
+            The unique identifier (ULID) we use for games that use the Relic
+            Link API
+          explode: false
+          in: path
+          name: game_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1663949717971
       responses:
         "200":
           description: Operation succeeded
@@ -614,10 +631,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedError'
+                $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
-      summary: Retrieve details for a game with a specific identifier using Relic
+      summary:
+        Retrieve details for a game with a specific identifier using Relic
         Link API
       tags: []
     summary: "game-specific definitions, e.g. map names, civilisation names, translations"
@@ -626,23 +644,25 @@ paths:
     get:
       operationId: get_tournament_details_for_game
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for games that use the Relic
-          Link API
-        explode: false
-        in: path
-        name: game_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949717971
+        - deprecated: false
+          description:
+            The unique identifier (ULID) we use for games that use the Relic
+            Link API
+          explode: false
+          in: path
+          name: game_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1663949717971
       responses:
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
-      summary: Retrieve all available tournaments for a specific game available on
+      summary:
+        Retrieve all available tournaments for a specific game available on
         the Relic Link platform
       tags: []
     summary: game-specific tournaments
@@ -651,18 +671,19 @@ paths:
     get:
       operationId: get_leaderboard_collection_for_game
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for games that use the Relic
-          Link API
-        explode: false
-        in: path
-        name: game_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949717971
+        - deprecated: false
+          description:
+            The unique identifier (ULID) we use for games that use the Relic
+            Link API
+          explode: false
+          in: path
+          name: game_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1663949717971
       responses:
         "200":
           description: Operation succeeded
@@ -671,7 +692,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedError'
+                $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Retrieve all leaderboards for a specific game using Relic Link API
@@ -682,18 +703,19 @@ paths:
     get:
       operationId: get_details_for_leaderboard
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for leaderboards of the Relic
-          Link API
-        explode: false
-        in: path
-        name: leaderboard_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949692803
+        - deprecated: false
+          description:
+            The unique identifier (ULID) we use for leaderboards of the Relic
+            Link API
+          explode: false
+          in: path
+          name: leaderboard_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1663949692803
       responses:
         "200":
           description: Operation succeeded
@@ -702,7 +724,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedError'
+                $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Retrieve details for a specific leaderboard
@@ -713,23 +735,25 @@ paths:
     get:
       operationId: get_stat_collection_for_leaderboard
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for leaderboards of the Relic
-          Link API
-        explode: false
-        in: path
-        name: leaderboard_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949692803
+        - deprecated: false
+          description:
+            The unique identifier (ULID) we use for leaderboards of the Relic
+            Link API
+          explode: false
+          in: path
+          name: leaderboard_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1663949692803
       responses:
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
-      summary: Retrieve all stats on a specific leaderboard for a certain game hosted
+      summary:
+        Retrieve all stats on a specific leaderboard for a certain game hosted
         on the Relic Link API
       tags: []
     summary: Collection of stats for a specific leaderboard
@@ -738,18 +762,19 @@ paths:
     get:
       operationId: get_match_collection_for_leaderboard
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for leaderboards of the Relic
-          Link API
-        explode: false
-        in: path
-        name: leaderboard_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949692803
+        - deprecated: false
+          description:
+            The unique identifier (ULID) we use for leaderboards of the Relic
+            Link API
+          explode: false
+          in: path
+          name: leaderboard_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1663949692803
       responses:
         "200":
           description: Operation succeeded
@@ -758,10 +783,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedError'
+                $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
-      summary: Retrieve all matches on a specific leaderboard for a certain game hosted
+      summary:
+        Retrieve all matches on a specific leaderboard for a certain game hosted
         on the Relic Link API
       tags: []
     summary: Collection of match data for a specific leaderboard
@@ -777,7 +803,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedError'
+                $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Retrieve all leaderboards hosted on the Relic Link API
@@ -789,85 +815,89 @@ paths:
       description: ""
       operationId: remove_tournament_details
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - deprecated: false
+          description: The unique identifier (ULID) we use for tournaments
+          explode: false
+          in: path
+          name: tournament_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1663949674724
       responses:
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
-      summary: Remove a tournament for a specific game available on the Relic Link
+      summary:
+        Remove a tournament for a specific game available on the Relic Link
         platform
     get:
       operationId: get_details_for_tournament
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - deprecated: false
+          description: The unique identifier (ULID) we use for tournaments
+          explode: false
+          in: path
+          name: tournament_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1663949674724
       responses:
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
-      summary: Retrieve details for a tournament for a specific game available on
+      summary:
+        Retrieve details for a tournament for a specific game available on
         the Relic Link platform
       tags: []
     patch:
       description: ""
       operationId: partial_update_tournament_details
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - deprecated: false
+          description: The unique identifier (ULID) we use for tournaments
+          explode: false
+          in: path
+          name: tournament_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1663949674724
       responses:
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
-      summary: Partially update a tournament for a specific game available on the
+      summary:
+        Partially update a tournament for a specific game available on the
         Relic Link platform
     put:
       description: ""
       operationId: update_tournament_details
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - deprecated: false
+          description: The unique identifier (ULID) we use for tournaments
+          explode: false
+          in: path
+          name: tournament_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1663949674724
       responses:
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
-      summary: Update details for a tournament for a specific game available on the
+      summary:
+        Update details for a tournament for a specific game available on the
         Relic Link platform
     summary: game-specific tournaments
     x-last-modified: 1665054574222
@@ -876,17 +906,17 @@ paths:
       description: ""
       operationId: remove_all_user_stats
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for users of our API
-        explode: false
-        in: path
-        name: user_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1665078217885
+        - deprecated: false
+          description: The unique identifier (ULID) we use for users of our API
+          explode: false
+          in: path
+          name: user_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1665078217885
       responses:
         "501":
           description: Not Implemented
@@ -895,17 +925,17 @@ paths:
     get:
       operationId: get_stat_collection_for_user
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for users of our API
-        explode: false
-        in: path
-        name: user_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1665078217885
+        - deprecated: false
+          description: The unique identifier (ULID) we use for users of our API
+          explode: false
+          in: path
+          name: user_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1665078217885
       responses:
         "501":
           description: Not Implemented
@@ -916,17 +946,17 @@ paths:
       description: ""
       operationId: partial_update_user_stats
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for users of our API
-        explode: false
-        in: path
-        name: user_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1665078217885
+        - deprecated: false
+          description: The unique identifier (ULID) we use for users of our API
+          explode: false
+          in: path
+          name: user_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1665078217885
       responses:
         "501":
           description: Not Implemented
@@ -936,17 +966,17 @@ paths:
       description: ""
       operationId: create_new_user_stats
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for users of our API
-        explode: false
-        in: path
-        name: user_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1665078217885
+        - deprecated: false
+          description: The unique identifier (ULID) we use for users of our API
+          explode: false
+          in: path
+          name: user_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1665078217885
       responses:
         "501":
           description: Not Implemented
@@ -956,17 +986,17 @@ paths:
       description: ""
       operationId: bulk_update_all_user_stats
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for users of our API
-        explode: false
-        in: path
-        name: user_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1665078217885
+        - deprecated: false
+          description: The unique identifier (ULID) we use for users of our API
+          explode: false
+          in: path
+          name: user_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1665078217885
       responses:
         "501":
           description: Not Implemented
@@ -978,22 +1008,23 @@ paths:
     get:
       operationId: get_info_collection_for_tournament
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - deprecated: false
+          description: The unique identifier (ULID) we use for tournaments
+          explode: false
+          in: path
+          name: tournament_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1663949674724
       responses:
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
-      summary: Retrieve all information for a specific tournament for a specific game
+      summary:
+        Retrieve all information for a specific tournament for a specific game
         available on the Relic Link platform
       tags: []
     summary: game-specific tournaments
@@ -1003,106 +1034,111 @@ paths:
       description: ""
       operationId: remove_all_brackets_for_tournament
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - deprecated: false
+          description: The unique identifier (ULID) we use for tournaments
+          explode: false
+          in: path
+          name: tournament_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1663949674724
       responses:
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
-      summary: Remove all brackets for a specific tournament for a specific game available
+      summary:
+        Remove all brackets for a specific tournament for a specific game available
         on the Relic Link platform
     get:
       operationId: get_bracket_collection_for_tournament
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - deprecated: false
+          description: The unique identifier (ULID) we use for tournaments
+          explode: false
+          in: path
+          name: tournament_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1663949674724
       responses:
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
-      summary: Retrieve all brackets for a specific tournament for a specific game
+      summary:
+        Retrieve all brackets for a specific tournament for a specific game
         available on the Relic Link platform
       tags: []
     patch:
       description: ""
       operationId: partial_update_bracket_for_tournament
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - deprecated: false
+          description: The unique identifier (ULID) we use for tournaments
+          explode: false
+          in: path
+          name: tournament_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1663949674724
       responses:
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
-      summary: Partial update all brackets for a specific tournament for a specific
+      summary:
+        Partial update all brackets for a specific tournament for a specific
         game available on the Relic Link platform
     post:
       description: ""
       operationId: create_new_bracket_for_tournament
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - deprecated: false
+          description: The unique identifier (ULID) we use for tournaments
+          explode: false
+          in: path
+          name: tournament_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1663949674724
       responses:
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
-      summary: Create a new bracket for a specific tournament for a specific game
+      summary:
+        Create a new bracket for a specific tournament for a specific game
         available on the Relic Link platform
     put:
       description: ""
       operationId: bulk_update_all_brackets_for_tournament
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - deprecated: false
+          description: The unique identifier (ULID) we use for tournaments
+          explode: false
+          in: path
+          name: tournament_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1663949674724
       responses:
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
-      summary: Bulk update all brackets for a specific tournament for a specific game
+      summary:
+        Bulk update all brackets for a specific tournament for a specific game
         available on the Relic Link platform
     summary: game-specific tournaments
     x-last-modified: 1665054981775
@@ -1111,106 +1147,111 @@ paths:
       description: ""
       operationId: remove_all_admins_for_tournament
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - deprecated: false
+          description: The unique identifier (ULID) we use for tournaments
+          explode: false
+          in: path
+          name: tournament_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1663949674724
       responses:
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
-      summary: Remove all admins for a specific tournament for a specific game available
+      summary:
+        Remove all admins for a specific tournament for a specific game available
         on the Relic Link platform
     get:
       operationId: get_admin_collection_for_tournament
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - deprecated: false
+          description: The unique identifier (ULID) we use for tournaments
+          explode: false
+          in: path
+          name: tournament_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1663949674724
       responses:
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
-      summary: Retrieve all admins for a specific tournament for a specific game available
+      summary:
+        Retrieve all admins for a specific tournament for a specific game available
         on the Relic Link platform
       tags: []
     patch:
       description: ""
       operationId: partial_update_all_admins_for_tournament
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - deprecated: false
+          description: The unique identifier (ULID) we use for tournaments
+          explode: false
+          in: path
+          name: tournament_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1663949674724
       responses:
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
-      summary: Update details of admins for a specific tournament for a specific game
+      summary:
+        Update details of admins for a specific tournament for a specific game
         available on the Relic Link platform
     post:
       description: ""
       operationId: create_new_admin_for_tournament
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - deprecated: false
+          description: The unique identifier (ULID) we use for tournaments
+          explode: false
+          in: path
+          name: tournament_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1663949674724
       responses:
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
-      summary: Create a new admin for a specific tournament for a specific game available
+      summary:
+        Create a new admin for a specific tournament for a specific game available
         on the Relic Link platform
     put:
       description: ""
       operationId: bulk_update_all_admins_for_tournament
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - deprecated: false
+          description: The unique identifier (ULID) we use for tournaments
+          explode: false
+          in: path
+          name: tournament_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1663949674724
       responses:
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
-      summary: Bulk update of admins for a specific tournament for a specific game
+      summary:
+        Bulk update of admins for a specific tournament for a specific game
         available on the Relic Link platform
     summary: Endpoint for tournament admins
     x-last-modified: 1665055638796
@@ -1266,17 +1307,18 @@ paths:
       description: ""
       operationId: remove_all_settings_for_profile
       parameters:
-      - deprecated: false
-        description: The unique identifier used by the Relic Link API for a player
-          on their platform
-        explode: false
-        in: path
-        name: relic_link_id
-        required: true
-        schema:
-          type: integer
-        style: simple
-        x-last-modified: 1663949613648
+        - deprecated: false
+          description:
+            The unique identifier used by the Relic Link API for a player
+            on their platform
+          explode: false
+          in: path
+          name: relic_link_id
+          required: true
+          schema:
+            type: integer
+          style: simple
+          x-last-modified: 1663949613648
       responses:
         "501":
           description: Not Implemented
@@ -1286,17 +1328,18 @@ paths:
     get:
       operationId: get_setting_collection_for_profile
       parameters:
-      - deprecated: false
-        description: The unique identifier used by the Relic Link API for a player
-          on their platform
-        explode: false
-        in: path
-        name: relic_link_id
-        required: true
-        schema:
-          type: integer
-        style: simple
-        x-last-modified: 1663949613648
+        - deprecated: false
+          description:
+            The unique identifier used by the Relic Link API for a player
+            on their platform
+          explode: false
+          in: path
+          name: relic_link_id
+          required: true
+          schema:
+            type: integer
+          style: simple
+          x-last-modified: 1663949613648
       responses:
         "501":
           description: Not Implemented
@@ -1307,39 +1350,42 @@ paths:
       description: ""
       operationId: partial_update_all_settings_for_profile
       parameters:
-      - deprecated: false
-        description: The unique identifier used by the Relic Link API for a player
-          on their platform
-        explode: false
-        in: path
-        name: relic_link_id
-        required: true
-        schema:
-          type: integer
-        style: simple
-        x-last-modified: 1663949613648
+        - deprecated: false
+          description:
+            The unique identifier used by the Relic Link API for a player
+            on their platform
+          explode: false
+          in: path
+          name: relic_link_id
+          required: true
+          schema:
+            type: integer
+          style: simple
+          x-last-modified: 1663949613648
       responses:
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
-      summary: Update a specific setting for a specific profile from the Relic Link
+      summary:
+        Update a specific setting for a specific profile from the Relic Link
         API
       tags: []
     post:
       description: ""
       operationId: create_new_setting_for_profile
       parameters:
-      - deprecated: false
-        description: The unique identifier used by the Relic Link API for a player
-          on their platform
-        explode: false
-        in: path
-        name: relic_link_id
-        required: true
-        schema:
-          type: integer
-        style: simple
-        x-last-modified: 1663949613648
+        - deprecated: false
+          description:
+            The unique identifier used by the Relic Link API for a player
+            on their platform
+          explode: false
+          in: path
+          name: relic_link_id
+          required: true
+          schema:
+            type: integer
+          style: simple
+          x-last-modified: 1663949613648
       responses:
         "501":
           description: Not Implemented
@@ -1350,22 +1396,24 @@ paths:
       description: ""
       operationId: bulk_update_all_settings_for_profile
       parameters:
-      - deprecated: false
-        description: The unique identifier used by the Relic Link API for a player
-          on their platform
-        explode: false
-        in: path
-        name: relic_link_id
-        required: true
-        schema:
-          type: integer
-        style: simple
-        x-last-modified: 1663949613648
+        - deprecated: false
+          description:
+            The unique identifier used by the Relic Link API for a player
+            on their platform
+          explode: false
+          in: path
+          name: relic_link_id
+          required: true
+          schema:
+            type: integer
+          style: simple
+          x-last-modified: 1663949613648
       responses:
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
-      summary: Bulk update of settings for a specific profile from the Relic Link
+      summary:
+        Bulk update of settings for a specific profile from the Relic Link
         API
       tags: []
     summary: Collection of settings specifically for a certain Relic Link profile
@@ -1374,17 +1422,18 @@ paths:
     get:
       operationId: get_stat_collection_for_profile
       parameters:
-      - deprecated: false
-        description: The unique identifier used by the Relic Link API for a player
-          on their platform
-        explode: false
-        in: path
-        name: relic_link_id
-        required: true
-        schema:
-          type: integer
-        style: simple
-        x-last-modified: 1663949613648
+        - deprecated: false
+          description:
+            The unique identifier used by the Relic Link API for a player
+            on their platform
+          explode: false
+          in: path
+          name: relic_link_id
+          required: true
+          schema:
+            type: integer
+          style: simple
+          x-last-modified: 1663949613648
       responses:
         "501":
           description: Not Implemented
@@ -1397,18 +1446,19 @@ paths:
     get:
       operationId: get_details_for_team
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for teams that play on games
-          using the Relic Link API
-        explode: false
-        in: path
-        name: game_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1665069480649
+        - deprecated: false
+          description:
+            The unique identifier (ULID) we use for teams that play on games
+            using the Relic Link API
+          explode: false
+          in: path
+          name: game_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1665069480649
       responses:
         "501":
           description: Not Implemented
@@ -1421,18 +1471,19 @@ paths:
     get:
       operationId: get_match_collection_for_team
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for teams that play on games
-          using the Relic Link API
-        explode: false
-        in: path
-        name: game_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1665069480649
+        - deprecated: false
+          description:
+            The unique identifier (ULID) we use for teams that play on games
+            using the Relic Link API
+          explode: false
+          in: path
+          name: game_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1665069480649
       responses:
         "501":
           description: Not Implemented
@@ -1445,18 +1496,19 @@ paths:
     get:
       operationId: get_stat_collection_for_team
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for teams that play on games
-          using the Relic Link API
-        explode: false
-        in: path
-        name: game_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1665069480649
+        - deprecated: false
+          description:
+            The unique identifier (ULID) we use for teams that play on games
+            using the Relic Link API
+          explode: false
+          in: path
+          name: game_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1665069480649
       responses:
         "501":
           description: Not Implemented
@@ -1480,7 +1532,8 @@ components:
         type: integer
       style: simple
     X-Transaction-ID:
-      description: "When set by the client code with an alphanumeric value, the transaction\
+      description:
+        "When set by the client code with an alphanumeric value, the transaction\
         \ ID is logged in the log files for debugging. \nWhen the client is not specifying\
         \ this value, the server auto generates this value for the incoming request.\
         \ \nThe main purpose is to filter various logs at once for a single transaction\
@@ -1497,7 +1550,8 @@ components:
         type: integer
       style: simple
     X-RateLimit-Reset:
-      description: The number of seconds left in the current period until the rate
+      description:
+        The number of seconds left in the current period until the rate
         limit resets
       explode: false
       schema:
@@ -1505,7 +1559,8 @@ components:
       style: simple
     Pragma:
       deprecated: false
-      description: Implementation-specific fields that may have various effects anywhere
+      description:
+        Implementation-specific fields that may have various effects anywhere
         along the request-response chain.
       explode: false
       required: false
@@ -1523,7 +1578,8 @@ components:
       style: simple
     If-None-Match:
       deprecated: false
-      description: "Allows a 304 Not Modified to be returned if content is unchanged,\
+      description:
+        "Allows a 304 Not Modified to be returned if content is unchanged,\
         \ see HTTP ETag."
       explode: false
       required: false
@@ -1533,7 +1589,8 @@ components:
       style: simple
     WWW-Authenticate:
       deprecated: false
-      description: Defines the HTTP authentication methods ("challenges") that might
+      description:
+        Defines the HTTP authentication methods ("challenges") that might
         be used to gain access to a specific resource
       explode: false
       required: false
@@ -1551,7 +1608,8 @@ components:
   parameters:
     relic_link_id:
       deprecated: false
-      description: The unique identifier used by the Relic Link API for a player on
+      description:
+        The unique identifier used by the Relic Link API for a player on
         their platform
       explode: false
       in: path
@@ -1575,7 +1633,8 @@ components:
       x-last-modified: 1663949674724
     leaderboard_id:
       deprecated: false
-      description: The unique identifier (ULID) we use for leaderboards of the Relic
+      description:
+        The unique identifier (ULID) we use for leaderboards of the Relic
         Link API
       explode: false
       in: path
@@ -1588,7 +1647,8 @@ components:
       x-last-modified: 1663949692803
     game_id:
       deprecated: false
-      description: The unique identifier (ULID) we use for games that use the Relic
+      description:
+        The unique identifier (ULID) we use for games that use the Relic
         Link API
       explode: false
       in: path
@@ -1601,7 +1661,8 @@ components:
       x-last-modified: 1663949717971
     team_id:
       deprecated: false
-      description: The unique identifier (ULID) we use for teams that play on games
+      description:
+        The unique identifier (ULID) we use for teams that play on games
         using the Relic Link API
       explode: false
       in: path
@@ -1644,14 +1705,14 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/IllegalInputError'
+            $ref: "#/components/schemas/IllegalInputError"
       description: Bad Request
       x-last-modified: 1665057215110
     "401":
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/UnauthorizedError'
+            $ref: "#/components/schemas/UnauthorizedError"
       description: Unauthorized access.
       x-last-modified: 1665072543221
     "403":
@@ -1670,7 +1731,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ServerError'
+            $ref: "#/components/schemas/ServerError"
       description: Server Error
       x-last-modified: 1665056677455
     "501":
@@ -1689,8 +1750,8 @@ components:
           minimum: 400
           type: integer
       required:
-      - code
-      - message
+        - code
+        - message
       type: object
       x-last-modified: 1665056674054
     UnauthorizedError:
@@ -1704,8 +1765,8 @@ components:
           title: code
           type: integer
       required:
-      - code
-      - message
+        - code
+        - message
       title: UnauthorizedError
       type: object
       x-last-modified: 1665056676293
@@ -1718,8 +1779,8 @@ components:
           minimum: 500
           type: integer
       required:
-      - code
-      - message
+        - code
+        - message
       type: object
       x-last-modified: 1665056677454
     Error:
@@ -1736,8 +1797,8 @@ components:
           minimum: 100
           type: integer
       required:
-      - code
-      - message
+        - code
+        - message
       type: object
       x-last-modified: 1665057919920
   securitySchemes:
