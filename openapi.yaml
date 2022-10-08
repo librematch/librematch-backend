@@ -39,8 +39,7 @@ paths:
           name: timeframe
           required: true
           schema:
-            format: string
-            type: string
+            $ref: "#/components/schemas/Timeframe"
           style: simple
           x-last-modified: 1663949717971
       responses:
@@ -662,7 +661,7 @@ paths:
           name: relic_link_id
           required: true
           schema:
-            type: integer
+            $ref: "#/components/schemas/RelicLinkId"
           style: simple
           x-last-modified: 1663949613648
       responses:
@@ -721,7 +720,7 @@ paths:
           name: relic_link_id
           required: true
           schema:
-            type: integer
+            $ref: "#/components/schemas/RelicLinkId"
           style: simple
           x-last-modified: 1663949613648
       responses:
@@ -1080,8 +1079,7 @@ paths:
           name: user_id
           required: true
           schema:
-            format: ulid
-            type: string
+            $ref: "#/components/schemas/Ulid"
           style: simple
           x-last-modified: 1665078217885
       responses:
@@ -1136,8 +1134,7 @@ paths:
           name: user_id
           required: true
           schema:
-            format: ulid
-            type: string
+            $ref: "#/components/schemas/Ulid"
           style: simple
           x-last-modified: 1665078217885
       responses:
@@ -1199,8 +1196,7 @@ paths:
           name: user_id
           required: true
           schema:
-            format: ulid
-            type: string
+            $ref: "#/components/schemas/Ulid"
           style: simple
           x-last-modified: 1665078217885
       responses:
@@ -2074,8 +2070,7 @@ paths:
           name: tournament_id
           required: true
           schema:
-            format: ulid
-            type: string
+            $ref: "#/components/schemas/Ulid"
           style: simple
           x-last-modified: 1663949674724
       responses:
@@ -2138,8 +2133,7 @@ paths:
           name: tournament_id
           required: true
           schema:
-            format: ulid
-            type: string
+            $ref: "#/components/schemas/Ulid"
           style: simple
           x-last-modified: 1663949674724
       responses:
@@ -2209,8 +2203,7 @@ paths:
           name: tournament_id
           required: true
           schema:
-            format: ulid
-            type: string
+            $ref: "#/components/schemas/Ulid"
           style: simple
           x-last-modified: 1663949674724
       responses:
@@ -2343,8 +2336,7 @@ paths:
           name: user_id
           required: true
           schema:
-            format: ulid
-            type: string
+            $ref: "#/components/schemas/Ulid"
           style: simple
           x-last-modified: 1665078217885
       responses:
@@ -2405,8 +2397,7 @@ paths:
           name: user_id
           required: true
           schema:
-            format: ulid
-            type: string
+            $ref: "#/components/schemas/Ulid"
           style: simple
           x-last-modified: 1665078217885
       responses:
@@ -2474,8 +2465,7 @@ paths:
           name: user_id
           required: true
           schema:
-            format: ulid
-            type: string
+            $ref: "#/components/schemas/Ulid"
           style: simple
           x-last-modified: 1665078217885
       responses:
@@ -2543,8 +2533,7 @@ paths:
           name: user_id
           required: true
           schema:
-            format: ulid
-            type: string
+            $ref: "#/components/schemas/Ulid"
           style: simple
           x-last-modified: 1665078217885
       responses:
@@ -2872,8 +2861,7 @@ paths:
           name: tournament_id
           required: true
           schema:
-            format: ulid
-            type: string
+            $ref: "#/components/schemas/Ulid"
           style: simple
           x-last-modified: 1663949674724
       responses:
@@ -3009,8 +2997,7 @@ paths:
           name: tournament_id
           required: true
           schema:
-            format: ulid
-            type: string
+            $ref: "#/components/schemas/Ulid"
           style: simple
           x-last-modified: 1663949674724
       responses:
@@ -3080,8 +3067,7 @@ paths:
           name: tournament_id
           required: true
           schema:
-            format: ulid
-            type: string
+            $ref: "#/components/schemas/Ulid"
           style: simple
           x-last-modified: 1663949674724
       responses:
@@ -3216,8 +3202,7 @@ paths:
           name: tournament_id
           required: true
           schema:
-            format: ulid
-            type: string
+            $ref: "#/components/schemas/Ulid"
           style: simple
           x-last-modified: 1663949674724
       responses:
@@ -3280,8 +3265,7 @@ paths:
           name: tournament_id
           required: true
           schema:
-            format: ulid
-            type: string
+            $ref: "#/components/schemas/Ulid"
           style: simple
           x-last-modified: 1663949674724
       responses:
@@ -3351,8 +3335,7 @@ paths:
           name: tournament_id
           required: true
           schema:
-            format: ulid
-            type: string
+            $ref: "#/components/schemas/Ulid"
           style: simple
           x-last-modified: 1663949674724
       responses:
@@ -3422,8 +3405,7 @@ paths:
           name: tournament_id
           required: true
           schema:
-            format: ulid
-            type: string
+            $ref: "#/components/schemas/Ulid"
           style: simple
           x-last-modified: 1663949674724
       responses:
@@ -3771,7 +3753,7 @@ paths:
           name: relic_link_id
           required: true
           schema:
-            type: integer
+            $ref: "#/components/schemas/RelicLinkId"
           style: simple
           x-last-modified: 1663949613648
       responses:
@@ -3833,7 +3815,7 @@ paths:
           name: relic_link_id
           required: true
           schema:
-            type: integer
+            $ref: "#/components/schemas/RelicLinkId"
           style: simple
           x-last-modified: 1663949613648
       responses:
@@ -3896,7 +3878,7 @@ paths:
           name: relic_link_id
           required: true
           schema:
-            type: integer
+            $ref: "#/components/schemas/RelicLinkId"
           style: simple
           x-last-modified: 1663949613648
       responses:
@@ -3968,7 +3950,7 @@ paths:
           name: relic_link_id
           required: true
           schema:
-            type: integer
+            $ref: "#/components/schemas/RelicLinkId"
           style: simple
           x-last-modified: 1663949613648
       responses:
@@ -4038,7 +4020,7 @@ paths:
           name: relic_link_id
           required: true
           schema:
-            type: integer
+            $ref: "#/components/schemas/RelicLinkId"
           style: simple
           x-last-modified: 1663949613648
       responses:
@@ -4112,10 +4094,7 @@ paths:
           name: relic_link_id
           required: true
           schema:
-            type: integer
-            minimum: 0
-            format: int64
-            maximum: 999999999
+            $ref: "#/components/schemas/RelicLinkId"
           style: simple
           x-last-modified: 1663949613648
       responses:
@@ -4385,8 +4364,7 @@ components:
         \ ID, to ease the debugging."
       explode: false
       schema:
-        format: uuid
-        type: string
+        $ref: "#/components/schemas/Ulid"
       style: simple
     X-RateLimit-Limit:
       description: The number of allowed requests in the current period
@@ -4465,10 +4443,7 @@ components:
       name: relic_link_id
       required: true
       schema:
-        type: integer
-        format: int64
-        maximum: 999999999
-        minimum: 0
+        $ref: "#/components/schemas/RelicLinkId"
       style: simple
       x-last-modified: 1663949613648
     tournament_id:
@@ -4479,8 +4454,7 @@ components:
       name: tournament_id
       required: true
       schema:
-        format: ulid
-        type: string
+        $ref: "#/components/schemas/Ulid"
       style: simple
       x-last-modified: 1663949674724
     leaderboard_id:
@@ -4493,8 +4467,7 @@ components:
       name: leaderboard_id
       required: true
       schema:
-        format: ulid
-        type: string
+        $ref: "#/components/schemas/Ulid"
       style: simple
       x-last-modified: 1663949692803
     game_id:
@@ -4506,8 +4479,7 @@ components:
       name: game_id
       required: true
       schema:
-        format: ulid
-        type: string
+        $ref: "#/components/schemas/Ulid"
       style: simple
       x-last-modified: 1663949717971
     team_id:
@@ -4520,8 +4492,7 @@ components:
       name: team_id
       required: true
       schema:
-        format: ulid
-        type: string
+        $ref: "#/components/schemas/Ulid"
       style: simple
       x-last-modified: 1665069480649
     user_id:
@@ -4532,8 +4503,7 @@ components:
       name: user_id
       required: true
       schema:
-        format: ulid
-        type: string
+        $ref: "#/components/schemas/Ulid"
       style: simple
       x-last-modified: 1665078217885
   responses:
@@ -4638,10 +4608,33 @@ components:
             $ref: "#/components/schemas/ServiceUnavailableError"
       x-last-modified: 1665057340292
   schemas:
+    Timeframe:
+      properties:
+        code:
+          type: string
+          format: string
+          maxLength: 15
+          maximum: 15
+          pattern: "^example-TODO$"
+      additionalProperties: false
+      required:
+        - code
+      type: object
+      x-last-modified: 1665056674054
+    RelicLinkId:
+      properties:
+        code:
+          type: integer
+          format: int64
+          maximum: 999999999
+          minimum: 0
+      additionalProperties: false
+      required:
+        - code
+      type: object
+      x-last-modified: 1665056674054
     Ulid:
       properties:
-        message:
-          type: string
         code:
           maximum: 26
           minimum: 26
@@ -4649,9 +4642,9 @@ components:
           format: ulid
           pattern: ^[0-7][0-9A-HJKMNP-TV-Z]{25}$
           maxLength: 26
+      additionalProperties: false
       required:
         - code
-        - message
       type: object
       x-last-modified: 1665056674054
     UnsupportedMediaTypeError:
