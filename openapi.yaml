@@ -4398,7 +4398,7 @@ components:
       explode: false
       required: false
       schema:
-        format: datetime
+        format: date-time
         type: number
       style: simple
     If-None-Match:
