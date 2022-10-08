@@ -46,7 +46,7 @@ paths:
       summary:
         Retrieve a list of all game identifiers for games using Relic Link
         API
-      tags: ["Game"]
+      tags: ["Information"]
     summary: Endpoint for game-specific data
     x-last-modified: 1663947918891
   /games/{game_id}/definitions:
@@ -80,7 +80,7 @@ paths:
       summary:
         Retrieve all available definitions for a specific game using Relic
         Link API
-      tags: ["Game"]
+      tags: ["Definition"]
     summary: "game-specific definitions, e.g. map names, civilisation names, translations"
     x-last-modified: 1663948104836
   /games/{game_id}/info:
@@ -114,7 +114,7 @@ paths:
       summary:
         Retrieve all available information for a specific game using Relic
         Link API
-      tags: []
+      tags: ["Information"]
     summary:
       "information about server maintenance times, DLC stuff, patch releases,\
       \ etc."
@@ -148,7 +148,7 @@ paths:
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Retrieve all matches for a specific game using Relic Link API
-      tags: []
+      tags: ["Match data"]
     summary:
       "match data spanning over the complete game (all leaderboards, basically\
       \ a log"
@@ -162,6 +162,7 @@ paths:
           description: Not Implemented
           x-last-modified: 1665058119290
       summary: Remove all tournaments
+      tags: ["Tournament Administration"]
     get:
       operationId: get_tournament_identifier_collection
       responses:
@@ -171,7 +172,7 @@ paths:
       summary:
         Retrieve all available tournaments for all games available on the Relic
         Link platform
-      tags: []
+      tags: ["Information", "Tournament Administration"]
     patch:
       description: ""
       operationId: partial_update_tournaments
@@ -180,6 +181,7 @@ paths:
           description: Not Implemented
           x-last-modified: 1665058119290
       summary: Partial update of tournaments
+      tags: ["Tournament Administration"]
     post:
       description: ""
       operationId: create_new_tournament
@@ -188,6 +190,7 @@ paths:
           description: Not Implemented
           x-last-modified: 1665058119290
       summary: Create a new tournament for a game available on the Relic Link platform
+      tags: ["Tournament Administration"]
     put:
       description: ""
       operationId: bulk_update_all_tournaments
@@ -196,6 +199,7 @@ paths:
           description: Not Implemented
           x-last-modified: 1665058119290
       summary: Bulk update of tournaments
+      tags: ["Tournament Administration"]
     summary: Endpoint for tournament information
     x-last-modified: 1663948422917
   /profiles:
@@ -213,7 +217,7 @@ paths:
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Retrieve all available profiles from the Relic Link API
-      tags: []
+      tags: ["Administration"]
     summary: Endpoint for player profiles on the Relic Link platform
     x-last-modified: 1663948530301
   /profiles/{relic_link_id}:
@@ -244,7 +248,7 @@ paths:
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Retrieve the details for a specific profile from the Relic Link API
-      tags: []
+      tags: ["Information"]
     summary: Profile information for a Relic Link player_ID
     x-last-modified: 1663948567394
   /profiles/{relic_link_id}/matches:
@@ -275,7 +279,7 @@ paths:
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Retrieve all matches for a specific profile from the Relic Link API
-      tags: []
+      tags: ["Match data"]
     summary: match data for a certain Relic Link profile
     x-last-modified: 1663948607956
   /users:
@@ -294,6 +298,7 @@ paths:
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Remove all users from our platform
+      tags: ["User Administration"]
     get:
       description: Authenticated Endpoint for Administrators or Libre:Match
       operationId: get_user_collection
@@ -309,7 +314,7 @@ paths:
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Retrieve all users of our platform
-      tags: []
+      tags: ["User Administration"]
     patch:
       description: ""
       operationId: partial_update_all_users
@@ -325,6 +330,7 @@ paths:
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Partially update details for all user profiles
+      tags: ["User Administration"]
     post:
       description: ""
       operationId: create_new_user
@@ -343,6 +349,7 @@ paths:
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Create a new user for our platform
+      tags: ["Authentication", "Account Registration", "User Administration"]
     put:
       description: ""
       operationId: bulk_update_all_users
@@ -358,6 +365,7 @@ paths:
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Bulk update of all users of our platform
+      tags: ["User Administration"]
     summary: Endpoint for users of our API
     x-last-modified: 1663948638250
   /users/{user_id}:
@@ -388,6 +396,7 @@ paths:
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Remove user from our platform if it exists
+      tags: ["User Administration"]
     get:
       operationId: get_details_for_user
       parameters:
@@ -414,7 +423,7 @@ paths:
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Retrieve details for a specific user profile on our platform
-      tags: []
+      tags: ["Information", "User Administration"]
     patch:
       description: ""
       operationId: partial_update_user
@@ -442,6 +451,7 @@ paths:
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Update details for a specific user profile on our platform if it exists
+      tags: ["User Administration"]
     put:
       description: ""
       operationId: bulk_update_all_user_details
@@ -471,6 +481,7 @@ paths:
       summary:
         Bulk update details for a specific user profile on our platform if
         it exists
+      tags: ["User Administration"]
     summary: user profile for an API user
     x-last-modified: 1663948686307
   /users/login:
@@ -480,7 +491,7 @@ paths:
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
-      tags: []
+      tags: ["Authentication"]
     summary: Login for users of our API
     x-last-modified: 1663948709646
   /users/logout:
@@ -497,7 +508,7 @@ paths:
                 $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
-      tags: []
+      tags: ["Authentication"]
     summary: Logout for users of our API
     x-last-modified: 1663948774846
   /users/register:
@@ -514,7 +525,7 @@ paths:
                 $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
-      tags: []
+      tags: ["Account Registration"]
     summary: Registering as a new User to our API
     x-last-modified: 1663948797787
   /users/validate:
@@ -534,7 +545,7 @@ paths:
                 $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
-      tags: []
+      tags: ["Authentication", "API Token Validation"]
     post:
       operationId: create_new_user_validation
       responses:
@@ -548,7 +559,7 @@ paths:
                 $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
-      tags: []
+      tags: ["Authentication", "API Token Validation"]
     summary: Validation for a user account and api tokens used for our API
     x-last-modified: 1663948876606
   /application:
@@ -566,7 +577,7 @@ paths:
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Retrieve a list of available application information
-      tags: []
+      tags: ["Internal", "Administration"]
     summary:
       "General information and data about Libre:Match app, e.g. API updates,\
       \ possible upcoming maintenance and other news/stuff"
@@ -586,7 +597,7 @@ paths:
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Retrieve a list of only application statistics
-      tags: []
+      tags: ["Internal", "Administration"]
     summary:
       "Statistics of Libre:Match, e.g. usage statistics, collection rate, overall\
       \ amount of users, etc."
@@ -609,7 +620,7 @@ paths:
           description: Service Unavailable
           x-last-modified: 1665057340292
       summary: Retrieve only application status
-      tags: []
+      tags: ["Internal", "Administration", "Status Check"]
     summary: Status updates for health checks of our API
     x-last-modified: 1663948961011
   /games/{game_id}:
@@ -643,7 +654,7 @@ paths:
       summary:
         Retrieve details for a game with a specific identifier using Relic
         Link API
-      tags: []
+      tags: ["Information"]
     summary: "game-specific definitions, e.g. map names, civilisation names, translations"
     x-last-modified: 1663950376911
   /games/{game_id}/leaderboards:
@@ -675,7 +686,7 @@ paths:
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Retrieve all leaderboards for a specific game using Relic Link API
-      tags: []
+      tags: ["Leaderboards"]
     summary: Collection of leaderboard data spanning over the complete game
     x-last-modified: 1665053521883
   /leaderboards/{leaderboard_id}:
@@ -707,7 +718,7 @@ paths:
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Retrieve details for a specific leaderboard
-      tags: []
+      tags: ["Leaderboards"]
     summary: game-specific leaderboards on the Relic Link platform
     x-last-modified: 1665053547091
   /leaderboards/{leaderboard_id}/stats:
@@ -734,7 +745,7 @@ paths:
       summary:
         Retrieve all stats on a specific leaderboard for a certain game hosted
         on the Relic Link API
-      tags: []
+      tags: ["Leaderboards", "Statistics"]
     summary: Collection of stats for a specific leaderboard
     x-last-modified: 1665053642553
   /leaderboards/{leaderboard_id}/matches:
@@ -768,7 +779,7 @@ paths:
       summary:
         Retrieve all matches on a specific leaderboard for a certain game hosted
         on the Relic Link API
-      tags: []
+      tags: ["Leaderboards", "Match data"]
     summary: Collection of match data for a specific leaderboard
     x-last-modified: 1665053682780
   /leaderboards:
