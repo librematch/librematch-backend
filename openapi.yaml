@@ -16,13 +16,41 @@ info:
   x-logo:
     url: ""
 servers:
-  - description: ""
+  - description: "Libre:Match Server v1"
     url: https://api.librematch.org/v1
     x-last-modified: 1663947810574
 security:
   - BasicAuth: []
   - X-Api-Key: []
 paths:
+  /dumps/{timeframe}:
+    description: Download database dumps
+    servers:
+      - url: https://dumps.librematch.org
+        description: Override base path for all operations with the /dumps path
+    get:
+      operationId: get_database_dump_collection
+      description: Download a database dump from a given timeframe
+      parameters:
+        - deprecated: false
+          description: The timeframe from which to download a database dump
+          explode: false
+          in: path
+          name: timeframe
+          required: true
+          schema:
+            format: string
+            type: string
+          style: simple
+          x-last-modified: 1663949717971
+      responses:
+        "200":
+          description: Operation succeeded
+          x-last-modified: 1665056670316
+        "501":
+          description: Not Implemented
+          x-last-modified: 1665058119290
+      tags: ["Database", "Statistics"]
   /games:
     get:
       operationId: get_game_identifier_collection
@@ -158,6 +186,9 @@ paths:
       description: ""
       operationId: remove_all_tournaments
       responses:
+        "200":
+          description: Operation succeeded
+          x-last-modified: 1665056670316
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
@@ -166,6 +197,9 @@ paths:
     get:
       operationId: get_tournament_identifier_collection
       responses:
+        "200":
+          description: Operation succeeded
+          x-last-modified: 1665056670316
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
@@ -797,7 +831,7 @@ paths:
           description: Unauthorized access.
           x-last-modified: 1665072543221
       summary: Retrieve all leaderboards hosted on the Relic Link API
-      tags: []
+      tags: ["Leaderboards", "Information"]
     summary: Collection of all leaderboard data on the Relic Link platform
     x-last-modified: 1665053727563
   /tournaments/{tournament_id}:
@@ -817,12 +851,15 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary:
         Remove a tournament for a specific game available on the Relic Link
         platform
+      tags: ["Adminstration"]
     get:
       operationId: get_details_for_tournament
       parameters:
@@ -838,13 +875,15 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary:
         Retrieve details for a tournament for a specific game available on
         the Relic Link platform
-      tags: []
+      tags: ["Information"]
     patch:
       description: ""
       operationId: partial_update_tournament_details
@@ -861,12 +900,15 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary:
         Partially update a tournament for a specific game available on the
         Relic Link platform
+      tags: ["Adminstration"]
     put:
       description: ""
       operationId: update_tournament_details
@@ -883,12 +925,15 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary:
         Update details for a tournament for a specific game available on the
         Relic Link platform
+      tags: ["Adminstration"]
     summary: game-specific tournaments
     x-last-modified: 1665054574222
   /users/{user_id}/stats:
@@ -908,10 +953,13 @@ paths:
           style: simple
           x-last-modified: 1665078217885
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary: Remove all stats for a specific user profile on our platform
+      tags: ["User Adminstration"]
     get:
       operationId: get_stat_collection_for_user
       parameters:
@@ -927,11 +975,13 @@ paths:
           style: simple
           x-last-modified: 1665078217885
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary: Retrieve all stats for a specific user profile on our platform
-      tags: []
+      tags: ["Statistics"]
     patch:
       description: ""
       operationId: partial_update_user_stats
@@ -948,10 +998,13 @@ paths:
           style: simple
           x-last-modified: 1665078217885
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary: Partially update stats for a specific user profile on our platform
+      tags: ["Adminstration"]
     post:
       description: ""
       operationId: create_new_user_stats
@@ -968,10 +1021,13 @@ paths:
           style: simple
           x-last-modified: 1665078217885
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary: Create a new stat for a specific user profile on our platform
+      tags: ["Adminstration"]
     put:
       description: ""
       operationId: bulk_update_all_user_stats
@@ -988,10 +1044,13 @@ paths:
           style: simple
           x-last-modified: 1665078217885
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary: Bulk update of stats for a specific user profile on our platform
+      tags: ["Adminstration"]
     summary: user profile for an API user
     x-last-modified: 1665054653031
   /tournaments/{tournament_id}/info:
@@ -1010,13 +1069,69 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary:
         Retrieve all information for a specific tournament for a specific game
         available on the Relic Link platform
-      tags: []
+      tags: ["Information", "Tournaments", "Tournament Administration"]
+    summary: game-specific tournaments
+    x-last-modified: 1665054963238
+  /tournaments/{tournament_id}/stats:
+    get:
+      operationId: get_stat_collection_for_tournament
+      parameters:
+        - deprecated: false
+          description: The unique identifier (ULID) we use for tournaments
+          explode: false
+          in: path
+          name: tournament_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1663949674724
+      responses:
+        "200":
+          description: Operation succeeded
+        "501":
+          description: Not Implemented
+          x-last-modified: 1665058119290
+      summary:
+        Retrieve all statistics for a specific tournament for a specific game
+        available on the Relic Link platform
+      tags: ["Statistics", "Tournaments", "Tournament Administration"]
+    summary: game-specific tournaments
+    x-last-modified: 1665054963238
+  /tournaments/{tournament_id}/matches:
+    get:
+      operationId: get_match_collection_for_tournament
+      parameters:
+        - deprecated: false
+          description: The unique identifier (ULID) we use for tournaments
+          explode: false
+          in: path
+          name: tournament_id
+          required: true
+          schema:
+            format: ulid
+            type: string
+          style: simple
+          x-last-modified: 1663949674724
+      responses:
+        "200":
+          description: Operation succeeded
+        "501":
+          description: Not Implemented
+          x-last-modified: 1665058119290
+      summary:
+        Retrieve all match data for a specific tournament for a specific game
+        available on the Relic Link platform
+      tags: ["Match data", "Tournaments", "Tournament Administration"]
     summary: game-specific tournaments
     x-last-modified: 1665054963238
   /tournaments/{tournament_id}/brackets:
@@ -1036,12 +1151,15 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary:
         Remove all brackets for a specific tournament for a specific game available
         on the Relic Link platform
+      tags: ["Tournament Administration"]
     get:
       operationId: get_bracket_collection_for_tournament
       parameters:
@@ -1057,13 +1175,15 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary:
         Retrieve all brackets for a specific tournament for a specific game
         available on the Relic Link platform
-      tags: []
+      tags: ["Information", "Tournaments", "Tournament Administration"]
     patch:
       description: ""
       operationId: partial_update_bracket_for_tournament
@@ -1080,12 +1200,15 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary:
         Partial update all brackets for a specific tournament for a specific
         game available on the Relic Link platform
+      tags: ["Administration", "Tournament Administration"]
     post:
       description: ""
       operationId: create_new_bracket_for_tournament
@@ -1102,12 +1225,15 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary:
         Create a new bracket for a specific tournament for a specific game
         available on the Relic Link platform
+      tags: ["Administration", "Tournament Administration"]
     put:
       description: ""
       operationId: bulk_update_all_brackets_for_tournament
@@ -1124,12 +1250,15 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary:
         Bulk update all brackets for a specific tournament for a specific game
         available on the Relic Link platform
+      tags: ["Administration", "Tournament Administration"]
     summary: game-specific tournaments
     x-last-modified: 1665054981775
   /tournaments/{tournament_id}/admins:
@@ -1149,12 +1278,15 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary:
         Remove all admins for a specific tournament for a specific game available
         on the Relic Link platform
+      tags: ["Administration", "Tournament Administration"]
     get:
       operationId: get_admin_collection_for_tournament
       parameters:
@@ -1170,13 +1302,15 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary:
         Retrieve all admins for a specific tournament for a specific game available
         on the Relic Link platform
-      tags: []
+      tags: ["Administration", "Tournament Administration"]
     patch:
       description: ""
       operationId: partial_update_all_admins_for_tournament
@@ -1193,12 +1327,15 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary:
         Update details of admins for a specific tournament for a specific game
         available on the Relic Link platform
+      tags: ["Administration", "Tournament Administration"]
     post:
       description: ""
       operationId: create_new_admin_for_tournament
@@ -1215,12 +1352,15 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary:
         Create a new admin for a specific tournament for a specific game available
         on the Relic Link platform
+      tags: ["Administration", "Tournament Administration"]
     put:
       description: ""
       operationId: bulk_update_all_admins_for_tournament
@@ -1237,12 +1377,15 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary:
         Bulk update of admins for a specific tournament for a specific game
         available on the Relic Link platform
+      tags: ["Administration", "Tournament Administration"]
     summary: Endpoint for tournament admins
     x-last-modified: 1665055638796
   /teams:
@@ -1250,46 +1393,56 @@ paths:
       description: ""
       operationId: remove_all_teams
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary: Remove all teams
-      tags: []
+      tags: ["Teams", "Team Administration"]
     get:
       operationId: get_team_collection
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary: Retrieve all available teams
-      tags: []
+      tags: ["Information", "Teams", "Team Administration"]
     patch:
       description: ""
       operationId: partial_update_all_teams
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary: Partial update of all teams
-      tags: []
+      tags: ["Administration", "Team Administration"]
     post:
       description: ""
       operationId: create_new_team
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary: Create a new team
-      tags: []
+      tags: ["Administration", "Team Administration"]
     put:
       description: ""
       operationId: bulk_update_all_teams
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary: Bulk update of teams
-      tags: []
+      tags: ["Administration", "Team Administration"]
     summary: Endpoint for team information
     x-last-modified: 1665138931985
   /profiles/{relic_link_id}/settings:
@@ -1310,11 +1463,13 @@ paths:
           style: simple
           x-last-modified: 1663949613648
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary: Remove all settings for a specific profile from the Relic Link API
-      tags: []
+      tags: ["Profile Administration", "Administration"]
     get:
       operationId: get_setting_collection_for_profile
       parameters:
@@ -1331,11 +1486,13 @@ paths:
           style: simple
           x-last-modified: 1663949613648
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary: Retrieve all settings for a specific profile from the Relic Link API
-      tags: []
+      tags: ["Profile Administration", "Administration", "Information"]
     patch:
       description: ""
       operationId: partial_update_all_settings_for_profile
@@ -1353,13 +1510,15 @@ paths:
           style: simple
           x-last-modified: 1663949613648
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary:
         Update a specific setting for a specific profile from the Relic Link
         API
-      tags: []
+      tags: ["Profile Administration", "Administration"]
     post:
       description: ""
       operationId: create_new_setting_for_profile
@@ -1377,11 +1536,13 @@ paths:
           style: simple
           x-last-modified: 1663949613648
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary: Create a new setting for a specific profile from the Relic Link API
-      tags: []
+      tags: ["Profile Administration", "Administration"]
     put:
       description: ""
       operationId: bulk_update_all_settings_for_profile
@@ -1399,13 +1560,15 @@ paths:
           style: simple
           x-last-modified: 1663949613648
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary:
         Bulk update of settings for a specific profile from the Relic Link
         API
-      tags: []
+      tags: ["Profile Administration", "Administration"]
     summary: Collection of settings specifically for a certain Relic Link profile
     x-last-modified: 1665138974395
   /profiles/{relic_link_id}/stats:
@@ -1428,11 +1591,13 @@ paths:
           style: simple
           x-last-modified: 1663949613648
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary: Retrieve all stats for a specific profile from the Relic Link API
-      tags: []
+      tags: ["Statistics"]
     summary: Collection of statistics specifically for a certain Relic Link profile
     x-last-modified: 1665138997585
   /teams/{team_id}:
@@ -1453,11 +1618,13 @@ paths:
           style: simple
           x-last-modified: 1665069480649
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary: Retrieve details of a team
-      tags: []
+      tags: ["Teams", "Team Administration"]
     summary: Team information
     x-last-modified: 1665139023265
   /teams/{team_id}/matches:
@@ -1478,11 +1645,13 @@ paths:
           style: simple
           x-last-modified: 1665069480649
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary: Retrieve a list of matches for a specific team
-      tags: []
+      tags: ["Match data"]
     summary: Collection of match information for a team
     x-last-modified: 1665139050992
   /teams/{team_id}/stats:
@@ -1503,11 +1672,13 @@ paths:
           style: simple
           x-last-modified: 1665069480649
       responses:
+        "200":
+          description: Operation succeeded
         "501":
           description: Not Implemented
           x-last-modified: 1665058119290
       summary: Retrieve a list of stats for a specific team
-      tags: []
+      tags: ["Statistics", "Teams", "Team Administration"]
     summary: Collection of stats for a team
     x-last-modified: 1665139090952
 components:
@@ -1693,9 +1864,17 @@ components:
       x-last-modified: 1665072508175
     "202":
       description: Accepted
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Accepted"
       x-last-modified: 1665057162357
     "204":
       description: No Content
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/NoContent"
       x-last-modified: 1665056770881
     "304":
       description: Not Modified
@@ -1712,34 +1891,182 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/UnauthorizedError"
-      description: Unauthorized access.
+      description: Unauthorized access
       x-last-modified: 1665072543221
     "403":
       description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ForbiddenError"
       x-last-modified: 1665056800086
     "404":
-      description: Entity not found.
+      description: Entity not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/NotFoundError"
+      x-last-modified: 1665056674861
+    "406":
+      description: Not acceptable
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/NotAcceptableError"
       x-last-modified: 1665056674861
     "408":
       description: Request Timeout
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/RequestTimeoutError"
       x-last-modified: 1665057248987
     "429":
       description: Too Many Requests
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/TooManyRequestsError"
       x-last-modified: 1665056827121
     "500":
+      description: Server Error
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/ServerError"
-      description: Server Error
       x-last-modified: 1665056677455
     "501":
       description: Not Implemented
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/NotImplementedError"
       x-last-modified: 1665058119290
     "503":
       description: Service Unavailable
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ServiceUnavailableError"
       x-last-modified: 1665057340292
   schemas:
+    ServiceUnavailableError:
+      properties:
+        message:
+          type: string
+        code:
+          maximum: 503
+          minimum: 503
+          type: integer
+      required:
+        - code
+        - message
+      type: object
+      x-last-modified: 1665056674054
+    NotImplementedError:
+      properties:
+        message:
+          type: string
+        code:
+          maximum: 501
+          minimum: 501
+          type: integer
+      required:
+        - code
+        - message
+      type: object
+      x-last-modified: 1665056674054
+    TooManyRequestsError:
+      properties:
+        message:
+          type: string
+        code:
+          maximum: 429
+          minimum: 429
+          type: integer
+      required:
+        - code
+        - message
+      type: object
+      x-last-modified: 1665056674054
+    RequestTimeoutError:
+      properties:
+        message:
+          type: string
+        code:
+          maximum: 408
+          minimum: 408
+          type: integer
+      required:
+        - code
+        - message
+      type: object
+      x-last-modified: 1665056674054
+    NotAcceptableError:
+      properties:
+        message:
+          type: string
+        code:
+          maximum: 406
+          minimum: 406
+          type: integer
+      required:
+        - code
+        - message
+      type: object
+      x-last-modified: 1665056674054
+    NotFoundError:
+      properties:
+        message:
+          type: string
+        code:
+          maximum: 404
+          minimum: 404
+          type: integer
+      required:
+        - code
+        - message
+      type: object
+      x-last-modified: 1665056674054
+    ForbiddenError:
+      properties:
+        message:
+          type: string
+        code:
+          maximum: 403
+          minimum: 403
+          type: integer
+      required:
+        - code
+        - message
+      type: object
+      x-last-modified: 1665056674054
+    Accepted:
+      properties:
+        message:
+          type: string
+        code:
+          maximum: 202
+          minimum: 202
+          type: integer
+      required:
+        - code
+        - message
+      type: object
+      x-last-modified: 1665056674054
+    NoContent:
+      properties:
+        message:
+          type: string
+        code:
+          maximum: 204
+          minimum: 204
+          type: integer
+      required:
+        - code
+        - message
+      type: object
+      x-last-modified: 1665056674054
     IllegalInputError:
       properties:
         message:
@@ -1784,24 +2111,24 @@ components:
         - message
       type: object
       x-last-modified: 1665056677454
-    Error:
-      example:
-        code: 400
-        message: wrong input
-      properties:
-        message:
-          description: The error message indicating what the issue is
-          type: string
-        code:
-          description: The http status code
-          maximum: 600
-          minimum: 100
-          type: integer
-      required:
-        - code
-        - message
-      type: object
-      x-last-modified: 1665057919920
+    # Error:
+    #   example:
+    #     code: 400
+    #     message: wrong input
+    #   properties:
+    #     message:
+    #       description: The error message indicating what the issue is
+    #       type: string
+    #     code:
+    #       description: The http status code
+    #       maximum: 600
+    #       minimum: 100
+    #       type: integer
+    #   required:
+    #     - code
+    #     - message
+    #   type: object
+    #   x-last-modified: 1665057919920
   securitySchemes:
     BasicAuth:
       description: "Example: \n> Authorization: <Sample>"
