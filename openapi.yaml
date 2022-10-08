@@ -4752,7 +4752,7 @@ components:
       description: Authorization header
       explode: false
       schema:
-        type: string
+        $ref: "#/components/schemas/AuthorizationHeader"
       style: simple
     X-RateLimit-Remaining:
       description: The number of remaining requests in the current period
@@ -4814,8 +4814,7 @@ components:
       explode: false
       required: false
       schema:
-        format: md5
-        type: string
+        $ref: "#/components/schemas/Md5"
       style: simple
     WWW-Authenticate:
       deprecated: false
@@ -4825,7 +4824,7 @@ components:
       explode: false
       required: false
       schema:
-        type: string
+        $ref: "#/components/schemas/WwwAuthenticate"
       style: simple
     Location:
       deprecated: false
@@ -5013,6 +5012,43 @@ components:
             $ref: "#/components/schemas/ServiceUnavailableError"
       x-last-modified: 1665057340292
   schemas:
+    AuthorizationHeader:
+      properties:
+        AuthorizationHeader:
+          type: string
+          format: string
+          maxLength: 33
+          maximum: 33
+      additionalProperties: false
+      required:
+        - AuthorizationHeader
+      type: object
+      x-last-modified: 1665056674054
+    WwwAuthenticate:
+      properties:
+        WwwAuthenticate:
+          type: string
+          format: string
+          maxLength: 33
+          maximum: 33
+      additionalProperties: false
+      required:
+        - WwwAuthenticate
+      type: object
+      x-last-modified: 1665056674054
+    Md5:
+      properties:
+        Md5:
+          type: string
+          format: string
+          maxLength: 33
+          maximum: 33
+          pattern: "^[A-F0-9]{32}$"
+      additionalProperties: false
+      required:
+        - Md5
+      type: object
+      x-last-modified: 1665056674054
     Timeframe:
       properties:
         timeframe:
@@ -5064,6 +5100,7 @@ components:
         - code
         - message
       type: object
+      additionalProperties: false
       x-last-modified: 1665056674054
     ServiceUnavailableError:
       properties:
@@ -5076,6 +5113,7 @@ components:
       required:
         - code
         - message
+      additionalProperties: false
       type: object
       x-last-modified: 1665056674054
     NotImplementedError:
@@ -5090,6 +5128,7 @@ components:
         - code
         - message
       type: object
+      additionalProperties: false
       x-last-modified: 1665056674054
     TooManyRequestsError:
       properties:
@@ -5103,6 +5142,7 @@ components:
         - code
         - message
       type: object
+      additionalProperties: false
       x-last-modified: 1665056674054
     RequestTimeoutError:
       properties:
@@ -5116,6 +5156,7 @@ components:
         - code
         - message
       type: object
+      additionalProperties: false
       x-last-modified: 1665056674054
     NotAcceptableError:
       properties:
@@ -5129,6 +5170,7 @@ components:
         - code
         - message
       type: object
+      additionalProperties: false
       x-last-modified: 1665056674054
     NotFoundError:
       properties:
@@ -5142,6 +5184,7 @@ components:
         - code
         - message
       type: object
+      additionalProperties: false
       x-last-modified: 1665056674054
     ForbiddenError:
       properties:
@@ -5155,6 +5198,7 @@ components:
         - code
         - message
       type: object
+      additionalProperties: false
       x-last-modified: 1665056674054
     Accepted:
       properties:
@@ -5168,6 +5212,7 @@ components:
         - code
         - message
       type: object
+      additionalProperties: false
       x-last-modified: 1665056674054
     NoContent:
       properties:
@@ -5184,6 +5229,7 @@ components:
         - code
         - message
       type: object
+      additionalProperties: false
       x-last-modified: 1665056674054
     IllegalInputError:
       properties:
@@ -5200,6 +5246,7 @@ components:
         - code
         - message
       type: object
+      additionalProperties: false
       x-last-modified: 1665056674054
     UnauthorizedError:
       properties:
@@ -5218,6 +5265,7 @@ components:
         - message
       title: UnauthorizedError
       type: object
+      additionalProperties: false
       x-last-modified: 1665056676293
     ServerError:
       properties:
@@ -5232,6 +5280,7 @@ components:
         - code
         - message
       type: object
+      additionalProperties: false
       x-last-modified: 1665056677454
     # Error:
     #   example:
