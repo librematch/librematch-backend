@@ -23,6 +23,16 @@ class IllegalInputError(BaseModel):
     message: str = Field(alias="message")
     code: int = Field(alias="code")
 
+    @validator("message")
+    def message_max_length(cls, value):
+        assert len(value) <= 32
+        return value
+
+    @validator("message")
+    def message_pattern(cls, value):
+        assert value is not None and re.match(r"^example-[0-9a-z]+$", value)
+        return value
+
     @validator("code")
     def code_max(cls, value):
         assert value <= 400

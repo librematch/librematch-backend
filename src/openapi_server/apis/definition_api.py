@@ -29,21 +29,21 @@ router = APIRouter()
 
 
 @router.get(
-    "/games/{game_id}",
+    "/games/{game_id}/definitions",
     responses={
         200: {"description": "Operation succeeded"},
-        401: {"model": UnauthorizedError, "description": "Unauthorized access"},
+        401: {"model": UnauthorizedError, "description": "Unauthorized access."},
         403: {"model": ForbiddenError, "description": "Forbidden"},
         404: {"model": NotFoundError, "description": "Entity not found"},
         406: {"model": NotAcceptableError, "description": "Not acceptable"},
         429: {"model": TooManyRequestsError, "description": "Too Many Requests"},
         200: {"model": UnauthorizedError, "description": "Unauthorized access"},
     },
-    tags=["default"],
-    summary="Retrieve details for a game with a specific identifiers",
+    tags=["Definition"],
+    summary="Retrieve all available definitions for a specific game",
     response_model_by_alias=True,
 )
-async def get_details_for_game(
+async def get_definition_collection_for_game(
     game_id: Ulid = Path(None, description="The unique identifier (ULID) we use for games that use the Relic Link API"),
     token_BasicAuth: TokenModel = Security(
         get_token_BasicAuth

@@ -21,7 +21,6 @@ from openapi_server.models.forbidden_error import ForbiddenError
 from openapi_server.models.not_acceptable_error import NotAcceptableError
 from openapi_server.models.not_found_error import NotFoundError
 from openapi_server.models.too_many_requests_error import TooManyRequestsError
-from openapi_server.models.ulid import Ulid
 from openapi_server.models.unauthorized_error import UnauthorizedError
 from openapi_server.security_api import get_token_BasicAuth, get_token_X-Api-Key
 
@@ -29,7 +28,7 @@ router = APIRouter()
 
 
 @router.get(
-    "/games/{game_id}",
+    "/application/status",
     responses={
         200: {"description": "Operation succeeded"},
         401: {"model": UnauthorizedError, "description": "Unauthorized access"},
@@ -37,14 +36,14 @@ router = APIRouter()
         404: {"model": NotFoundError, "description": "Entity not found"},
         406: {"model": NotAcceptableError, "description": "Not acceptable"},
         429: {"model": TooManyRequestsError, "description": "Too Many Requests"},
+        503: {"description": "Service Unavailable"},
         200: {"model": UnauthorizedError, "description": "Unauthorized access"},
     },
-    tags=["default"],
-    summary="Retrieve details for a game with a specific identifiers",
+    tags=["Internal","Administration","Status Check"],
+    summary="Retrieve only application status",
     response_model_by_alias=True,
 )
-async def get_details_for_game(
-    game_id: Ulid = Path(None, description="The unique identifier (ULID) we use for games that use the Relic Link API"),
+async def get_status_collection_for_application(
     token_BasicAuth: TokenModel = Security(
         get_token_BasicAuth
     ),
