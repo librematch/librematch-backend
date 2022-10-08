@@ -1,0 +1,41 @@
+asyncapi: 2.2.0
+info:
+  title: Libre:Match match data service API
+  version: 1.0.0-DRAFT
+  description: This service is in charge of processing streaming match data to subscribers
+  x-logo:
+    url: ""
+  license:
+    name: GNU AGPLv3
+    url: https://www.gnu.org/licenses/agpl.txt
+  contact:
+    name: Libre:Match Team
+    email: info@librematch.org
+channels:
+  user/signedup:
+    subscribe:
+      message:
+        $ref: "#/components/messages/UserSignedUp"
+components:
+  messages:
+    UserSignedUp:
+      payload:
+        type: object
+        properties:
+          displayName:
+            type: string
+            description: Name of the user
+          email:
+            type: string
+            format: email
+            description: Email of the user
+  securitySchemes: {}
+  schemas: {}
+  parameters: {}
+tags: []
+externalDocs: null
+servers:
+  WSS:
+    url: api.librematch.org
+    protocol: wss
+    protocolVersion: HTTP 2.0
