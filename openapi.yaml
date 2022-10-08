@@ -37,10 +37,16 @@ paths:
                 $ref: "#/components/schemas/UnauthorizedError"
           description: Unauthorized access.
           x-last-modified: 1665072543221
+        "403":
+          description: Forbidden
+        "404":
+          description: Not found
+        "429":
+          description: Too many requests
       summary:
         Retrieve a list of all game identifiers for games using Relic Link
         API
-      tags: []
+      tags: ["Game"]
     summary: Endpoint for game-specific data
     x-last-modified: 1663947918891
   /games/{game_id}/definitions:
@@ -74,7 +80,7 @@ paths:
       summary:
         Retrieve all available definitions for a specific game using Relic
         Link API
-      tags: []
+      tags: ["Game"]
     summary: "game-specific definitions, e.g. map names, civilisation names, translations"
     x-last-modified: 1663948104836
   /games/{game_id}/info:
@@ -640,33 +646,6 @@ paths:
       tags: []
     summary: "game-specific definitions, e.g. map names, civilisation names, translations"
     x-last-modified: 1663950376911
-  /tournaments/{game_id}:
-    get:
-      operationId: get_tournament_details_for_game
-      parameters:
-        - deprecated: false
-          description:
-            The unique identifier (ULID) we use for games that use the Relic
-            Link API
-          explode: false
-          in: path
-          name: game_id
-          required: true
-          schema:
-            format: ulid
-            type: string
-          style: simple
-          x-last-modified: 1663949717971
-      responses:
-        "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
-      summary:
-        Retrieve all available tournaments for a specific game available on
-        the Relic Link platform
-      tags: []
-    summary: game-specific tournaments
-    x-last-modified: 1663952888032
   /games/{game_id}/leaderboards:
     get:
       operationId: get_leaderboard_collection_for_game
@@ -1432,6 +1411,9 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 0
+            format: int64
+            maximum: 999999999
           style: simple
           x-last-modified: 1663949613648
       responses:
@@ -1452,7 +1434,7 @@ paths:
             using the Relic Link API
           explode: false
           in: path
-          name: game_id
+          name: team_id
           required: true
           schema:
             format: ulid
@@ -1477,7 +1459,7 @@ paths:
             using the Relic Link API
           explode: false
           in: path
-          name: game_id
+          name: team_id
           required: true
           schema:
             format: ulid
@@ -1502,7 +1484,7 @@ paths:
             using the Relic Link API
           explode: false
           in: path
-          name: game_id
+          name: team_id
           required: true
           schema:
             format: ulid
@@ -1566,6 +1548,8 @@ components:
       required: false
       schema:
         type: string
+        maxLength: 32
+        pattern: ^example-[0-9a-z]+$
       style: simple
     If-Modified-Since:
       deprecated: false
@@ -1604,6 +1588,8 @@ components:
       required: false
       schema:
         type: string
+        maxLength: 32
+        pattern: ^example-[0-9a-z]+$
       style: simple
   parameters:
     relic_link_id:
@@ -1617,6 +1603,9 @@ components:
       required: true
       schema:
         type: integer
+        format: int64
+        maximum: 999999999
+        minimum: 0
       style: simple
       x-last-modified: 1663949613648
     tournament_id:
@@ -1647,8 +1636,7 @@ components:
       x-last-modified: 1663949692803
     game_id:
       deprecated: false
-      description:
-        The unique identifier (ULID) we use for games that use the Relic
+      description: The unique identifier we use for games that use the Relic
         Link API
       explode: false
       in: path
@@ -1666,7 +1654,7 @@ components:
         using the Relic Link API
       explode: false
       in: path
-      name: game_id
+      name: team_id
       required: true
       schema:
         format: ulid
@@ -1759,6 +1747,8 @@ components:
         message:
           title: message
           type: string
+          pattern: ^example-[0-9a-z]+$
+          maxLength: 32
         code:
           maximum: 401
           minimum: 401
@@ -1802,6 +1792,12 @@ components:
       type: object
       x-last-modified: 1665057919920
   securitySchemes:
+    BasicAuth:
+      description: "Example: \n> Authorization: <Sample>"
+      in: header
+      name: BasicAuth
+      type: apiKey
+      x-last-modified: 1663947718456
     X-Api-Key:
       description: "Example: \n> X-Api-Key: ZGVtbzpwQDU1dzByZA=="
       in: header
