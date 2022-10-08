@@ -43,6 +43,12 @@ paths:
           style: simple
           x-last-modified: 1663949717971
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -93,6 +99,12 @@ paths:
     get:
       operationId: get_game_identifier_collection
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -152,6 +164,12 @@ paths:
           style: simple
           x-last-modified: 1663949717971
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -211,6 +229,12 @@ paths:
           style: simple
           x-last-modified: 1663949717971
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -272,6 +296,12 @@ paths:
           style: simple
           x-last-modified: 1663949717971
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -321,6 +351,12 @@ paths:
       description: ""
       operationId: remove_all_tournaments
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -371,6 +407,12 @@ paths:
     get:
       operationId: get_tournament_identifier_collection
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -424,6 +466,12 @@ paths:
       description: ""
       operationId: partial_update_tournaments
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -482,6 +530,12 @@ paths:
       description: ""
       operationId: create_new_tournament
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -540,6 +594,12 @@ paths:
       description: ""
       operationId: bulk_update_all_tournaments
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -600,6 +660,12 @@ paths:
     get:
       operationId: get_profile_collection
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -659,6 +725,12 @@ paths:
           style: simple
           x-last-modified: 1663949613648
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -718,6 +790,12 @@ paths:
           style: simple
           x-last-modified: 1663949613648
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -765,6 +843,12 @@ paths:
       description: ""
       operationId: remove_all_users
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -809,6 +893,12 @@ paths:
       description: Authenticated Endpoint for Administrators or Libre:Match
       operationId: get_user_collection
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -853,6 +943,12 @@ paths:
       description: ""
       operationId: partial_update_all_users
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -904,6 +1000,12 @@ paths:
       description: ""
       operationId: create_new_user
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -958,6 +1060,12 @@ paths:
       description: ""
       operationId: bulk_update_all_users
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -1023,6 +1131,12 @@ paths:
           style: simple
           x-last-modified: 1665078217885
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -1077,6 +1191,12 @@ paths:
           style: simple
           x-last-modified: 1665078217885
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -1132,6 +1252,12 @@ paths:
           style: simple
           x-last-modified: 1665078217885
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -1194,6 +1320,12 @@ paths:
           style: simple
           x-last-modified: 1665078217885
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -1249,6 +1381,12 @@ paths:
     post:
       operationId: user_login
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -1301,6 +1439,12 @@ paths:
     get:
       operationId: user_logout
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -1346,6 +1490,12 @@ paths:
     post:
       operationId: user_register
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -1401,6 +1551,12 @@ paths:
     get:
       operationId: get_user_validation_details
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -1443,6 +1599,12 @@ paths:
     post:
       operationId: create_new_user_validation
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -1495,6 +1657,12 @@ paths:
     get:
       operationId: get_information_collection_for_application
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -1543,6 +1711,12 @@ paths:
     get:
       operationId: get_stat_collection_for_application
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -1591,6 +1765,12 @@ paths:
     get:
       operationId: get_status_collection_for_application
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -1653,6 +1833,12 @@ paths:
           style: simple
           x-last-modified: 1663949717971
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -1711,6 +1897,12 @@ paths:
           style: simple
           x-last-modified: 1663949717971
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -1770,6 +1962,12 @@ paths:
           style: simple
           x-last-modified: 1663949692803
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -1829,6 +2027,12 @@ paths:
           style: simple
           x-last-modified: 1663949692803
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -1895,6 +2099,12 @@ paths:
           style: simple
           x-last-modified: 1663949692803
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -1941,6 +2151,12 @@ paths:
     get:
       operationId: get_leaderboard_collection
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
           x-last-modified: 1665056670316
@@ -1999,6 +2215,12 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -2061,6 +2283,12 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -2124,6 +2352,12 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -2194,6 +2428,12 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -2265,6 +2505,12 @@ paths:
           style: simple
           x-last-modified: 1665078217885
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -2325,6 +2571,12 @@ paths:
           style: simple
           x-last-modified: 1665078217885
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -2386,6 +2638,12 @@ paths:
           style: simple
           x-last-modified: 1665078217885
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -2454,6 +2712,12 @@ paths:
           style: simple
           x-last-modified: 1665078217885
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -2522,6 +2786,12 @@ paths:
           style: simple
           x-last-modified: 1665078217885
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -2593,6 +2863,12 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -2655,6 +2931,12 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -2718,6 +3000,12 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -2782,6 +3070,12 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -2842,6 +3136,12 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -2908,6 +3208,12 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -2978,6 +3284,12 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -3048,6 +3360,12 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -3121,6 +3439,12 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -3181,6 +3505,12 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -3244,6 +3574,12 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -3314,6 +3650,12 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -3384,6 +3726,12 @@ paths:
           style: simple
           x-last-modified: 1663949674724
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -3444,6 +3792,12 @@ paths:
       description: ""
       operationId: remove_all_teams
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -3493,6 +3847,12 @@ paths:
     get:
       operationId: get_team_collection
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -3543,6 +3903,12 @@ paths:
       description: ""
       operationId: partial_update_all_teams
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -3600,6 +3966,12 @@ paths:
       description: ""
       operationId: create_new_team
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -3657,6 +4029,12 @@ paths:
       description: ""
       operationId: bulk_update_all_teams
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -3730,6 +4108,12 @@ paths:
           style: simple
           x-last-modified: 1663949613648
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -3792,6 +4176,12 @@ paths:
           style: simple
           x-last-modified: 1663949613648
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -3855,6 +4245,12 @@ paths:
           style: simple
           x-last-modified: 1663949613648
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -3927,6 +4323,12 @@ paths:
           style: simple
           x-last-modified: 1663949613648
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -3997,6 +4399,12 @@ paths:
           style: simple
           x-last-modified: 1663949613648
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -4071,6 +4479,12 @@ paths:
           style: simple
           x-last-modified: 1663949613648
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -4136,6 +4550,12 @@ paths:
           style: simple
           x-last-modified: 1665069480649
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -4201,6 +4621,12 @@ paths:
           style: simple
           x-last-modified: 1665069480649
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
@@ -4266,6 +4692,12 @@ paths:
           style: simple
           x-last-modified: 1665069480649
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
         "200":
           description: Operation succeeded
         "401":
