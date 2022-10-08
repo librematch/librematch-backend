@@ -131,9 +131,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/TooManyRequestsError"
           x-last-modified: 1665056827121
-      summary:
-        Retrieve a list of all game identifiers for games using Relic Link
-        API
+      summary: Retrieve a list of all game identifiers for games
       tags: ["Information"]
     summary: Endpoint for game-specific data
     x-last-modified: 1663947918891
@@ -192,9 +190,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/TooManyRequestsError"
           x-last-modified: 1665056827121
-      summary:
-        Retrieve all available definitions for a specific game using Relic
-        Link API
+      summary: Retrieve all available definitions for a specific game
       tags: ["Definition"]
     summary: "game-specific definitions, e.g. map names, civilisation names, translations"
     x-last-modified: 1663948104836
@@ -253,9 +249,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/TooManyRequestsError"
           x-last-modified: 1665056827121
-      summary:
-        Retrieve all available information for a specific game using Relic
-        Link API
+      summary: Retrieve all available information for a specific game
       tags: ["Information"]
     summary:
       "information about server maintenance times, DLC stuff, patch releases,\
@@ -316,7 +310,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/TooManyRequestsError"
           x-last-modified: 1665056827121
-      summary: Retrieve all matches for a specific game using Relic Link API
+      summary: Retrieve all matches for a specific game
       tags: ["Match data"]
     summary:
       "match data spanning over the complete game (all leaderboards, basically\
@@ -644,7 +638,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/TooManyRequestsError"
           x-last-modified: 1665056827121
-      summary: Retrieve all available profiles from the Relic Link API
+      summary: Retrieve all available profiles
       tags: ["Administration"]
     summary: Endpoint for player profiles on the Relic Link platform
     x-last-modified: 1663948530301
@@ -703,7 +697,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/TooManyRequestsError"
           x-last-modified: 1665056827121
-      summary: Retrieve the details for a specific profile from the Relic Link API
+      summary: Retrieve the details for a specific profile
       tags: ["Information"]
     summary: Profile information for a Relic Link player_ID
     x-last-modified: 1663948567394
@@ -762,7 +756,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/TooManyRequestsError"
           x-last-modified: 1665056827121
-      summary: Retrieve all matches for a specific profile from the Relic Link API
+      summary: Retrieve all matches for a specific profile
       tags: ["Match data"]
     summary: match data for a certain Relic Link profile
     x-last-modified: 1663948607956
@@ -1697,10 +1691,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/TooManyRequestsError"
           x-last-modified: 1665056827121
-      summary:
-        Retrieve details for a game with a specific identifier using Relic
-        Link API
-      tags: ["Information"]
+      summary: Retrieve details for a game with a specific identifiers
     summary: "game-specific definitions, e.g. map names, civilisation names, translations"
     x-last-modified: 1663950376911
   /games/{game_id}/leaderboards:
@@ -1758,7 +1749,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/TooManyRequestsError"
           x-last-modified: 1665056827121
-      summary: Retrieve all leaderboards for a specific game using Relic Link API
+      summary: Retrieve all leaderboards for a specific game
       tags: ["Leaderboards"]
     summary: Collection of leaderboard data spanning over the complete game
     x-last-modified: 1665053521883
@@ -1883,9 +1874,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/NotImplementedError"
           x-last-modified: 1665058119290
-      summary:
-        Retrieve all stats on a specific leaderboard for a certain game hosted
-        on the Relic Link API
+      summary: Retrieve all stats on a specific leaderboard for a certain game
       tags: ["Leaderboards", "Statistics"]
     summary: Collection of stats for a specific leaderboard
     x-last-modified: 1665053642553
@@ -1944,9 +1933,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/TooManyRequestsError"
           x-last-modified: 1665056827121
-      summary:
-        Retrieve all matches on a specific leaderboard for a certain game hosted
-        on the Relic Link API
+      summary: Retrieve all matches on a specific leaderboard for a certain game
       tags: ["Leaderboards", "Match data"]
     summary: Collection of match data for a specific leaderboard
     x-last-modified: 1665053682780
@@ -1992,7 +1979,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/TooManyRequestsError"
           x-last-modified: 1665056827121
-      summary: Retrieve all leaderboards hosted on the Relic Link API
+      summary: Retrieve all leaderboards
       tags: ["Leaderboards", "Information"]
     summary: Collection of all leaderboard data on the Relic Link platform
     x-last-modified: 1665053727563
@@ -2258,9 +2245,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/NotImplementedError"
           x-last-modified: 1665058119290
-      summary:
-        Update details for a tournament for a specific game available on the
-        Relic Link platform
+      summary: Update details for a tournament for a specific game
       tags: ["Adminstration"]
     summary: game-specific tournaments
     x-last-modified: 1665054574222
@@ -2594,9 +2579,7 @@ paths:
     x-last-modified: 1665054653031
   /tournaments/{tournament_id}/info:
     get:
-      summary:
-        Retrieve all information for a specific tournament for a specific game
-        available on the Relic Link platform
+      summary: Retrieve all information for a specific tournament for a specific game
       operationId: get_info_collection_for_tournament
       parameters:
         - deprecated: false
@@ -2716,9 +2699,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/NotImplementedError"
           x-last-modified: 1665058119290
-      summary:
-        Retrieve all statistics for a specific tournament for a specific game
-        available on the Relic Link platform
+      summary: Retrieve all statistics for a specific tournament for a specific game
       tags: ["Statistics", "Tournaments", "Tournament Administration"]
     summary: game-specific tournaments
     x-last-modified: 1665054963238
@@ -2781,9 +2762,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/NotImplementedError"
           x-last-modified: 1665058119290
-      summary:
-        Retrieve all match data for a specific tournament for a specific game
-        available on the Relic Link platform
+      summary: Retrieve all match data for a specific tournament for a specific game
       tags: ["Match data", "Tournaments", "Tournament Administration"]
     summary: game-specific tournaments
     x-last-modified: 1665054963238
@@ -2847,9 +2826,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/NotImplementedError"
           x-last-modified: 1665058119290
-      summary:
-        Remove all brackets for a specific tournament for a specific game available
-        on the Relic Link platform
+      summary: Remove all brackets for a specific tournament for a specific game
       tags: ["Tournament Administration"]
     get:
       operationId: get_bracket_collection_for_tournament
@@ -3188,9 +3165,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/NotImplementedError"
           x-last-modified: 1665058119290
-      summary:
-        Remove all admins for a specific tournament for a specific game available
-        on the Relic Link platform
+      summary: Remove all admins for a specific tournament for a specific game
       tags: ["Administration", "Tournament Administration"]
     get:
       operationId: get_admin_collection_for_tournament
@@ -3460,9 +3435,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/NotImplementedError"
           x-last-modified: 1665058119290
-      summary:
-        Bulk update of admins for a specific tournament for a specific game
-        available on the Relic Link platform
+      summary: Bulk update of admins for a specific tournament for a specific game
       tags: ["Administration", "Tournament Administration"]
     summary: Endpoint for tournament admins
     x-last-modified: 1665055638796
@@ -3801,7 +3774,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/NotImplementedError"
           x-last-modified: 1665058119290
-      summary: Remove all settings for a specific profile from the Relic Link API
+      summary: Remove all settings for a specific profile
       tags: ["Profile Administration", "Administration"]
     get:
       operationId: get_setting_collection_for_profile
@@ -3863,7 +3836,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/NotImplementedError"
           x-last-modified: 1665058119290
-      summary: Retrieve all settings for a specific profile from the Relic Link API
+      summary: Retrieve all settings for a specific profile
       tags: ["Profile Administration", "Administration", "Information"]
     patch:
       description: ""
@@ -4142,7 +4115,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/NotImplementedError"
           x-last-modified: 1665058119290
-      summary: Retrieve all stats for a specific profile from the Relic Link API
+      summary: Retrieve all stats for a specific profile
       tags: ["Statistics"]
     summary: Collection of statistics specifically for a certain Relic Link profile
     x-last-modified: 1665138997585
@@ -4610,7 +4583,7 @@ components:
   schemas:
     Timeframe:
       properties:
-        code:
+        timeframe:
           type: string
           format: string
           maxLength: 15
@@ -4618,24 +4591,24 @@ components:
           pattern: "^example-TODO$"
       additionalProperties: false
       required:
-        - code
+        - timeframe
       type: object
       x-last-modified: 1665056674054
     RelicLinkId:
       properties:
-        code:
+        relic_link_id:
           type: integer
           format: int64
           maximum: 999999999
           minimum: 0
       additionalProperties: false
       required:
-        - code
+        - relic_link_id
       type: object
       x-last-modified: 1665056674054
     Ulid:
       properties:
-        code:
+        ulid:
           maximum: 26
           minimum: 26
           type: string
@@ -4644,7 +4617,7 @@ components:
           maxLength: 26
       additionalProperties: false
       required:
-        - code
+        - ulid
       type: object
       x-last-modified: 1665056674054
     UnsupportedMediaTypeError:
@@ -4767,7 +4740,10 @@ components:
     NoContent:
       properties:
         message:
+          title: No Content
           type: string
+          pattern: ^example-[0-9a-z]+$
+          maxLength: 32
         code:
           maximum: 204
           minimum: 204
@@ -4780,7 +4756,10 @@ components:
     IllegalInputError:
       properties:
         message:
+          title: Bad Request
           type: string
+          pattern: ^example-[0-9a-z]+$
+          maxLength: 32
         code:
           maximum: 400
           minimum: 400
@@ -4793,7 +4772,7 @@ components:
     UnauthorizedError:
       properties:
         message:
-          title: message
+          title: Unauthorized access
           type: string
           pattern: ^example-[0-9a-z]+$
           maxLength: 32
@@ -4812,6 +4791,7 @@ components:
       properties:
         message:
           type: string
+
         code:
           maximum: 599
           minimum: 500
