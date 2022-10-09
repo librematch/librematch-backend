@@ -16,13 +16,87 @@ info:
   x-logo:
     url: ""
 servers:
-  - description: Libre:Match Server v1
+  - description: Libre:Match Production Server v1
     url: https://api.librematch.org/v1
+    x-last-modified: 1663947810574
+  - description: Libre:Match Development Server v1
+    url: https://dev.librematch.org/v1
     x-last-modified: 1663947810574
 security:
   - BasicAuth: []
   - X-Api-Key: []
 paths:
+  /profiles/search:
+    description: "Search endpoint"
+    get:
+      description: "Search for a profile by Steam ID or name, returns a single `profile_id` usable with other endpoints"
+      operationId: get_profile_information_from_search
+      parameters:
+        - deprecated: false
+          description: "First 10 characters of a search string for name"
+          explode: false
+          in: query
+          name: by_name
+          required: false
+          schema:
+            $ref: "#/components/schemas/SearchParam"
+          x-last-modified: 1663949717971
+        - deprecated: false
+          description: The Steam ID to search for
+          explode: false
+          in: query
+          name: by_steam_id
+          required: false
+          schema:
+            $ref: "#/components/schemas/SteamId"
+          x-last-modified: 1663949717971
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
+        "200":
+          description: Operation succeeded
+          x-last-modified: 1665056670316
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
+          x-last-modified: 1665072543221
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ForbiddenError"
+          description: Forbidden
+          x-last-modified: 1665056800086
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundError"
+          description: Entity not found
+          x-last-modified: 1665056674861
+        "406":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotAcceptableError"
+          description: Not acceptable
+          x-last-modified: 1665056674861
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TooManyRequestsError"
+          description: Too Many Requests
+          x-last-modified: 1665056827121
+      tags:
+        - Search
   /dumps/{timeframe}:
     description: Download database dumps
     get:
@@ -154,16 +228,23 @@ paths:
     get:
       operationId: get_definition_collection_for_game
       parameters:
+        - in: query
+          deprecated: false
+          explode: false
+          name: language
+          required: false
+          schema:
+            $ref: "#/components/schemas/LanguageString"
+          description: "The language to query definitions for that are being used by the API (Default: 'en')"
         - deprecated: false
-          description:
-            The unique identifier (ULID) we use for games that use the Relic
+          description: The unique identifier we use for games that use the Relic
             Link API
           explode: false
           in: path
           name: game_id
           required: true
           schema:
-            $ref: "#/components/schemas/Ulid"
+            $ref: "#/components/schemas/GameId"
           style: simple
           x-last-modified: 1663949717971
       responses:
@@ -221,15 +302,14 @@ paths:
       operationId: get_info_collection_for_game
       parameters:
         - deprecated: false
-          description:
-            The unique identifier (ULID) we use for games that use the Relic
+          description: The unique identifier we use for games that use the Relic
             Link API
           explode: false
           in: path
           name: game_id
           required: true
           schema:
-            $ref: "#/components/schemas/Ulid"
+            $ref: "#/components/schemas/GameId"
           style: simple
           x-last-modified: 1663949717971
       responses:
@@ -288,16 +368,31 @@ paths:
     get:
       operationId: get_match_collection_for_game
       parameters:
+        - required: false
+          in: query
+          explode: false
+          deprecated: false
+          name: count
+          schema:
+            $ref: "#/components/schemas/CountParam"
+          description: "Number of leaderboard entries to get"
+        - required: false
+          in: query
+          explode: false
+          deprecated: false
+          name: since
+          schema:
+            $ref: "#/components/schemas/SinceParam"
+          description: "Only show matches starting after this Unix timestamp"
         - deprecated: false
-          description:
-            The unique identifier (ULID) we use for games that use the Relic
+          description: The unique identifier we use for games that use the Relic
             Link API
           explode: false
           in: path
           name: game_id
           required: true
           schema:
-            $ref: "#/components/schemas/Ulid"
+            $ref: "#/components/schemas/GameId"
           style: simple
           x-last-modified: 1663949717971
       responses:
@@ -791,6 +886,30 @@ paths:
     get:
       operationId: get_match_collection_for_profile
       parameters:
+        - required: false
+          in: query
+          explode: false
+          deprecated: false
+          name: last_match
+          schema:
+            type: boolean
+          description: "Only show exactly the last available match"
+        - required: false
+          in: query
+          explode: false
+          deprecated: false
+          name: count
+          schema:
+            $ref: "#/components/schemas/CountParam"
+          description: "Number of leaderboard entries to get"
+        - required: false
+          in: query
+          explode: false
+          deprecated: false
+          name: since
+          schema:
+            $ref: "#/components/schemas/SinceParam"
+          description: "Only show matches starting after this Unix timestamp"
         - deprecated: false
           description:
             The unique identifier used by the Relic Link API for a player
@@ -1862,15 +1981,14 @@ paths:
       operationId: get_details_for_game
       parameters:
         - deprecated: false
-          description:
-            The unique identifier (ULID) we use for games that use the Relic
+          description: The unique identifier we use for games that use the Relic
             Link API
           explode: false
           in: path
           name: game_id
           required: true
           schema:
-            $ref: "#/components/schemas/Ulid"
+            $ref: "#/components/schemas/GameId"
           style: simple
           x-last-modified: 1663949717971
       responses:
@@ -1926,15 +2044,14 @@ paths:
       operationId: get_leaderboard_collection_for_game
       parameters:
         - deprecated: false
-          description:
-            The unique identifier (ULID) we use for games that use the Relic
+          description: The unique identifier we use for games that use the Relic
             Link API
           explode: false
           in: path
           name: game_id
           required: true
           schema:
-            $ref: "#/components/schemas/Ulid"
+            $ref: "#/components/schemas/GameId"
           style: simple
           x-last-modified: 1663949717971
       responses:
@@ -1991,6 +2108,38 @@ paths:
     get:
       operationId: get_details_for_leaderboard
       parameters:
+        - required: false
+          in: query
+          explode: false
+          deprecated: false
+          name: profile_id
+          schema:
+            $ref: "#/components/schemas/RelicLinkId"
+          description: "Search for a profile ID in a leaderboard"
+        - required: false
+          in: query
+          explode: false
+          deprecated: false
+          name: search
+          schema:
+            $ref: "#/components/schemas/SearchParam"
+          description: "Search for a name in a leaderboard"
+        - required: false
+          in: query
+          explode: false
+          deprecated: false
+          name: start
+          schema:
+            $ref: "#/components/schemas/StartParam"
+          description: "Starting rank"
+        - required: false
+          in: query
+          explode: false
+          deprecated: false
+          name: count
+          schema:
+            $ref: "#/components/schemas/CountParam"
+          description: "Number of leaderboard entries to get"
         - deprecated: false
           description:
             The unique identifier (ULID) we use for leaderboards of the Relic
@@ -2131,6 +2280,22 @@ paths:
     get:
       operationId: get_match_collection_for_leaderboard
       parameters:
+        - required: false
+          in: query
+          explode: false
+          deprecated: false
+          name: count
+          schema:
+            $ref: "#/components/schemas/CountParam"
+          description: "Number of leaderboard entries to get"
+        - required: false
+          in: query
+          explode: false
+          deprecated: false
+          name: since
+          schema:
+            $ref: "#/components/schemas/SinceParam"
+          description: "Only show matches starting after this Unix timestamp"
         - deprecated: false
           description:
             The unique identifier (ULID) we use for leaderboards of the Relic
@@ -3053,6 +3218,22 @@ paths:
     get:
       operationId: get_match_collection_for_tournament
       parameters:
+        - required: false
+          in: query
+          explode: false
+          deprecated: false
+          name: count
+          schema:
+            $ref: "#/components/schemas/CountParam"
+          description: "Number of leaderboard entries to get"
+        - required: false
+          in: query
+          explode: false
+          deprecated: false
+          name: since
+          schema:
+            $ref: "#/components/schemas/SinceParam"
+          description: "Only show matches starting after this Unix timestamp"
         - deprecated: false
           description: The unique identifier (ULID) we use for tournaments
           explode: false
@@ -3254,9 +3435,7 @@ paths:
                 $ref: "#/components/schemas/NotImplementedError"
           description: Not Implemented
           x-last-modified: 1665058119290
-      summary:
-        Retrieve all brackets for a specific tournament for a specific game
-        available on the Relic Link platform
+      summary: Retrieve all brackets for a specific tournament for a specific game
       tags:
         - Information
         - Tournaments
@@ -4720,6 +4899,22 @@ paths:
     get:
       operationId: get_match_collection_for_team
       parameters:
+        - required: false
+          in: query
+          explode: false
+          deprecated: false
+          name: count
+          schema:
+            $ref: "#/components/schemas/CountParam"
+          description: "Number of leaderboard entries to get"
+        - required: false
+          in: query
+          explode: false
+          deprecated: false
+          name: since
+          schema:
+            $ref: "#/components/schemas/SinceParam"
+          description: "Only show matches starting after this Unix timestamp"
         - deprecated: false
           description:
             The unique identifier (ULID) we use for teams that play on games
@@ -4920,7 +5115,7 @@ components:
       required: false
       schema:
         format: date-time
-        type: number
+        type: string
       style: simple
     If-None-Match:
       deprecated: false
@@ -5000,7 +5195,7 @@ components:
       name: game_id
       required: true
       schema:
-        $ref: "#/components/schemas/Ulid"
+        $ref: "#/components/schemas/GameId"
       style: simple
       x-last-modified: 1663949717971
     team_id:
@@ -5129,66 +5324,154 @@ components:
       description: Service Unavailable
       x-last-modified: 1665057340292
   schemas:
+    SinceParam:
+      additionalProperties: false
+      properties:
+        self:
+          format: int64
+          minimum: 1602232026 # 2 years ago
+          maximum: 1980923226 # in 10 years
+          type: integer
+          pattern: ""
+      required:
+        - self
+      type: object
+    MatchId:
+      additionalProperties: false
+      properties:
+        self:
+          format: uuid
+          maxLength: 36
+          type: string
+          pattern: "^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$"
+      required:
+        - self
+      type: object
+    SteamId:
+      additionalProperties: false
+      properties:
+        self:
+          format: int64
+          maxLength: 18
+          type: integer
+      required:
+        - self
+      type: object
+    SearchParam:
+      additionalProperties: false
+      description: "First 10 characters of a search string"
+      properties:
+        self:
+          format: string
+          pattern: "^.{10}$"
+          maxLength: 10
+          type: string
+      required:
+        - self
+      type: object
+    CountParam:
+      additionalProperties: false
+      properties:
+        self:
+          format: int32
+          minimum: 1
+          maximum: 10000
+          type: integer
+      required:
+        - self
+      type: object
+    StartParam:
+      additionalProperties: false
+      properties:
+        self:
+          format: int64
+          minimum: 1
+          maximum: 999999999
+          type: integer
+      required:
+        - self
+      type: object
+    LanguageString:
+      additionalProperties: false
+      properties:
+        self:
+          format: string
+          maxLength: 5
+          minLength: 2
+          pattern: "^([a-z]{2}){1}\b(-[A-Z]{2}){0,1}$"
+          type: string
+      required:
+        - self
+      type: object
     AuthorizationHeader:
       additionalProperties: false
       properties:
-        AuthorizationHeader:
+        self:
           format: string
           maxLength: 33
-          maximum: 33
           type: string
       required:
-        - AuthorizationHeader
+        - self
       type: object
       x-last-modified: 1665056674054
     WwwAuthenticate:
       additionalProperties: false
       properties:
-        WwwAuthenticate:
+        self:
           format: string
           maxLength: 33
-          maximum: 33
           type: string
       required:
-        - WwwAuthenticate
+        - self
       type: object
       x-last-modified: 1665056674054
     Md5:
       additionalProperties: false
       properties:
-        Md5:
+        checksum:
           format: string
           maxLength: 33
           maximum: 33
-          pattern: "^[A-F0-9]{32}$"
+          pattern: "^[a-fA-F0-9]{32}$"
           type: string
       required:
-        - Md5
+        - checksum
       type: object
       x-last-modified: 1665056674054
     Timeframe:
       additionalProperties: false
       properties:
-        timeframe:
+        self:
           format: string
           maxLength: 15
           maximum: 15
-          pattern: ^example-TODO$
+          pattern: ^\d\d\d\d-(0?[1-9]|1[0-2])-(0?[1-9]|[12][0-9]|3[01]) (00|[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9])$
           type: string
       required:
-        - timeframe
+        - self
       type: object
       x-last-modified: 1665056674054
     RelicLinkId:
       additionalProperties: false
       properties:
-        relic_link_id:
+        id:
           format: int64
           maximum: 999999999
           minimum: 0
           type: integer
       required:
-        - relic_link_id
+        - id
+      type: object
+      x-last-modified: 1665056674054
+    GameId:
+      additionalProperties: false
+      description: "Supported games by Relic Link API"
+      properties:
+        self:
+          type: string
+          enum: [aoe1de, aoe2de, aoe3de, aoe4]
+      required:
+        - self
       type: object
       x-last-modified: 1665056674054
     Ulid:
