@@ -94,6 +94,26 @@ def test_bulk_update_all_teams(client: TestClient):
     #assert response.status_code == 200
 
 
+def test_bulk_update_all_user_stats(client: TestClient):
+    """Test case for bulk_update_all_user_stats
+
+    Bulk update of stats for a specific user profile on our platform
+    """
+
+    headers = {
+        "BasicAuth": "special-key",
+        "X-Api-Key": "special-key",
+    }
+    response = client.request(
+        "PUT",
+        "/users/{user_id}/stats".format(user_id={'key': openapi_server.Ulid()}),
+        headers=headers,
+    )
+
+    # uncomment below to assert the status code of the HTTP response
+    #assert response.status_code == 200
+
+
 def test_create_new_admin_for_tournament(client: TestClient):
     """Test case for create_new_admin_for_tournament
 
@@ -167,6 +187,26 @@ def test_create_new_team(client: TestClient):
     response = client.request(
         "POST",
         "/teams",
+        headers=headers,
+    )
+
+    # uncomment below to assert the status code of the HTTP response
+    #assert response.status_code == 200
+
+
+def test_create_new_user_stats(client: TestClient):
+    """Test case for create_new_user_stats
+
+    Create a new stat for a specific user profile on our platform
+    """
+
+    headers = {
+        "BasicAuth": "special-key",
+        "X-Api-Key": "special-key",
+    }
+    response = client.request(
+        "POST",
+        "/users/{user_id}/stats".format(user_id={'key': openapi_server.Ulid()}),
         headers=headers,
     )
 
@@ -374,6 +414,46 @@ def test_partial_update_bracket_for_tournament(client: TestClient):
     #assert response.status_code == 200
 
 
+def test_partial_update_tournament_details(client: TestClient):
+    """Test case for partial_update_tournament_details
+
+    Partially update a tournament for a specific game available on the Relic Link platform
+    """
+
+    headers = {
+        "BasicAuth": "special-key",
+        "X-Api-Key": "special-key",
+    }
+    response = client.request(
+        "PATCH",
+        "/tournaments/{tournament_id}".format(tournament_id={'key': openapi_server.Ulid()}),
+        headers=headers,
+    )
+
+    # uncomment below to assert the status code of the HTTP response
+    #assert response.status_code == 200
+
+
+def test_partial_update_user_stats(client: TestClient):
+    """Test case for partial_update_user_stats
+
+    Partially update stats for a specific user profile on our platform
+    """
+
+    headers = {
+        "BasicAuth": "special-key",
+        "X-Api-Key": "special-key",
+    }
+    response = client.request(
+        "PATCH",
+        "/users/{user_id}/stats".format(user_id={'key': openapi_server.Ulid()}),
+        headers=headers,
+    )
+
+    # uncomment below to assert the status code of the HTTP response
+    #assert response.status_code == 200
+
+
 def test_remove_all_admins_for_tournament(client: TestClient):
     """Test case for remove_all_admins_for_tournament
 
@@ -407,6 +487,46 @@ def test_remove_all_settings_for_profile(client: TestClient):
     response = client.request(
         "DELETE",
         "/profiles/{relic_link_id}/settings".format(relic_link_id={'key': openapi_server.RelicLinkId()}),
+        headers=headers,
+    )
+
+    # uncomment below to assert the status code of the HTTP response
+    #assert response.status_code == 200
+
+
+def test_remove_tournament_details(client: TestClient):
+    """Test case for remove_tournament_details
+
+    Remove a tournament for a specific game available on the Relic Link platform
+    """
+
+    headers = {
+        "BasicAuth": "special-key",
+        "X-Api-Key": "special-key",
+    }
+    response = client.request(
+        "DELETE",
+        "/tournaments/{tournament_id}".format(tournament_id={'key': openapi_server.Ulid()}),
+        headers=headers,
+    )
+
+    # uncomment below to assert the status code of the HTTP response
+    #assert response.status_code == 200
+
+
+def test_update_tournament_details(client: TestClient):
+    """Test case for update_tournament_details
+
+    Update details for a tournament for a specific game
+    """
+
+    headers = {
+        "BasicAuth": "special-key",
+        "X-Api-Key": "special-key",
+    }
+    response = client.request(
+        "PUT",
+        "/tournaments/{tournament_id}".format(tournament_id={'key': openapi_server.Ulid()}),
         headers=headers,
     )
 

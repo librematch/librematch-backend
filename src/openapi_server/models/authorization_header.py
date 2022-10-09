@@ -16,13 +16,13 @@ class AuthorizationHeader(BaseModel):
 
     AuthorizationHeader - a model defined in OpenAPI
 
-        authorization_header: The authorization_header of this AuthorizationHeader.
+        _self: The _self of this AuthorizationHeader.
     """
 
-    authorization_header: str = Field(alias="AuthorizationHeader")
+    _self: str = Field(alias="self")
 
-    @validator("authorization_header")
-    def authorization_header_max_length(cls, value):
+    @validator("_self")
+    def _self_max_length(cls, value):
         assert len(value) <= 33
         return value
 

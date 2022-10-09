@@ -17,10 +17,14 @@ from fastapi import (  # noqa: F401
 )
 
 from openapi_server.models.extra_models import TokenModel  # noqa: F401
+from openapi_server.models.count_param import CountParam
 from openapi_server.models.forbidden_error import ForbiddenError
+from openapi_server.models.game_id import GameId
+from openapi_server.models.match_status import MatchStatus
 from openapi_server.models.not_acceptable_error import NotAcceptableError
 from openapi_server.models.not_found_error import NotFoundError
 from openapi_server.models.not_implemented_error import NotImplementedError
+from openapi_server.models.since_param import SinceParam
 from openapi_server.models.too_many_requests_error import TooManyRequestsError
 from openapi_server.models.ulid import Ulid
 from openapi_server.models.unauthorized_error import UnauthorizedError
@@ -42,7 +46,7 @@ router = APIRouter()
         200: {"model": UnauthorizedError, "description": "Unauthorized access"},
     },
     tags=["Information","Tournaments","Tournament Administration"],
-    summary="Retrieve all brackets for a specific tournament for a specific game available on the Relic Link platform",
+    summary="Retrieve all brackets for a specific tournament for a specific game",
     response_model_by_alias=True,
 )
 async def get_bracket_collection_for_tournament(
@@ -103,6 +107,10 @@ async def get_info_collection_for_tournament(
 )
 async def get_match_collection_for_tournament(
     tournament_id: Ulid = Path(None, description="The unique identifier (ULID) we use for tournaments"),
+    status: MatchStatus = Query(None, description="Match status identifiers to filter for"),
+    game: GameId = Query(None, description="Game identifier to query for"),
+    count: CountParam = Query(None, description="Number of leaderboard entries to get"),
+    since: SinceParam = Query(None, description="Only show matches starting after this Unix timestamp"),
     token_BasicAuth: TokenModel = Security(
         get_token_BasicAuth
     ),

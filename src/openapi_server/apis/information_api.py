@@ -18,6 +18,7 @@ from fastapi import (  # noqa: F401
 
 from openapi_server.models.extra_models import TokenModel  # noqa: F401
 from openapi_server.models.forbidden_error import ForbiddenError
+from openapi_server.models.game_id import GameId
 from openapi_server.models.not_acceptable_error import NotAcceptableError
 from openapi_server.models.not_found_error import NotFoundError
 from openapi_server.models.not_implemented_error import NotImplementedError
@@ -43,7 +44,7 @@ router = APIRouter()
         200: {"model": UnauthorizedError, "description": "Unauthorized access"},
     },
     tags=["Information","Tournaments","Tournament Administration"],
-    summary="Retrieve all brackets for a specific tournament for a specific game available on the Relic Link platform",
+    summary="Retrieve all brackets for a specific tournament for a specific game",
     response_model_by_alias=True,
 )
 async def get_bracket_collection_for_tournament(
@@ -182,7 +183,7 @@ async def get_game_identifier_collection(
     response_model_by_alias=True,
 )
 async def get_info_collection_for_game(
-    game_id: Ulid = Path(None, description="The unique identifier (ULID) we use for games that use the Relic Link API"),
+    game_id: GameId = Path(None, description="The unique identifier we use for games that use the Relic Link API"),
     token_BasicAuth: TokenModel = Security(
         get_token_BasicAuth
     ),

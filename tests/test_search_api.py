@@ -6,26 +6,27 @@ from fastapi.testclient import TestClient
 from openapi_server.models.forbidden_error import ForbiddenError  # noqa: F401
 from openapi_server.models.not_acceptable_error import NotAcceptableError  # noqa: F401
 from openapi_server.models.not_found_error import NotFoundError  # noqa: F401
-from openapi_server.models.not_implemented_error import NotImplementedError  # noqa: F401
+from openapi_server.models.search_param import SearchParam  # noqa: F401
+from openapi_server.models.steam_id import SteamId  # noqa: F401
 from openapi_server.models.too_many_requests_error import TooManyRequestsError  # noqa: F401
-from openapi_server.models.ulid import Ulid  # noqa: F401
 from openapi_server.models.unauthorized_error import UnauthorizedError  # noqa: F401
 
 
-def test_remove_all_user_stats(client: TestClient):
-    """Test case for remove_all_user_stats
+def test_get_profile_information_from_search(client: TestClient):
+    """Test case for get_profile_information_from_search
 
-    Remove all stats for a specific user profile on our platform
+    
     """
-
+    params = [("by_name", {'key': openapi_server.SearchParam()}),     ("by_steam_id", {'key': openapi_server.SteamId()})]
     headers = {
         "BasicAuth": "special-key",
         "X-Api-Key": "special-key",
     }
     response = client.request(
-        "DELETE",
-        "/users/{user_id}/stats".format(user_id={'key': openapi_server.Ulid()}),
+        "GET",
+        "/profiles/search",
         headers=headers,
+        params=params,
     )
 
     # uncomment below to assert the status code of the HTTP response

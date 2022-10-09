@@ -150,6 +150,36 @@ async def bulk_update_all_teams(
     ...
 
 
+@router.put(
+    "/users/{user_id}/stats",
+    responses={
+        200: {"description": "Operation succeeded"},
+        401: {"model": UnauthorizedError, "description": "Unauthorized access"},
+        403: {"model": ForbiddenError, "description": "Forbidden"},
+        404: {"model": NotFoundError, "description": "Entity not found"},
+        406: {"model": NotAcceptableError, "description": "Not acceptable"},
+        415: {"model": UnsupportedMediaTypeError, "description": "Unsupported Media Type"},
+        429: {"model": TooManyRequestsError, "description": "Too Many Requests"},
+        501: {"model": NotImplementedError, "description": "Not Implemented"},
+        200: {"model": UnauthorizedError, "description": "Unauthorized access"},
+    },
+    tags=["Administration"],
+    summary="Bulk update of stats for a specific user profile on our platform",
+    response_model_by_alias=True,
+)
+async def bulk_update_all_user_stats(
+    user_id: Ulid = Path(None, description="The unique identifier (ULID) we use for users of our API"),
+    token_BasicAuth: TokenModel = Security(
+        get_token_BasicAuth
+    ),
+    token_X-Api-Key: TokenModel = Security(
+        get_token_X-Api-Key
+    ),
+) -> None:
+    """"""
+    ...
+
+
 @router.post(
     "/tournaments/{tournament_id}/admins",
     responses={
@@ -258,6 +288,36 @@ async def create_new_setting_for_profile(
     response_model_by_alias=True,
 )
 async def create_new_team(
+    token_BasicAuth: TokenModel = Security(
+        get_token_BasicAuth
+    ),
+    token_X-Api-Key: TokenModel = Security(
+        get_token_X-Api-Key
+    ),
+) -> None:
+    """"""
+    ...
+
+
+@router.post(
+    "/users/{user_id}/stats",
+    responses={
+        200: {"description": "Operation succeeded"},
+        401: {"model": UnauthorizedError, "description": "Unauthorized access"},
+        403: {"model": ForbiddenError, "description": "Forbidden"},
+        404: {"model": NotFoundError, "description": "Entity not found"},
+        406: {"model": NotAcceptableError, "description": "Not acceptable"},
+        429: {"model": TooManyRequestsError, "description": "Too Many Requests"},
+        415: {"model": UnsupportedMediaTypeError, "description": "Unsupported Media Type"},
+        501: {"model": NotImplementedError, "description": "Not Implemented"},
+        200: {"model": UnauthorizedError, "description": "Unauthorized access"},
+    },
+    tags=["Administration"],
+    summary="Create a new stat for a specific user profile on our platform",
+    response_model_by_alias=True,
+)
+async def create_new_user_stats(
+    user_id: Ulid = Path(None, description="The unique identifier (ULID) we use for users of our API"),
     token_BasicAuth: TokenModel = Security(
         get_token_BasicAuth
     ),
@@ -549,6 +609,66 @@ async def partial_update_bracket_for_tournament(
     ...
 
 
+@router.patch(
+    "/tournaments/{tournament_id}",
+    responses={
+        200: {"description": "Operation succeeded"},
+        401: {"model": UnauthorizedError, "description": "Unauthorized access"},
+        403: {"model": ForbiddenError, "description": "Forbidden"},
+        404: {"model": NotFoundError, "description": "Entity not found"},
+        406: {"model": NotAcceptableError, "description": "Not acceptable"},
+        415: {"model": UnsupportedMediaTypeError, "description": "Unsupported Media Type"},
+        429: {"model": TooManyRequestsError, "description": "Too Many Requests"},
+        501: {"model": NotImplementedError, "description": "Not Implemented"},
+        200: {"model": UnauthorizedError, "description": "Unauthorized access"},
+    },
+    tags=["Administration"],
+    summary="Partially update a tournament for a specific game available on the Relic Link platform",
+    response_model_by_alias=True,
+)
+async def partial_update_tournament_details(
+    tournament_id: Ulid = Path(None, description="The unique identifier (ULID) we use for tournaments"),
+    token_BasicAuth: TokenModel = Security(
+        get_token_BasicAuth
+    ),
+    token_X-Api-Key: TokenModel = Security(
+        get_token_X-Api-Key
+    ),
+) -> None:
+    """"""
+    ...
+
+
+@router.patch(
+    "/users/{user_id}/stats",
+    responses={
+        200: {"description": "Operation succeeded"},
+        401: {"model": UnauthorizedError, "description": "Unauthorized access"},
+        403: {"model": ForbiddenError, "description": "Forbidden"},
+        404: {"model": NotFoundError, "description": "Entity not found"},
+        406: {"model": NotAcceptableError, "description": "Not acceptable"},
+        415: {"model": UnsupportedMediaTypeError, "description": "Unsupported Media Type"},
+        429: {"model": TooManyRequestsError, "description": "Too Many Requests"},
+        501: {"model": NotImplementedError, "description": "Not Implemented"},
+        200: {"model": UnauthorizedError, "description": "Unauthorized access"},
+    },
+    tags=["Administration"],
+    summary="Partially update stats for a specific user profile on our platform",
+    response_model_by_alias=True,
+)
+async def partial_update_user_stats(
+    user_id: Ulid = Path(None, description="The unique identifier (ULID) we use for users of our API"),
+    token_BasicAuth: TokenModel = Security(
+        get_token_BasicAuth
+    ),
+    token_X-Api-Key: TokenModel = Security(
+        get_token_X-Api-Key
+    ),
+) -> None:
+    """"""
+    ...
+
+
 @router.delete(
     "/tournaments/{tournament_id}/admins",
     responses={
@@ -596,6 +716,65 @@ async def remove_all_admins_for_tournament(
 )
 async def remove_all_settings_for_profile(
     relic_link_id: RelicLinkId = Path(None, description="The unique identifier used by the Relic Link API for a player on their platform"),
+    token_BasicAuth: TokenModel = Security(
+        get_token_BasicAuth
+    ),
+    token_X-Api-Key: TokenModel = Security(
+        get_token_X-Api-Key
+    ),
+) -> None:
+    """"""
+    ...
+
+
+@router.delete(
+    "/tournaments/{tournament_id}",
+    responses={
+        200: {"description": "Operation succeeded"},
+        401: {"model": UnauthorizedError, "description": "Unauthorized access"},
+        403: {"model": ForbiddenError, "description": "Forbidden"},
+        404: {"model": NotFoundError, "description": "Entity not found"},
+        406: {"model": NotAcceptableError, "description": "Not acceptable"},
+        429: {"model": TooManyRequestsError, "description": "Too Many Requests"},
+        501: {"model": NotImplementedError, "description": "Not Implemented"},
+        200: {"model": UnauthorizedError, "description": "Unauthorized access"},
+    },
+    tags=["Administration"],
+    summary="Remove a tournament for a specific game available on the Relic Link platform",
+    response_model_by_alias=True,
+)
+async def remove_tournament_details(
+    tournament_id: Ulid = Path(None, description="The unique identifier (ULID) we use for tournaments"),
+    token_BasicAuth: TokenModel = Security(
+        get_token_BasicAuth
+    ),
+    token_X-Api-Key: TokenModel = Security(
+        get_token_X-Api-Key
+    ),
+) -> None:
+    """"""
+    ...
+
+
+@router.put(
+    "/tournaments/{tournament_id}",
+    responses={
+        200: {"description": "Operation succeeded"},
+        401: {"model": UnauthorizedError, "description": "Unauthorized access"},
+        403: {"model": ForbiddenError, "description": "Forbidden"},
+        404: {"model": NotFoundError, "description": "Entity not found"},
+        406: {"model": NotAcceptableError, "description": "Not acceptable"},
+        415: {"model": UnsupportedMediaTypeError, "description": "Unsupported Media Type"},
+        429: {"model": TooManyRequestsError, "description": "Too Many Requests"},
+        501: {"model": NotImplementedError, "description": "Not Implemented"},
+        200: {"model": UnauthorizedError, "description": "Unauthorized access"},
+    },
+    tags=["Administration"],
+    summary="Update details for a tournament for a specific game",
+    response_model_by_alias=True,
+)
+async def update_tournament_details(
+    tournament_id: Ulid = Path(None, description="The unique identifier (ULID) we use for tournaments"),
     token_BasicAuth: TokenModel = Security(
         get_token_BasicAuth
     ),

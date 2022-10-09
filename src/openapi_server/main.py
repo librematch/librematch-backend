@@ -16,7 +16,6 @@ from fastapi import FastAPI
 from openapi_server.apis.api_token_validation_api import router as APITokenValidationApiRouter
 from openapi_server.apis.account_registration_api import router as AccountRegistrationApiRouter
 from openapi_server.apis.administration_api import router as AdministrationApiRouter
-from openapi_server.apis.adminstration_api import router as AdminstrationApiRouter
 from openapi_server.apis.authentication_api import router as AuthenticationApiRouter
 from openapi_server.apis.database_api import router as DatabaseApiRouter
 from openapi_server.apis.definition_api import router as DefinitionApiRouter
@@ -25,6 +24,8 @@ from openapi_server.apis.internal_api import router as InternalApiRouter
 from openapi_server.apis.leaderboards_api import router as LeaderboardsApiRouter
 from openapi_server.apis.match_data_api import router as MatchDataApiRouter
 from openapi_server.apis.profile_administration_api import router as ProfileAdministrationApiRouter
+from openapi_server.apis.ratings_api import router as RatingsApiRouter
+from openapi_server.apis.search_api import router as SearchApiRouter
 from openapi_server.apis.statistics_api import router as StatisticsApiRouter
 from openapi_server.apis.status_check_api import router as StatusCheckApiRouter
 from openapi_server.apis.team_administration_api import router as TeamAdministrationApiRouter
@@ -32,7 +33,6 @@ from openapi_server.apis.teams_api import router as TeamsApiRouter
 from openapi_server.apis.tournament_administration_api import router as TournamentAdministrationApiRouter
 from openapi_server.apis.tournaments_api import router as TournamentsApiRouter
 from openapi_server.apis.user_administration_api import router as UserAdministrationApiRouter
-from openapi_server.apis.user_adminstration_api import router as UserAdminstrationApiRouter
 from openapi_server.apis.default_api import router as DefaultApiRouter
 
 app = FastAPI(
@@ -44,7 +44,6 @@ app = FastAPI(
 app.include_router(APITokenValidationApiRouter)
 app.include_router(AccountRegistrationApiRouter)
 app.include_router(AdministrationApiRouter)
-app.include_router(AdminstrationApiRouter)
 app.include_router(AuthenticationApiRouter)
 app.include_router(DatabaseApiRouter)
 app.include_router(DefinitionApiRouter)
@@ -53,6 +52,8 @@ app.include_router(InternalApiRouter)
 app.include_router(LeaderboardsApiRouter)
 app.include_router(MatchDataApiRouter)
 app.include_router(ProfileAdministrationApiRouter)
+app.include_router(RatingsApiRouter)
+app.include_router(SearchApiRouter)
 app.include_router(StatisticsApiRouter)
 app.include_router(StatusCheckApiRouter)
 app.include_router(TeamAdministrationApiRouter)
@@ -60,5 +61,4 @@ app.include_router(TeamsApiRouter)
 app.include_router(TournamentAdministrationApiRouter)
 app.include_router(TournamentsApiRouter)
 app.include_router(UserAdministrationApiRouter)
-app.include_router(UserAdminstrationApiRouter)
 app.include_router(DefaultApiRouter)

@@ -17,10 +17,17 @@ from fastapi import (  # noqa: F401
 )
 
 from openapi_server.models.extra_models import TokenModel  # noqa: F401
+from openapi_server.models.count_param import CountParam
 from openapi_server.models.forbidden_error import ForbiddenError
+from openapi_server.models.game_id import GameId
+from openapi_server.models.match_status import MatchStatus
 from openapi_server.models.not_acceptable_error import NotAcceptableError
 from openapi_server.models.not_found_error import NotFoundError
 from openapi_server.models.not_implemented_error import NotImplementedError
+from openapi_server.models.relic_link_id import RelicLinkId
+from openapi_server.models.search_param import SearchParam
+from openapi_server.models.since_param import SinceParam
+from openapi_server.models.start_param import StartParam
 from openapi_server.models.too_many_requests_error import TooManyRequestsError
 from openapi_server.models.ulid import Ulid
 from openapi_server.models.unauthorized_error import UnauthorizedError
@@ -46,6 +53,10 @@ router = APIRouter()
 )
 async def get_details_for_leaderboard(
     leaderboard_id: Ulid = Path(None, description="The unique identifier (ULID) we use for leaderboards of the Relic Link API"),
+    profile_id: RelicLinkId = Query(None, description="Search for a profile ID in a leaderboard"),
+    search: SearchParam = Query(None, description="Search for a name in a leaderboard"),
+    start: StartParam = Query(None, description="Starting rank"),
+    count: CountParam = Query(None, description="Number of leaderboard entries to get"),
     token_BasicAuth: TokenModel = Security(
         get_token_BasicAuth
     ),
@@ -98,7 +109,7 @@ async def get_leaderboard_collection(
     response_model_by_alias=True,
 )
 async def get_leaderboard_collection_for_game(
-    game_id: Ulid = Path(None, description="The unique identifier (ULID) we use for games that use the Relic Link API"),
+    game_id: GameId = Path(None, description="The unique identifier we use for games that use the Relic Link API"),
     token_BasicAuth: TokenModel = Security(
         get_token_BasicAuth
     ),
@@ -126,6 +137,9 @@ async def get_leaderboard_collection_for_game(
 )
 async def get_match_collection_for_leaderboard(
     leaderboard_id: Ulid = Path(None, description="The unique identifier (ULID) we use for leaderboards of the Relic Link API"),
+    status: MatchStatus = Query(None, description="Match status identifiers to filter for"),
+    count: CountParam = Query(None, description="Number of leaderboard entries to get"),
+    since: SinceParam = Query(None, description="Only show matches starting after this Unix timestamp"),
     token_BasicAuth: TokenModel = Security(
         get_token_BasicAuth
     ),

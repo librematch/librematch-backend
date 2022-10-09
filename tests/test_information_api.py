@@ -4,6 +4,7 @@ from fastapi.testclient import TestClient
 
 
 from openapi_server.models.forbidden_error import ForbiddenError  # noqa: F401
+from openapi_server.models.game_id import GameId  # noqa: F401
 from openapi_server.models.not_acceptable_error import NotAcceptableError  # noqa: F401
 from openapi_server.models.not_found_error import NotFoundError  # noqa: F401
 from openapi_server.models.not_implemented_error import NotImplementedError  # noqa: F401
@@ -16,7 +17,7 @@ from openapi_server.models.unauthorized_error import UnauthorizedError  # noqa: 
 def test_get_bracket_collection_for_tournament(client: TestClient):
     """Test case for get_bracket_collection_for_tournament
 
-    Retrieve all brackets for a specific tournament for a specific game available on the Relic Link platform
+    Retrieve all brackets for a specific tournament for a specific game
     """
 
     headers = {
@@ -125,7 +126,7 @@ def test_get_info_collection_for_game(client: TestClient):
     }
     response = client.request(
         "GET",
-        "/games/{game_id}/info".format(game_id={'key': openapi_server.Ulid()}),
+        "/games/{game_id}/info".format(game_id={'key': openapi_server.GameId()}),
         headers=headers,
     )
 

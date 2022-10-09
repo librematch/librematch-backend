@@ -16,18 +16,18 @@ class RelicLinkId(BaseModel):
 
     RelicLinkId - a model defined in OpenAPI
 
-        relic_link_id: The relic_link_id of this RelicLinkId.
+        id: The id of this RelicLinkId.
     """
 
-    relic_link_id: int = Field(alias="relic_link_id")
+    id: int = Field(alias="id")
 
-    @validator("relic_link_id")
-    def relic_link_id_max(cls, value):
+    @validator("id")
+    def id_max(cls, value):
         assert value <= 999999999
         return value
 
-    @validator("relic_link_id")
-    def relic_link_id_min(cls, value):
+    @validator("id")
+    def id_min(cls, value):
         assert value >= 0
         return value
 
