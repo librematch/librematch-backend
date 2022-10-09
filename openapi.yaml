@@ -33,7 +33,7 @@ paths:
       operationId: get_profile_information_from_search
       parameters:
         - deprecated: false
-          description: "First 10 characters of a search string for name"
+          description: "First 10 characters of a search string for name to search a `profile_id` for"
           explode: false
           in: query
           name: by_name
@@ -42,7 +42,7 @@ paths:
             $ref: "#/components/schemas/SearchParam"
           x-last-modified: 1665308784
         - deprecated: false
-          description: The Steam ID to search for
+          description: The Steam ID to search a `profile_id` for
           explode: false
           in: query
           name: by_steam_id
@@ -368,6 +368,22 @@ paths:
     get:
       operationId: get_match_collection_for_game
       parameters:
+        - required: false
+          in: query
+          explode: false
+          deprecated: false
+          name: single_match
+          schema:
+            $ref: "#/components/schemas/MatchId"
+          description: "Match ID to filter for its details"
+        - required: false
+          in: query
+          explode: true
+          deprecated: false
+          name: status
+          schema:
+            $ref: "#/components/schemas/MatchStatus"
+          description: "Match status identifiers to filter for"
         - required: false
           in: query
           explode: false
@@ -896,12 +912,36 @@ paths:
           description: "Only show exactly the last available match"
         - required: false
           in: query
+          explode: true
+          deprecated: false
+          name: status
+          schema:
+            $ref: "#/components/schemas/MatchStatus"
+          description: "Match status identifiers to filter for"
+        - required: false
+          in: query
+          explode: true
+          deprecated: false
+          name: game
+          schema:
+            $ref: "#/components/schemas/GameId"
+          description: "Game identifier to query for"
+        - required: false
+          in: query
+          explode: false
+          deprecated: false
+          name: start
+          schema:
+            $ref: "#/components/schemas/StartParam"
+          description: "Starting match"
+        - required: false
+          in: query
           explode: false
           deprecated: false
           name: count
           schema:
             $ref: "#/components/schemas/CountParam"
-          description: "Number of leaderboard entries to get"
+          description: "Number of entries to get"
         - required: false
           in: query
           explode: false
@@ -914,9 +954,9 @@ paths:
           description:
             The unique identifier used by the Relic Link API for a player
             on their platform
-          explode: false
+          explode: true
           in: path
-          name: relic_link_id
+          name: relic_link_ids
           required: true
           schema:
             $ref: "#/components/schemas/RelicLinkId"
@@ -971,6 +1011,113 @@ paths:
       tags:
         - Match data
     summary: match data for a certain Relic Link profile
+    x-last-modified: 1665308784
+  /profiles/{relic_link_id}/ledger:
+    get:
+      operationId: get_ledger_collection_for_profile
+      parameters:
+        - required: false
+          in: query
+          explode: true
+          deprecated: false
+          name: game
+          schema:
+            $ref: "#/components/schemas/GameId"
+          description: "Game identifier to query for"
+        - required: false
+          in: query
+          explode: false
+          deprecated: false
+          name: start
+          schema:
+            $ref: "#/components/schemas/StartParam"
+          description: "Starting match"
+        - required: false
+          in: query
+          explode: false
+          deprecated: false
+          name: leaderboard_id
+          schema:
+            $ref: "#/components/schemas/Ulid"
+          description: "Leaderboard identifier"
+        - required: false
+          in: query
+          explode: false
+          deprecated: false
+          name: count
+          schema:
+            $ref: "#/components/schemas/CountParam"
+          description: "Number of leaderboard entries to get"
+        - required: false
+          in: query
+          explode: false
+          deprecated: false
+          name: since
+          schema:
+            $ref: "#/components/schemas/SinceParam"
+          description: "Only show matches starting after this Unix timestamp"
+        - deprecated: false
+          description:
+            The unique identifier used by the Relic Link API for a player
+            on their platform
+          explode: true
+          in: path
+          name: relic_link_ids
+          required: true
+          schema:
+            $ref: "#/components/schemas/RelicLinkId"
+          style: simple
+          x-last-modified: 1665308784
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
+        "200":
+          description: Operation succeeded
+          x-last-modified: 1665308784
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedError"
+          description: Unauthorized access
+          x-last-modified: 1665308784
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ForbiddenError"
+          description: Forbidden
+          x-last-modified: 1665308784
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundError"
+          description: Entity not found
+          x-last-modified: 1665308784
+        "406":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotAcceptableError"
+          description: Not acceptable
+          x-last-modified: 1665308784
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TooManyRequestsError"
+          description: Too Many Requests
+          x-last-modified: 1665308784
+      summary: Retrieve the rating ledger for a specific profile
+      tags:
+        - Match data
+        - Ratings
+    summary: Rating ledger a certain Relic Link profile
     x-last-modified: 1665308784
   /users:
     delete:
@@ -2282,6 +2429,14 @@ paths:
       parameters:
         - required: false
           in: query
+          explode: true
+          deprecated: false
+          name: status
+          schema:
+            $ref: "#/components/schemas/MatchStatus"
+          description: "Match status identifiers to filter for"
+        - required: false
+          in: query
           explode: false
           deprecated: false
           name: count
@@ -3218,6 +3373,22 @@ paths:
     get:
       operationId: get_match_collection_for_tournament
       parameters:
+        - required: false
+          in: query
+          explode: true
+          deprecated: false
+          name: status
+          schema:
+            $ref: "#/components/schemas/MatchStatus"
+          description: "Match status identifiers to filter for"
+        - required: false
+          in: query
+          explode: true
+          deprecated: false
+          name: game
+          schema:
+            $ref: "#/components/schemas/GameId"
+          description: "Game identifier to query for"
         - required: false
           in: query
           explode: false
@@ -4901,6 +5072,22 @@ paths:
       parameters:
         - required: false
           in: query
+          explode: true
+          deprecated: false
+          name: status
+          schema:
+            $ref: "#/components/schemas/MatchStatus"
+          description: "Match status identifiers to filter for"
+        - required: false
+          in: query
+          explode: true
+          deprecated: false
+          name: game
+          schema:
+            $ref: "#/components/schemas/GameId"
+          description: "Game identifier to query for"
+        - required: false
+          in: query
           explode: false
           deprecated: false
           name: count
@@ -5461,6 +5648,17 @@ components:
           type: integer
       required:
         - id
+      type: object
+      x-last-modified: 1665308784
+    MatchStatus:
+      additionalProperties: false
+      description: "Match stati"
+      properties:
+        self:
+          type: string
+          enum: [draft, ongoing, finished]
+      required:
+        - self
       type: object
       x-last-modified: 1665308784
     GameId:
