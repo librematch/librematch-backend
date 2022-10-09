@@ -954,9 +954,9 @@ paths:
           description:
             The unique identifier used by the Relic Link API for a player
             on their platform
-          explode: true
+          explode: false
           in: path
-          name: relic_link_ids
+          name: relic_link_id
           required: true
           schema:
             $ref: "#/components/schemas/RelicLinkId"
@@ -1060,9 +1060,9 @@ paths:
           description:
             The unique identifier used by the Relic Link API for a player
             on their platform
-          explode: true
+          explode: false
           in: path
-          name: relic_link_ids
+          name: relic_link_id
           required: true
           schema:
             $ref: "#/components/schemas/RelicLinkId"
@@ -5528,7 +5528,6 @@ components:
       properties:
         self:
           format: uuid
-          maxLength: 36
           type: string
           pattern: "^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$"
       required:
@@ -5539,7 +5538,8 @@ components:
       properties:
         self:
           format: int64
-          maxLength: 18
+          maximum: 18
+          minimum: 14
           type: integer
       required:
         - self
