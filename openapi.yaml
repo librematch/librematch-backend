@@ -2638,7 +2638,7 @@ paths:
         Remove a tournament for a specific game available on the Relic Link
         platform
       tags:
-        - Adminstration
+        - Administration
     get:
       operationId: get_details_for_tournament
       parameters:
@@ -2784,7 +2784,7 @@ paths:
         Partially update a tournament for a specific game available on the
         Relic Link platform
       tags:
-        - Adminstration
+        - Administration
     put:
       description: ""
       operationId: update_tournament_details
@@ -2859,7 +2859,7 @@ paths:
           x-last-modified: 1665308784
       summary: Update details for a tournament for a specific game
       tags:
-        - Adminstration
+        - Administration
     summary: game-specific tournaments
     x-last-modified: 1665308784
   /users/{user_id}/stats:
@@ -2930,7 +2930,7 @@ paths:
           x-last-modified: 1665308784
       summary: Remove all stats for a specific user profile on our platform
       tags:
-        - User Adminstration
+        - User Administration
     get:
       operationId: get_stat_collection_for_user
       parameters:
@@ -3072,7 +3072,7 @@ paths:
           x-last-modified: 1665308784
       summary: Partially update stats for a specific user profile on our platform
       tags:
-        - Adminstration
+        - Administration
     post:
       description: ""
       operationId: create_new_user_stats
@@ -3147,7 +3147,7 @@ paths:
           x-last-modified: 1665308784
       summary: Create a new stat for a specific user profile on our platform
       tags:
-        - Adminstration
+        - Administration
     put:
       description: ""
       operationId: bulk_update_all_user_stats
@@ -3222,7 +3222,7 @@ paths:
           x-last-modified: 1665308784
       summary: Bulk update of stats for a specific user profile on our platform
       tags:
-        - Adminstration
+        - Administration
     summary: user profile for an API user
     x-last-modified: 1665308784
   /tournaments/{tournament_id}/info:
@@ -5656,7 +5656,7 @@ components:
       properties:
         self:
           type: string
-          enum: [draft, ongoing, finished]
+          enum: [drafting, ongoing, finished]
       required:
         - self
       type: object
