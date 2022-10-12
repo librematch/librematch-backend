@@ -35,12 +35,21 @@ paths:
       operationId: get_profile_information_from_search
       parameters:
         - deprecated: false
+          description: If only exact matches should be returned
+          explode: false
+          in: query
+          name: exact
+          required: false
+          schema:
+            type: boolean
+          x-last-modified: 1665308784
+        - deprecated: false
           description:
             First 10 characters of a search string for name to search a `profile_id`
             for
           explode: false
           in: query
-          name: by_name
+          name: by_alias
           required: false
           schema:
             $ref: "#/components/schemas/SearchParam"
@@ -918,6 +927,15 @@ paths:
     get:
       operationId: get_match_collection_for_profile
       parameters:
+        - deprecated: false
+          description: Match ID to filter for its details
+          explode: false
+          in: query
+          name: single_match
+          required: false
+          schema:
+            $ref: "#/components/schemas/MatchId"
+          style: form
         - deprecated: false
           description: Only show exactly the last available match
           explode: false
