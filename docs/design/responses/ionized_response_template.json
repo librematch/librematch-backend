@@ -1,0 +1,40 @@
+{
+    "contentVersion": "v1",
+    "self": {
+        "href": "https://api.librematch.org/v1/",
+        "rel": [
+            "collection"
+        ]
+    },
+    "desc": "Showing X of Y profiles.",
+    "offset": 0,
+    "limit": 25,
+    "size": "Y",
+    "first": {
+        "href": "https://api.librematch.org/v1/profiles/search",
+        "rel": [
+            "collection"
+        ]
+    },
+    "previous": null,
+    "next": {
+        "href": "https://api.librematch.org/v1/profiles/search?offset=25",
+        "rel": [
+            "collection"
+        ]
+    },
+    "last": {
+        "href": "https://api.librematch.org/v1/profiles/search?offset=200",
+        "rel": [
+            "collection"
+        ]
+    },
+    "filters": {
+        "by_name": null,
+        "by_steam_id": null,
+        "exact": false
+    },
+    "value": [
+        {}
+    ]
+}
