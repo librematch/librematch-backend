@@ -16,7 +16,10 @@
     "last": null,
     "filters": {
         "single_match": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-        "language": "en",
+        "languages": [
+            "en",
+            "fr"
+        ],
         "style": "compact",
         "last_match": false,
         "status": null,
@@ -36,40 +39,88 @@
         "finished_at": "2022-10-03T15:50:38.000Z",
         "duration": 540,
         "settings": {
-            "map_name": {
-                "value": "Chaos Pit",
-                "language": "en"
-            },
-            "map_size": {
-                "value": "Tiny",
-                "language": "en"
-            },
-            "map_visibility": {
-                "value": "Normal",
-                "language": "en"
-            },
-            "resources": {
-                "value": "Standard",
-                "language": "en"
-            },
+            "map_name": [
+                {
+                    "value": "Chaos Pit",
+                    "language": "en"
+                },
+                {
+                    "value": "Puits du Chaos",
+                    "language": "fr"
+                }
+            ],
+            "map_size": [
+                {
+                    "value": "Tiny",
+                    "language": "en"
+                },
+                {
+                    "value": "Petit",
+                    "language": "fr"
+                }
+            ],
+            "map_visibility": [
+                {
+                    "value": "Normal",
+                    "language": "en"
+                },
+                {
+                    "value": "Normale",
+                    "language": "fr"
+                }
+            ],
+            "resources": [
+                {
+                    "value": "Standard",
+                    "language": "en"
+                },
+                {
+                    "value": "Standard",
+                    "language": "fr"
+                }
+            ],
             "population": 200,
-            "game_speed": {
-                "value": "Normal",
-                "language": "en"
-            },
-            "starting_age": {
-                "value": "Standard",
-                "language": "en"
-            },
-            "ending_age": {
-                "value": "Standard",
-                "language": "en"
-            },
+            "game_speed": [
+                {
+                    "value": "Normal",
+                    "language": "en"
+                },
+                {
+                    "value": "Normale",
+                    "language": "fr"
+                }
+            ],
+            "starting_age": [
+                {
+                    "value": "Standard",
+                    "language": "en"
+                },
+                {
+                    "value": "Standard",
+                    "language": "fr"
+                }
+            ],
+            "ending_age": [
+                {
+                    "value": "Standard",
+                    "language": "en"
+                },
+                {
+                    "value": "Standard",
+                    "language": "fr"
+                }
+            ],
             "treaty_length": null,
-            "victory_condition": {
-                "value": "Conquest",
-                "language": "en"
-            },
+            "victory_condition": [
+                {
+                    "value": "Conquest",
+                    "language": "en"
+                },
+                {
+                    "value": "Conquête",
+                    "language": "fr"
+                }
+            ],
             "lock_teams": true,
             "team_together": true,
             "team_positions": false,
@@ -92,7 +143,16 @@
             ]
         },
         "rematch": true,
-        "server": "India",
+        "server": [
+            {
+                "value": "India",
+                "language": "en"
+            },
+            {
+                "value": "Inde",
+                "language": "fr"
+            }
+        ],
         "rating_average": 2022,
         "patch_version": "",
         "related": [
@@ -161,11 +221,26 @@
                         }
                     },
                     "match_slot": 1,
-                    "civilization": "",
-                    "colour": {
-                        "value": "green",
-                        "language": "en"
-                    },
+                    "civilization": [
+                        {
+                            "value": "Chinese",
+                            "language": "en"
+                        },
+                        {
+                            "value": "Chinois",
+                            "language": "fr"
+                        }
+                    ],
+                    "colour": [
+                        {
+                            "value": "Green",
+                            "language": "en"
+                        },
+                        {
+                            "value": "Vert",
+                            "language": "fr"
+                        }
+                    ],
                     "result_win": true
                 }
             ],
@@ -220,11 +295,26 @@
                         }
                     },
                     "match_slot": 2,
-                    "civilization": "",
-                    "colour": {
-                        "value": "yellow",
-                        "language": "en"
-                    },
+                    "civilization": [
+                        {
+                            "value": "Byzantines",
+                            "language": "en"
+                        },
+                        {
+                            "value": "Byzantines",
+                            "language": "fr"
+                        }
+                    ],
+                    "colour": [
+                        {
+                            "value": "Yellow",
+                            "language": "en"
+                        },
+                        {
+                            "value": "Jaune",
+                            "language": "fr"
+                        }
+                    ],
                     "result_win": false
                 }
             ]
