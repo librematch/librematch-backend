@@ -27,6 +27,8 @@
     },
     "value": {
         "match_id": 75984064,
+        "private": false,
+        "password_protected": false,
         "match_uuid": "03531e31-31fd-5041-9f70-0264e158a40e",
         "lobby_name": "[REMATCH] 12345",
         "status": "finished",
