@@ -395,7 +395,7 @@ paths:
       parameters:
         - $ref: "#/components/parameters/relic_link_id"
         - $ref: "#/components/parameters/game_ids"
-        - $ref: "#/components/parameters/language"
+        - $ref: "#/components/parameters/languages"
         - $ref: "#/components/parameters/last_match"
         - $ref: "#/components/parameters/style"
         - $ref: "#/components/parameters/status_array"
@@ -1523,6 +1523,7 @@ paths:
       parameters:
         - $ref: "#/components/parameters/status"
         - $ref: "#/components/parameters/game_id"
+        - $ref: "#/components/parameters/languages"
         - $ref: "#/components/parameters/offset"
         - $ref: "#/components/parameters/limit"
         - $ref: "#/components/parameters/since"
@@ -2141,7 +2142,7 @@ paths:
       parameters:
         - $ref: "#/components/parameters/team_id"
         - $ref: "#/components/parameters/game_ids"
-        - $ref: "#/components/parameters/language"
+        - $ref: "#/components/parameters/languages"
         - $ref: "#/components/parameters/last_match"
         - $ref: "#/components/parameters/style"
         - $ref: "#/components/parameters/status_array"
@@ -2409,6 +2410,15 @@ components:
       required: false
       schema:
         $ref: "#/components/schemas/MatchUuid"
+    languages:
+      deprecated: false
+      name: language
+      in: query
+      description: Languages to receive content for
+      explode: true
+      required: false
+      schema:
+        $ref: "#/components/schemas/LanguageStringArray"
     language:
       deprecated: false
       name: language
@@ -2659,6 +2669,7 @@ components:
       type: integer
       default: 0
       example: 0
+      description: An integer between '0' and '999,999,999,999'. Serves as a start parameter.
     LimitParam:
       format: int64
       maximum: 1000
@@ -2667,6 +2678,7 @@ components:
       type: integer
       default: 50
       example: 25
+      description: An integer between '1' and '1,000'. Serves as a page limit.
     SinceParam:
       format: int64
       maximum: 1980923226
@@ -2674,6 +2686,7 @@ components:
       pattern: "^1[6-9]([0-9]){8}$"
       type: integer
       example: 1702232026
+      description: An UNIX TimeStamp between 'Fri, 09 Oct 2020 08:27:06 +0000' and 'Sat, 09 Oct 2032 08:27:06 +0000'.
     MatchUuid:
       format: uuid
       pattern:
@@ -2681,11 +2694,13 @@ components:
         -[0-9a-fA-F]{12}$"
       type: string
       example: 03531e31-31fd-5041-9f70-0264e158a40e
+      description: A valid UUID that is being used to find matches.
     MatchId:
       format: int64
       pattern: "^[0-9]{14}$"
       type: integer
       example: 75984064
+      description: An Integer defined as Match ID serving to identify a match.
     SteamId:
       format: int64
       maximum: 18
@@ -2693,22 +2708,33 @@ components:
       pattern: "^7[0-9]{16}$"
       type: integer
       example: 76561197984749679
+      description: A valid SteamID64 that is being used in the '/profiles/search' to find the Relic Link ID of a profile.
     SearchParam:
-      description: First 10 characters of a search string
       format: string
       maxLength: 10
       pattern: "^.{10}$"
       type: string
       example: TheViper
+      description: First 10 characters of a search string that is being used in the '/profiles/search' to find the Relic Link ID of a profile.
     ResponseStyle:
-      description: Styling the response is send in
       enum:
         - compact
         - full
       type: string
       default: compact
       example: compact
+      description: An enum send from the client to style the response that we send. Custom use cases, e.g. 'overlay' can be added later.
       x-last-modified: 1665308784
+    LanguageStringArray:
+      type: array
+      items:
+        $ref: "#/components/schemas/LanguageString"
+      default:
+        - en
+      example:
+        - en
+        - fr
+      description: An array of languages helping the client to chose the languages they want to receive certain parts of their response in.
     LanguageString:
       format: string
       enum:
@@ -2736,6 +2762,7 @@ components:
       type: string
       default: en
       example: en
+      description: An enum of Language strings being used in a language array.
     AuthorizationHeader:
       additionalProperties: false
       properties:
