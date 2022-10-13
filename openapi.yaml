@@ -35,82 +35,25 @@ paths:
         \ usable with other endpoints"
       operationId: get_profile_information_from_search
       parameters:
-        - deprecated: false
-          description: If only exact matches should be returned
-          explode: false
-          in: query
-          name: exact
-          required: false
-          schema:
-            type: boolean
-          x-last-modified: 1665308784
-        - deprecated: false
-          description:
-            First 10 characters of a search string for name to search a `profile_id`
-            for
-          explode: false
-          in: query
-          name: alias
-          required: false
-          schema:
-            $ref: "#/components/schemas/SearchParam"
-          style: form
-          x-last-modified: 1665308784
-        - deprecated: false
-          description: The Steam ID to search a `profile_id` for
-          explode: false
-          in: query
-          name: steam_id
-          required: false
-          schema:
-            $ref: "#/components/schemas/SteamId"
-          style: form
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/exact"
+        - $ref: "#/components/parameters/search_alias"
+        - $ref: "#/components/parameters/search_steam_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       tags:
         - Search
   /dumps/{timeframe}:
@@ -119,68 +62,25 @@ paths:
       description: Download a database dump from a given timeframe
       operationId: get_database_dump_collection
       parameters:
-        - deprecated: false
-          description: The timeframe from which to download a database dump
-          explode: false
-          in: path
-          name: timeframe
-          required: true
-          schema:
-            $ref: "#/components/schemas/Timeframe"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/timeframe"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       tags:
         - Database
         - Statistics
@@ -192,49 +92,20 @@ paths:
       operationId: get_game_identifier_collection
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       summary: Retrieve a list of all game identifiers for games
       tags:
         - Information
@@ -244,36 +115,11 @@ paths:
     get:
       operationId: get_definition_collection_for_game
       parameters:
-        - deprecated: false
-          description:
-            "The language to query definitions for that are being used by\
-            \ the API (Default: 'en')"
-          explode: false
-          in: query
-          name: language
-          required: false
-          schema:
-            $ref: "#/components/schemas/LanguageString"
-          style: form
-        - deprecated: false
-          description:
-            The unique identifier we use for games that use the Relic Link
-            API
-          explode: false
-          in: path
-          name: game_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/GameId"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/language"
+        - $ref: "#/components/parameters/game_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
@@ -285,33 +131,13 @@ paths:
           description: Unauthorized access.
           x-last-modified: 1665308784
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       summary: Retrieve all available definitions for a specific game
       tags:
         - Definition
@@ -321,25 +147,10 @@ paths:
     get:
       operationId: get_info_collection_for_game
       parameters:
-        - deprecated: false
-          description:
-            The unique identifier we use for games that use the Relic Link
-            API
-          explode: false
-          in: path
-          name: game_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/GameId"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/game_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
@@ -351,33 +162,13 @@ paths:
           description: Unauthorized access.
           x-last-modified: 1665308784
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       summary: Retrieve all available information for a specific game
       tags:
         - Information
@@ -389,99 +180,27 @@ paths:
     get:
       operationId: get_match_collection_for_game
       parameters:
-        - deprecated: false
-          description: Match ID to filter for its details
-          explode: false
-          in: query
-          name: match_uuid
-          required: false
-          schema:
-            $ref: "#/components/schemas/MatchId"
-          style: form
-        - deprecated: false
-          description: Match status identifiers to filter for
-          explode: true
-          in: query
-          name: status
-          required: false
-          schema:
-            $ref: "#/components/schemas/MatchStatus"
-          style: form
-        - deprecated: false
-          description: Number of leaderboard entries to get
-          explode: false
-          in: query
-          name: count
-          required: false
-          schema:
-            $ref: "#/components/schemas/CountParam"
-          style: form
-        - deprecated: false
-          description: Only show matches starting after this Unix timestamp
-          explode: false
-          in: query
-          name: since
-          required: false
-          schema:
-            $ref: "#/components/schemas/SinceParam"
-          style: form
-        - deprecated: false
-          description:
-            The unique identifier we use for games that use the Relic Link
-            API
-          explode: false
-          in: path
-          name: game_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/GameId"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/match_uuid"
+        - $ref: "#/components/parameters/status"
+        - $ref: "#/components/parameters/count"
+        - $ref: "#/components/parameters/since"
+        - $ref: "#/components/parameters/game_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       summary: Retrieve all matches for a specific game
       tags:
         - Match data
@@ -495,56 +214,22 @@ paths:
       operationId: remove_all_tournaments
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Remove all tournaments
       tags:
         - Tournament Administration
@@ -552,56 +237,22 @@ paths:
       operationId: get_tournament_identifier_collection
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary:
         Retrieve all available tournaments for all games available on the Relic
         Link platform
@@ -613,63 +264,24 @@ paths:
       operationId: partial_update_tournaments
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "415":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnsupportedMediaTypeError"
-          description: Unsupported Media Type
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/415"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Partial update of tournaments
       tags:
         - Tournament Administration
@@ -678,63 +290,24 @@ paths:
       operationId: create_new_tournament
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "415":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnsupportedMediaTypeError"
-          description: Unsupported Media Type
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/415"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Create a new tournament for a game available on the Relic Link platform
       tags:
         - Tournament Administration
@@ -743,63 +316,24 @@ paths:
       operationId: bulk_update_all_tournaments
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "415":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnsupportedMediaTypeError"
-          description: Unsupported Media Type
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/415"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Bulk update of tournaments
       tags:
         - Tournament Administration
@@ -810,49 +344,20 @@ paths:
       operationId: get_profile_collection
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       summary: Retrieve all available profiles
       tags:
         - Administration
@@ -862,63 +367,26 @@ paths:
     get:
       operationId: get_details_for_profile
       parameters:
-        - deprecated: false
-          description:
-            The unique identifier used by the Relic Link API for a player
-            on their platform
-          explode: false
-          in: path
-          name: relic_link_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/RelicLinkId"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/relic_link_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
+          $ref: "#/components/responses/401"
+
           description: Unauthorized access
           x-last-modified: 1665308784
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       summary: Retrieve the details for a specific profile
       tags:
         - Information
@@ -965,63 +433,23 @@ paths:
           required: false
           schema:
             $ref: "#/components/schemas/SinceParam"
-        - deprecated: false
-          description:
-            The unique identifier used by the Relic Link API for a player
-            on their platform
-          explode: false
-          in: path
-          name: relic_link_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/RelicLinkId"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/relic_link_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       summary: Retrieve all matches for a specific profile
       tags:
         - Match data
@@ -1031,15 +459,7 @@ paths:
     get:
       operationId: get_ledger_collection_for_profile
       parameters:
-        - deprecated: false
-          description: Game identifier to query for
-          explode: true
-          in: query
-          name: game
-          required: false
-          schema:
-            $ref: "#/components/schemas/GameId"
-          style: form
+        - $ref: "#/components/parameters/game_id"
         - deprecated: false
           description: Starting match
           explode: false
@@ -1058,81 +478,25 @@ paths:
           schema:
             $ref: "#/components/schemas/Ulid"
           style: form
-        - deprecated: false
-          description: Number of leaderboard entries to get
-          explode: false
-          in: query
-          name: count
-          required: false
-          schema:
-            $ref: "#/components/schemas/CountParam"
-          style: form
-        - deprecated: false
-          description: Only show matches starting after this Unix timestamp
-          explode: false
-          in: query
-          name: since
-          required: false
-          schema:
-            $ref: "#/components/schemas/SinceParam"
-          style: form
-        - deprecated: false
-          description:
-            The unique identifier used by the Relic Link API for a player
-            on their platform
-          explode: false
-          in: path
-          name: relic_link_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/RelicLinkId"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/count"
+        - $ref: "#/components/parameters/since"
+        - $ref: "#/components/parameters/relic_link_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       summary: Retrieve the rating ledger for a specific profile
       tags:
         - Match data
@@ -1145,49 +509,20 @@ paths:
       operationId: remove_all_users
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       summary: Remove all users from our platform
       tags:
         - User Administration
@@ -1196,49 +531,20 @@ paths:
       operationId: get_user_collection
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       summary: Retrieve all users of our platform
       tags:
         - User Administration
@@ -1247,56 +553,22 @@ paths:
       operationId: partial_update_all_users
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "415":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnsupportedMediaTypeError"
-          description: Unsupported Media Type
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/415"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       summary: Partially update details for all user profiles
       tags:
         - User Administration
@@ -1305,11 +577,7 @@ paths:
       operationId: create_new_user
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
@@ -1317,47 +585,17 @@ paths:
           description: Created
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "415":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnsupportedMediaTypeError"
-          description: Unsupported Media Type
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/415"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       summary: Create a new user for our platform
       tags:
         - Authentication
@@ -1368,56 +606,22 @@ paths:
       operationId: bulk_update_all_users
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "415":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnsupportedMediaTypeError"
-          description: Unsupported Media Type
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/415"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       summary: Bulk update of all users of our platform
       tags:
         - User Administration
@@ -1428,122 +632,46 @@ paths:
       description: ""
       operationId: remove_user
       parameters:
-        - deprecated: false
-          description: The unique identifier (ULID) we use for users of our API
-          explode: false
-          in: path
-          name: user_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/user_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       summary: Remove user from our platform if it exists
       tags:
         - User Administration
     get:
       operationId: get_details_for_user
       parameters:
-        - deprecated: false
-          description: The unique identifier (ULID) we use for users of our API
-          explode: false
-          in: path
-          name: user_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/user_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       summary: Retrieve details for a specific user profile on our platform
       tags:
         - Information
@@ -1552,68 +680,25 @@ paths:
       description: ""
       operationId: partial_update_user
       parameters:
-        - deprecated: false
-          description: The unique identifier (ULID) we use for users of our API
-          explode: false
-          in: path
-          name: user_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/user_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "415":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnsupportedMediaTypeError"
-          description: Unsupported Media Type
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/415"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       summary: Update details for a specific user profile on our platform if it exists
       tags:
         - User Administration
@@ -1621,68 +706,25 @@ paths:
       description: ""
       operationId: bulk_update_all_user_details
       parameters:
-        - deprecated: false
-          description: The unique identifier (ULID) we use for users of our API
-          explode: false
-          in: path
-          name: user_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/user_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "415":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnsupportedMediaTypeError"
-          description: Unsupported Media Type
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/415"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       summary:
         Bulk update details for a specific user profile on our platform if
         it exists
@@ -1695,56 +737,22 @@ paths:
       operationId: user_login
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "415":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnsupportedMediaTypeError"
-          description: Unsupported Media Type
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/415"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       tags:
         - Authentication
     summary: Login for users of our API
@@ -1754,49 +762,20 @@ paths:
       operationId: user_logout
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       tags:
         - Authentication
     summary: Logout for users of our API
@@ -1806,56 +785,22 @@ paths:
       operationId: user_register
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "415":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnsupportedMediaTypeError"
-          description: Unsupported Media Type
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/415"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       tags:
         - Account Registration
     summary: Registering as a new User to our API
@@ -1868,49 +813,20 @@ paths:
       operationId: get_user_validation_details
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       tags:
         - Authentication
         - API Token Validation
@@ -1918,56 +834,22 @@ paths:
       operationId: create_new_user_validation
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "415":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnsupportedMediaTypeError"
-          description: Unsupported Media Type
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/415"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       tags:
         - Authentication
         - API Token Validation
@@ -1978,49 +860,20 @@ paths:
       operationId: get_information_collection_for_application
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       summary: Retrieve a list of available application information
       tags:
         - Internal
@@ -2034,49 +887,20 @@ paths:
       operationId: get_stat_collection_for_application
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       summary: Retrieve a list of only application statistics
       tags:
         - Internal
@@ -2090,52 +914,22 @@ paths:
       operationId: get_status_collection_for_application
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "503":
-          description: Service Unavailable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/503"
       summary: Retrieve only application status
       tags:
         - Internal
@@ -2161,49 +955,20 @@ paths:
           x-last-modified: 1665308784
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       summary: Retrieve details for a game with a specific identifiers
     summary: "game-specific definitions, e.g. map names, civilisation names, translations"
     x-last-modified: 1665308784
@@ -2225,49 +990,20 @@ paths:
           x-last-modified: 1665308784
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       summary: Retrieve all leaderboards for a specific game
       tags:
         - Leaderboards
@@ -2304,15 +1040,7 @@ paths:
           schema:
             $ref: "#/components/schemas/StartParam"
           style: form
-        - deprecated: false
-          description: Number of leaderboard entries to get
-          explode: false
-          in: query
-          name: count
-          required: false
-          schema:
-            $ref: "#/components/schemas/CountParam"
-          style: form
+        - $ref: "#/components/parameters/count"
         - deprecated: false
           description:
             The unique identifier (ULID) we use for leaderboards of the Relic
@@ -2327,49 +1055,20 @@ paths:
           x-last-modified: 1665308784
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       summary: Retrieve details for a specific leaderboard
       tags:
         - Leaderboards
@@ -2393,56 +1092,22 @@ paths:
           x-last-modified: 1665308784
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Retrieve all stats on a specific leaderboard for a certain game
       tags:
         - Leaderboards
@@ -2453,33 +1118,9 @@ paths:
     get:
       operationId: get_match_collection_for_leaderboard
       parameters:
-        - deprecated: false
-          description: Match status identifiers to filter for
-          explode: true
-          in: query
-          name: status
-          required: false
-          schema:
-            $ref: "#/components/schemas/MatchStatus"
-          style: form
-        - deprecated: false
-          description: Number of leaderboard entries to get
-          explode: false
-          in: query
-          name: count
-          required: false
-          schema:
-            $ref: "#/components/schemas/CountParam"
-          style: form
-        - deprecated: false
-          description: Only show matches starting after this Unix timestamp
-          explode: false
-          in: query
-          name: since
-          required: false
-          schema:
-            $ref: "#/components/schemas/SinceParam"
-          style: form
+        - $ref: "#/components/parameters/status"
+        - $ref: "#/components/parameters/count"
+        - $ref: "#/components/parameters/since"
         - deprecated: false
           description:
             The unique identifier (ULID) we use for leaderboards of the Relic
@@ -2494,49 +1135,20 @@ paths:
           x-last-modified: 1665308784
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       summary: Retrieve all matches on a specific leaderboard for a certain game
       tags:
         - Leaderboards
@@ -2548,49 +1160,20 @@ paths:
       operationId: get_leaderboard_collection
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
       summary: Retrieve all leaderboards
       tags:
         - Leaderboards
@@ -2602,67 +1185,24 @@ paths:
       description: ""
       operationId: remove_tournament_details
       parameters:
-        - deprecated: false
-          description: The unique identifier (ULID) we use for tournaments
-          explode: false
-          in: path
-          name: tournament_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/tournament_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary:
         Remove a tournament for a specific game available on the Relic Link
         platform
@@ -2671,67 +1211,24 @@ paths:
     get:
       operationId: get_details_for_tournament
       parameters:
-        - deprecated: false
-          description: The unique identifier (ULID) we use for tournaments
-          explode: false
-          in: path
-          name: tournament_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/tournament_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary:
         Retrieve details for a tournament for a specific game available on
         the Relic Link platform
@@ -2741,74 +1238,26 @@ paths:
       description: ""
       operationId: partial_update_tournament_details
       parameters:
-        - deprecated: false
-          description: The unique identifier (ULID) we use for tournaments
-          explode: false
-          in: path
-          name: tournament_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/tournament_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "415":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnsupportedMediaTypeError"
-          description: Unsupported Media Type
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/415"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary:
         Partially update a tournament for a specific game available on the
         Relic Link platform
@@ -2818,74 +1267,26 @@ paths:
       description: ""
       operationId: update_tournament_details
       parameters:
-        - deprecated: false
-          description: The unique identifier (ULID) we use for tournaments
-          explode: false
-          in: path
-          name: tournament_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/tournament_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "415":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnsupportedMediaTypeError"
-          description: Unsupported Media Type
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/415"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Update details for a tournament for a specific game
       tags:
         - Administration
@@ -2896,134 +1297,48 @@ paths:
       description: ""
       operationId: remove_all_user_stats
       parameters:
-        - deprecated: false
-          description: The unique identifier (ULID) we use for users of our API
-          explode: false
-          in: path
-          name: user_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/user_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Remove all stats for a specific user profile on our platform
       tags:
         - User Administration
     get:
       operationId: get_stat_collection_for_user
       parameters:
-        - deprecated: false
-          description: The unique identifier (ULID) we use for users of our API
-          explode: false
-          in: path
-          name: user_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/user_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Retrieve all stats for a specific user profile on our platform
       tags:
         - Statistics
@@ -3031,74 +1346,26 @@ paths:
       description: ""
       operationId: partial_update_user_stats
       parameters:
-        - deprecated: false
-          description: The unique identifier (ULID) we use for users of our API
-          explode: false
-          in: path
-          name: user_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/user_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "415":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnsupportedMediaTypeError"
-          description: Unsupported Media Type
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/415"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Partially update stats for a specific user profile on our platform
       tags:
         - Administration
@@ -3106,74 +1373,26 @@ paths:
       description: ""
       operationId: create_new_user_stats
       parameters:
-        - deprecated: false
-          description: The unique identifier (ULID) we use for users of our API
-          explode: false
-          in: path
-          name: user_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/user_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "415":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnsupportedMediaTypeError"
-          description: Unsupported Media Type
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/415"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Create a new stat for a specific user profile on our platform
       tags:
         - Administration
@@ -3181,74 +1400,26 @@ paths:
       description: ""
       operationId: bulk_update_all_user_stats
       parameters:
-        - deprecated: false
-          description: The unique identifier (ULID) we use for users of our API
-          explode: false
-          in: path
-          name: user_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/user_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "415":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnsupportedMediaTypeError"
-          description: Unsupported Media Type
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/415"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Bulk update of stats for a specific user profile on our platform
       tags:
         - Administration
@@ -3258,67 +1429,24 @@ paths:
     get:
       operationId: get_info_collection_for_tournament
       parameters:
-        - deprecated: false
-          description: The unique identifier (ULID) we use for tournaments
-          explode: false
-          in: path
-          name: tournament_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/tournament_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Retrieve all information for a specific tournament for a specific game
       tags:
         - Information
@@ -3330,67 +1458,24 @@ paths:
     get:
       operationId: get_stat_collection_for_tournament
       parameters:
-        - deprecated: false
-          description: The unique identifier (ULID) we use for tournaments
-          explode: false
-          in: path
-          name: tournament_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/tournament_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Retrieve all statistics for a specific tournament for a specific game
       tags:
         - Statistics
@@ -3402,103 +1487,28 @@ paths:
     get:
       operationId: get_match_collection_for_tournament
       parameters:
-        - deprecated: false
-          description: Match status identifiers to filter for
-          explode: true
-          in: query
-          name: status
-          required: false
-          schema:
-            $ref: "#/components/schemas/MatchStatus"
-          style: form
-        - deprecated: false
-          description: Game identifier to query for
-          explode: true
-          in: query
-          name: game
-          required: false
-          schema:
-            $ref: "#/components/schemas/GameId"
-          style: form
-        - deprecated: false
-          description: Number of leaderboard entries to get
-          explode: false
-          in: query
-          name: count
-          required: false
-          schema:
-            $ref: "#/components/schemas/CountParam"
-          style: form
-        - deprecated: false
-          description: Only show matches starting after this Unix timestamp
-          explode: false
-          in: query
-          name: since
-          required: false
-          schema:
-            $ref: "#/components/schemas/SinceParam"
-          style: form
-        - deprecated: false
-          description: The unique identifier (ULID) we use for tournaments
-          explode: false
-          in: path
-          name: tournament_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/status"
+        - $ref: "#/components/parameters/game_id"
+        - $ref: "#/components/parameters/count"
+        - $ref: "#/components/parameters/since"
+        - $ref: "#/components/parameters/tournament_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Retrieve all match data for a specific tournament for a specific game
       tags:
         - Match data
@@ -3511,134 +1521,48 @@ paths:
       description: ""
       operationId: remove_all_brackets_for_tournament
       parameters:
-        - deprecated: false
-          description: The unique identifier (ULID) we use for tournaments
-          explode: false
-          in: path
-          name: tournament_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/tournament_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Remove all brackets for a specific tournament for a specific game
       tags:
         - Tournament Administration
     get:
       operationId: get_bracket_collection_for_tournament
       parameters:
-        - deprecated: false
-          description: The unique identifier (ULID) we use for tournaments
-          explode: false
-          in: path
-          name: tournament_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/tournament_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Retrieve all brackets for a specific tournament for a specific game
       tags:
         - Information
@@ -3648,77 +1572,26 @@ paths:
       description: ""
       operationId: partial_update_bracket_for_tournament
       parameters:
-        - deprecated: false
-          description: The unique identifier (ULID) we use for tournaments
-          explode: false
-          in: path
-          name: tournament_id
-          required: true
-          schema:
-            format: ulid
-            maxLength: 26
-            pattern: "^[0-7][0-9A-HJKMNP-TV-Z]{25}$"
-            type: string
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/tournament_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "415":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnsupportedMediaTypeError"
-          description: Unsupported Media Type
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/415"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary:
         Partial update all brackets for a specific tournament for a specific
         game available on the Relic Link platform
@@ -3729,74 +1602,26 @@ paths:
       description: ""
       operationId: create_new_bracket_for_tournament
       parameters:
-        - deprecated: false
-          description: The unique identifier (ULID) we use for tournaments
-          explode: false
-          in: path
-          name: tournament_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/tournament_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "415":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnsupportedMediaTypeError"
-          description: Unsupported Media Type
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/415"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary:
         Create a new bracket for a specific tournament for a specific game
         available on the Relic Link platform
@@ -3807,74 +1632,26 @@ paths:
       description: ""
       operationId: bulk_update_all_brackets_for_tournament
       parameters:
-        - deprecated: false
-          description: The unique identifier (ULID) we use for tournaments
-          explode: false
-          in: path
-          name: tournament_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/tournament_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "415":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnsupportedMediaTypeError"
-          description: Unsupported Media Type
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/415"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary:
         Bulk update all brackets for a specific tournament for a specific game
         available on the Relic Link platform
@@ -3888,67 +1665,24 @@ paths:
       description: ""
       operationId: remove_all_admins_for_tournament
       parameters:
-        - deprecated: false
-          description: The unique identifier (ULID) we use for tournaments
-          explode: false
-          in: path
-          name: tournament_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/tournament_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Remove all admins for a specific tournament for a specific game
       tags:
         - Administration
@@ -3956,67 +1690,24 @@ paths:
     get:
       operationId: get_admin_collection_for_tournament
       parameters:
-        - deprecated: false
-          description: The unique identifier (ULID) we use for tournaments
-          explode: false
-          in: path
-          name: tournament_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/tournament_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary:
         Retrieve all admins for a specific tournament for a specific game available
         on the Relic Link platform
@@ -4027,74 +1718,26 @@ paths:
       description: ""
       operationId: partial_update_all_admins_for_tournament
       parameters:
-        - deprecated: false
-          description: The unique identifier (ULID) we use for tournaments
-          explode: false
-          in: path
-          name: tournament_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/tournament_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "415":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnsupportedMediaTypeError"
-          description: Unsupported Media Type
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/415"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary:
         Update details of admins for a specific tournament for a specific game
         available on the Relic Link platform
@@ -4105,74 +1748,26 @@ paths:
       description: ""
       operationId: create_new_admin_for_tournament
       parameters:
-        - deprecated: false
-          description: The unique identifier (ULID) we use for tournaments
-          explode: false
-          in: path
-          name: tournament_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/tournament_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "415":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnsupportedMediaTypeError"
-          description: Unsupported Media Type
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/415"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary:
         Create a new admin for a specific tournament for a specific game available
         on the Relic Link platform
@@ -4183,74 +1778,26 @@ paths:
       description: ""
       operationId: bulk_update_all_admins_for_tournament
       parameters:
-        - deprecated: false
-          description: The unique identifier (ULID) we use for tournaments
-          explode: false
-          in: path
-          name: tournament_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/tournament_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "415":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnsupportedMediaTypeError"
-          description: Unsupported Media Type
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/415"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Bulk update of admins for a specific tournament for a specific game
       tags:
         - Administration
@@ -4263,55 +1810,21 @@ paths:
       operationId: remove_all_teams
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Remove all teams
       tags:
         - Teams
@@ -4320,55 +1833,21 @@ paths:
       operationId: get_team_collection
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Retrieve all available teams
       tags:
         - Information
@@ -4379,62 +1858,23 @@ paths:
       operationId: partial_update_all_teams
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "415":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnsupportedMediaTypeError"
-          description: Unsupported Media Type
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/415"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Partial update of all teams
       tags:
         - Administration
@@ -4444,62 +1884,23 @@ paths:
       operationId: create_new_team
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "415":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnsupportedMediaTypeError"
-          description: Unsupported Media Type
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/415"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Create a new team
       tags:
         - Administration
@@ -4509,62 +1910,23 @@ paths:
       operationId: bulk_update_all_teams
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "415":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnsupportedMediaTypeError"
-          description: Unsupported Media Type
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/415"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Bulk update of teams
       tags:
         - Administration
@@ -4576,69 +1938,24 @@ paths:
       description: ""
       operationId: remove_all_settings_for_profile
       parameters:
-        - deprecated: false
-          description:
-            The unique identifier used by the Relic Link API for a player
-            on their platform
-          explode: false
-          in: path
-          name: relic_link_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/RelicLinkId"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/relic_link_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Remove all settings for a specific profile
       tags:
         - Profile Administration
@@ -4646,69 +1963,24 @@ paths:
     get:
       operationId: get_setting_collection_for_profile
       parameters:
-        - deprecated: false
-          description:
-            The unique identifier used by the Relic Link API for a player
-            on their platform
-          explode: false
-          in: path
-          name: relic_link_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/RelicLinkId"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/relic_link_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Retrieve all settings for a specific profile
       tags:
         - Profile Administration
@@ -4718,76 +1990,26 @@ paths:
       description: ""
       operationId: partial_update_all_settings_for_profile
       parameters:
-        - deprecated: false
-          description:
-            The unique identifier used by the Relic Link API for a player
-            on their platform
-          explode: false
-          in: path
-          name: relic_link_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/RelicLinkId"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/relic_link_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "415":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnsupportedMediaTypeError"
-          description: Unsupported Media Type
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/415"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary:
         Update a specific setting for a specific profile from the Relic Link
         API
@@ -4798,76 +2020,26 @@ paths:
       description: ""
       operationId: create_new_setting_for_profile
       parameters:
-        - deprecated: false
-          description:
-            The unique identifier used by the Relic Link API for a player
-            on their platform
-          explode: false
-          in: path
-          name: relic_link_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/RelicLinkId"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/relic_link_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "415":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnsupportedMediaTypeError"
-          description: Unsupported Media Type
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/415"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Create a new setting for a specific profile from the Relic Link API
       tags:
         - Profile Administration
@@ -4876,76 +2048,26 @@ paths:
       description: ""
       operationId: bulk_update_all_settings_for_profile
       parameters:
-        - deprecated: false
-          description:
-            The unique identifier used by the Relic Link API for a player
-            on their platform
-          explode: false
-          in: path
-          name: relic_link_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/RelicLinkId"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/relic_link_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "415":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnsupportedMediaTypeError"
-          description: Unsupported Media Type
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/415"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary:
         Bulk update of settings for a specific profile from the Relic Link
         API
@@ -4958,69 +2080,24 @@ paths:
     get:
       operationId: get_stat_collection_for_profile
       parameters:
-        - deprecated: false
-          description:
-            The unique identifier used by the Relic Link API for a player
-            on their platform
-          explode: false
-          in: path
-          name: relic_link_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/RelicLinkId"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/relic_link_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Retrieve all stats for a specific profile
       tags:
         - Statistics
@@ -5030,69 +2107,24 @@ paths:
     get:
       operationId: get_details_for_team
       parameters:
-        - deprecated: false
-          description:
-            The unique identifier (ULID) we use for teams that play on games
-            using the Relic Link API
-          explode: false
-          in: path
-          name: team_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/team_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Retrieve details of a team
       tags:
         - Teams
@@ -5103,105 +2135,28 @@ paths:
     get:
       operationId: get_match_collection_for_team
       parameters:
-        - deprecated: false
-          description: Match status identifiers to filter for
-          explode: true
-          in: query
-          name: status
-          required: false
-          schema:
-            $ref: "#/components/schemas/MatchStatus"
-          style: form
-        - deprecated: false
-          description: Game identifier to query for
-          explode: true
-          in: query
-          name: game
-          required: false
-          schema:
-            $ref: "#/components/schemas/GameId"
-          style: form
-        - deprecated: false
-          description: Number of leaderboard entries to get
-          explode: false
-          in: query
-          name: count
-          required: false
-          schema:
-            $ref: "#/components/schemas/CountParam"
-          style: form
-        - deprecated: false
-          description: Only show matches starting after this Unix timestamp
-          explode: false
-          in: query
-          name: since
-          required: false
-          schema:
-            $ref: "#/components/schemas/SinceParam"
-          style: form
-        - deprecated: false
-          description:
-            The unique identifier (ULID) we use for teams that play on games
-            using the Relic Link API
-          explode: false
-          in: path
-          name: team_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/status"
+        - $ref: "#/components/parameters/game_id"
+        - $ref: "#/components/parameters/count"
+        - $ref: "#/components/parameters/since"
+        - $ref: "#/components/parameters/team_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Retrieve a list of matches for a specific team
       tags:
         - Match data
@@ -5211,69 +2166,24 @@ paths:
     get:
       operationId: get_stat_collection_for_team
       parameters:
-        - deprecated: false
-          description:
-            The unique identifier (ULID) we use for teams that play on games
-            using the Relic Link API
-          explode: false
-          in: path
-          name: team_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/team_id"
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ForbiddenError"
-          description: Forbidden
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/403"
         "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
-          description: Entity not found
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/404"
         "406":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotAcceptableError"
-          description: Not acceptable
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/406"
         "429":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TooManyRequestsError"
-          description: Too Many Requests
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/429"
         "501":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotImplementedError"
-          description: Not Implemented
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/501"
       summary: Retrieve a list of stats for a specific team
       tags:
         - Statistics
@@ -5372,6 +2282,69 @@ components:
         type: string
       style: simple
   parameters:
+    count:
+      deprecated: false
+      description: Number of leaderboard entries to get
+      explode: false
+      in: query
+      name: count
+      required: false
+      schema:
+        $ref: "#/components/schemas/CountParam"
+    since:
+      deprecated: false
+      description: Only show matches starting after this Unix timestamp
+      explode: false
+      in: query
+      name: since
+      required: false
+      schema:
+        $ref: "#/components/schemas/SinceParam"
+    timeframe:
+      deprecated: false
+      description: The timeframe from which to download a database dump
+      explode: false
+      in: path
+      name: timeframe
+      required: true
+      schema:
+        $ref: "#/components/schemas/Timeframe"
+      style: simple
+      x-last-modified: 1665308784
+    search_steam_id:
+      deprecated: false
+      description: The Steam ID to search a `profile_id` for
+      explode: false
+      in: query
+      name: steam_id
+      required: false
+      schema:
+        $ref: "#/components/schemas/SteamId"
+      style: form
+      x-last-modified: 1665308784
+    search_alias:
+      deprecated: false
+      description:
+        First 10 characters of a search string for name to search a `profile_id`
+        for
+      explode: false
+      in: query
+      name: alias
+      required: false
+      schema:
+        $ref: "#/components/schemas/SearchParam"
+      style: form
+      x-last-modified: 1665308784
+    exact:
+      deprecated: false
+      description: If only exact matches should be returned
+      explode: false
+      in: query
+      name: exact
+      required: false
+      schema:
+        type: boolean
+      x-last-modified: 1665308784
     status:
       deprecated: false
       description: Match status identifiers to filter for
@@ -5598,7 +2571,7 @@ components:
       format: int64
       maximum: 1980923226
       minimum: 1602232026
-      pattern: ""
+      pattern: "^1[6-9]([0-9]){8}$"
       type: integer
       example: 1702232026
     MatchId:
@@ -5612,7 +2585,9 @@ components:
       format: int64
       maximum: 18
       minimum: 14
+      pattern: "^7[0-9]{16}$"
       type: integer
+      example: 76561197984749679
     SearchParam:
       description: First 10 characters of a search string
       format: string
