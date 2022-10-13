@@ -1156,9 +1156,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Retrieve all stats on a specific leaderboard for a certain game
       tags:
-        - Leaderboards
-        - Statistics
-        - Collections
+        - Not yet implemented
     summary: Collection of stats for a specific leaderboard
     x-last-modified: 1665308784
   /leaderboards/{leaderboard_id}/matches:
