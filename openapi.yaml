@@ -928,33 +928,11 @@ paths:
     get:
       operationId: get_match_collection_for_profile
       parameters:
-        - deprecated: false
-          description: Match ID to filter for its details
-          explode: false
-          in: query
-          name: match_uuid
-          required: false
-          schema:
-            $ref: "#/components/schemas/MatchId"
-          style: form
-        - deprecated: false
-          description: Only show exactly the last available match
-          explode: false
-          in: query
-          name: last_match
-          required: false
-          schema:
-            type: boolean
-          example: false
-        - deprecated: false
-          description: Match status identifiers to filter for
-          explode: true
-          in: query
-          name: status
-          required: false
-          schema:
-            $ref: "#/components/schemas/MatchStatus"
-          style: form
+        - $ref: "#/components/parameters/style"
+        - $ref: "#/components/parameters/language"
+        - $ref: "#/components/parameters/match_uuid"
+        - $ref: "#/components/parameters/last_match"
+        - $ref: "#/components/parameters/status"
         - deprecated: false
           description: Game identifier to query for
           explode: true
@@ -963,7 +941,6 @@ paths:
           required: false
           schema:
             $ref: "#/components/schemas/GameId"
-          style: form
         - deprecated: false
           description: Starting match
           explode: false
@@ -972,7 +949,6 @@ paths:
           required: false
           schema:
             $ref: "#/components/schemas/StartParam"
-          style: form
         - deprecated: false
           description: Number of entries to get
           explode: false
@@ -981,7 +957,6 @@ paths:
           required: false
           schema:
             $ref: "#/components/schemas/CountParam"
-          style: form
         - deprecated: false
           description: Only show matches starting after this Unix timestamp
           explode: false
@@ -990,7 +965,6 @@ paths:
           required: false
           schema:
             $ref: "#/components/schemas/SinceParam"
-          style: form
         - deprecated: false
           description:
             The unique identifier used by the Relic Link API for a player
@@ -5398,6 +5372,34 @@ components:
         type: string
       style: simple
   parameters:
+    status:
+      deprecated: false
+      description: Match status identifiers to filter for
+      explode: true
+      in: query
+      name: status
+      required: false
+      schema:
+        $ref: "#/components/schemas/MatchStatus"
+    last_match:
+      deprecated: false
+      description: Only show exactly the last available match
+      explode: false
+      in: query
+      name: last_match
+      required: false
+      schema:
+        type: boolean
+      example: false
+    match_uuid:
+      deprecated: false
+      description: Match ID to filter for its details
+      explode: false
+      in: query
+      name: match_uuid
+      required: false
+      schema:
+        $ref: "#/components/schemas/MatchId"
     language:
       deprecated: false
       name: language
@@ -5708,8 +5710,6 @@ components:
         - aoe4
       type: string
       example: aoe2de
-      required:
-        - required
       x-last-modified: 1665308784
     Ulid:
       format: ulid
