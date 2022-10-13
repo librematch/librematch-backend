@@ -446,9 +446,9 @@ paths:
       operationId: get_ledger_collection_for_profile
       parameters:
         - $ref: "#/components/parameters/game_id"
-        - $ref: "#/components/parameters/start"
+        - $ref: "#/components/parameters/offset"
         - $ref: "#/components/parameters/leaderboard_id"
-        - $ref: "#/components/parameters/count"
+        - $ref: "#/components/parameters/limit"
         - $ref: "#/components/parameters/since"
         - $ref: "#/components/parameters/relic_link_id"
       responses:
@@ -1098,8 +1098,8 @@ paths:
       parameters:
         - $ref: "#/components/parameters/profile_id"
         - $ref: "#/components/parameters/search_alias"
-        - $ref: "#/components/parameters/start"
-        - $ref: "#/components/parameters/count"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/limit"
         - $ref: "#/components/parameters/leaderboard_id"
       responses:
         default:
@@ -1155,8 +1155,9 @@ paths:
     get:
       operationId: get_match_collection_for_leaderboard
       parameters:
-        - $ref: "#/components/parameters/status"
-        - $ref: "#/components/parameters/count"
+        - $ref: "#/components/parameters/status_array"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
         - $ref: "#/components/parameters/since"
         - $ref: "#/components/parameters/leaderboard_id"
       responses:
@@ -1515,7 +1516,8 @@ paths:
       parameters:
         - $ref: "#/components/parameters/status"
         - $ref: "#/components/parameters/game_id"
-        - $ref: "#/components/parameters/count"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/limit"
         - $ref: "#/components/parameters/since"
         - $ref: "#/components/parameters/tournament_id"
       responses:
@@ -2156,11 +2158,17 @@ paths:
     get:
       operationId: get_match_collection_for_team
       parameters:
-        - $ref: "#/components/parameters/status"
-        - $ref: "#/components/parameters/game_id"
-        - $ref: "#/components/parameters/count"
-        - $ref: "#/components/parameters/since"
         - $ref: "#/components/parameters/team_id"
+        - $ref: "#/components/parameters/game_ids"
+        - $ref: "#/components/parameters/language"
+        - $ref: "#/components/parameters/last_match"
+        - $ref: "#/components/parameters/style"
+        - $ref: "#/components/parameters/status_array"
+        - $ref: "#/components/parameters/since"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/since"
+        - $ref: "#/components/parameters/relic_link_ids"
       responses:
         default:
           $ref: "#/components/responses/401"
@@ -2330,24 +2338,6 @@ components:
       required: false
       schema:
         $ref: "#/components/schemas/LimitParam"
-    start:
-      deprecated: false
-      description: Starting
-      explode: false
-      in: query
-      name: start
-      required: false
-      schema:
-        $ref: "#/components/schemas/StartParam"
-    count:
-      deprecated: false
-      description: Number of leaderboard entries to get
-      explode: false
-      in: query
-      name: count
-      required: false
-      schema:
-        $ref: "#/components/schemas/CountParam"
     since:
       deprecated: false
       description: Only show matches starting after this Unix timestamp
@@ -2731,18 +2721,6 @@ components:
       pattern: "^.{10}$"
       type: string
       example: TheViper
-    CountParam:
-      format: int32
-      maximum: 10000
-      minimum: 1
-      type: integer
-      example: 1
-    StartParam:
-      format: int64
-      maximum: 999999999
-      minimum: 0
-      type: integer
-      example: 0
     ResponseStyle:
       description: Styling the response is send in
       enum:
