@@ -29,7 +29,7 @@
             "collection"
         ]
     },
-    "filters": {
+    "parameters": {
         "alias": "TheViper",
         "steam_id": null,
         "exact": false

@@ -181,11 +181,12 @@ paths:
     get:
       operationId: get_match_collection_for_game
       parameters:
-        - $ref: "#/components/parameters/match_uuid"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/limit"
         - $ref: "#/components/parameters/status"
-        - $ref: "#/components/parameters/count"
         - $ref: "#/components/parameters/since"
         - $ref: "#/components/parameters/game_id"
+        - $ref: "#/components/parameters/language"
       responses:
         default:
           $ref: "#/components/responses/401"
@@ -2344,6 +2345,24 @@ components:
         type: string
       style: simple
   parameters:
+    offset:
+      deprecated: false
+      description: Offset
+      explode: false
+      in: query
+      name: offset
+      required: false
+      schema:
+        $ref: "#/components/schemas/OffsetParam"
+    limit:
+      deprecated: false
+      description: Limit
+      explode: false
+      in: query
+      name: limit
+      required: false
+      schema:
+        $ref: "#/components/schemas/LimitParam"
     start:
       deprecated: false
       description: Starting
@@ -2662,6 +2681,22 @@ components:
       description: Service Unavailable
       x-last-modified: 1665308784
   schemas:
+    OffsetParam:
+      format: int64
+      maximum: 999999999999
+      minimum: 0
+      pattern: "^[0-9]{11}$"
+      type: integer
+      default: 0
+      example: 250
+    LimitParam:
+      format: int64
+      maximum: 1000
+      minimum: 1
+      pattern: "^[0-9]{3}$"
+      type: integer
+      default: 50
+      example: 25
     SinceParam:
       format: int64
       maximum: 1980923226
@@ -2713,10 +2748,30 @@ components:
       x-last-modified: 1665308784
     LanguageString:
       format: string
+      enum:
+        - en
+        - de
+        - el
+        - es
+        - es-MX
+        - fr
+        - hi
+        - it
+        - ja
+        - ko
+        - ms
+        - nl
+        - pt
+        - ru
+        - tr
+        - vi
+        - zh
+        - zh-TW
       maxLength: 5
       minLength: 2
       pattern: "^([a-z]{2}){1}\b(-[A-Z]{2}){0,1}$"
       type: string
+      default: en
       example: en
     AuthorizationHeader:
       additionalProperties: false

@@ -14,7 +14,7 @@
     "previous": null,
     "next": null,
     "last": null,
-    "filters": {
+    "parameters": {
         "alias": null,
         "steam_id": 196243121513410,
         "exact": false

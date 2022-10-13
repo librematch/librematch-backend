@@ -29,7 +29,7 @@
             "collection"
         ]
     },
-    "filters": {
+    "parameters": {
         "by_name": null,
         "by_steam_id": null,
         "exact": false

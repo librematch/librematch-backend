@@ -1,0 +1,326 @@
+{
+    "contentVersion": "v1",
+    "self": {
+        "href": "https://api.librematch.org/v1/games/aoe2de/matches",
+        "rel": [
+            "item"
+        ]
+    },
+    "desc": "Showing 1 of 218 matches. Use the 'next' link for the next page.",
+    "offset": 0,
+    "limit": 25,
+    "size": 218,
+    "first": null,
+    "previous": null,
+    "next": null,
+    "last": null,
+    "parameters": {
+        "uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "limit": 25,
+        "languages": [
+            "en",
+            "fr"
+        ],
+        "style": "compact",
+        "last_match": false,
+        "status": null,
+        "game": null,
+        "start": null,
+        "count": null,
+        "since": null
+    },
+    "value": [
+        {
+            "match_id": 75984064,
+            "private": false,
+            "password_protected": false,
+            "match_uuid": "03531e31-31fd-5041-9f70-0264e158a40e",
+            "lobby_name": "[REMATCH] 12345",
+            "status": "finished",
+            "started_at": "2022-10-03T15:41:38.000Z",
+            "finished_at": "2022-10-03T15:50:38.000Z",
+            "duration": 540,
+            "settings": {
+                "map_name": [
+                    {
+                        "value": "Chaos Pit",
+                        "language": "en"
+                    },
+                    {
+                        "value": "Puits du Chaos",
+                        "language": "fr"
+                    }
+                ],
+                "map_size": [
+                    {
+                        "value": "Tiny",
+                        "language": "en"
+                    },
+                    {
+                        "value": "Petit",
+                        "language": "fr"
+                    }
+                ],
+                "map_visibility": [
+                    {
+                        "value": "Normal",
+                        "language": "en"
+                    },
+                    {
+                        "value": "Normale",
+                        "language": "fr"
+                    }
+                ],
+                "resources": [
+                    {
+                        "value": "Standard",
+                        "language": "en"
+                    },
+                    {
+                        "value": "Standard",
+                        "language": "fr"
+                    }
+                ],
+                "population": 200,
+                "game_speed": [
+                    {
+                        "value": "Normal",
+                        "language": "en"
+                    },
+                    {
+                        "value": "Normale",
+                        "language": "fr"
+                    }
+                ],
+                "starting_age": [
+                    {
+                        "value": "Standard",
+                        "language": "en"
+                    },
+                    {
+                        "value": "Standard",
+                        "language": "fr"
+                    }
+                ],
+                "ending_age": [
+                    {
+                        "value": "Standard",
+                        "language": "en"
+                    },
+                    {
+                        "value": "Standard",
+                        "language": "fr"
+                    }
+                ],
+                "treaty_length": null,
+                "victory_condition": [
+                    {
+                        "value": "Conquest",
+                        "language": "en"
+                    },
+                    {
+                        "value": "Conquête",
+                        "language": "fr"
+                    }
+                ],
+                "lock_teams": true,
+                "team_together": true,
+                "team_positions": false,
+                "shared_exploration": false,
+                "handicap": false,
+                "lock_speed": true,
+                "allow_cheats": false,
+                "turbo_mode": false,
+                "full_tech_tree": false,
+                "empire_wars_mode": false,
+                "sudden_death_mode": false,
+                "regicide_mode": false,
+                "record_game": true
+            },
+            "leaderboard": {
+                "href": "https://api.librematch.org/v1/leaderboards/4Y89HG5TKRF7BGMMSQMRPZ6S1B",
+                "name": "rm_1v1",
+                "rel": [
+                    "collection"
+                ]
+            },
+            "rematch": true,
+            "server": [
+                {
+                    "value": "India",
+                    "language": "en"
+                },
+                {
+                    "value": "Inde",
+                    "language": "fr"
+                }
+            ],
+            "rating_average": 2022,
+            "patch_version": "",
+            "related/links": [
+                {
+                    "Endpoints_need_support (TODO)": "same civ matchups, same opponents, same map"
+                }
+            ],
+            "match_size": 2,
+            "match_slots_used": 2,
+            "team_matchups": [
+                [
+                    {
+                        "self": {
+                            "profile": {
+                                "href": "https://api.librematch.org/v1/profiles/196240",
+                                "rel": [
+                                    "item"
+                                ]
+                            },
+                            "teams": [
+                                {
+                                    "href": "https://api.librematch.org/v1/teams/4Y89HG5TKRF7BGMMSQMRPZ6S1B",
+                                    "rel": [
+                                        "item"
+                                    ]
+                                }
+                            ],
+                            "verified": true,
+                            "first_name": "",
+                            "last_name": "",
+                            "alias": "TheViper",
+                            "country_code": "no",
+                            "profile_id": 196240,
+                            "steam_id": "",
+                            "avatars": [
+                                {
+                                    "small": {
+                                        "href": "https://avatars.akamai.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb.jpg"
+                                    }
+                                },
+                                {
+                                    "medium": {
+                                        "href": "https://avatars.akamai.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_medium.jpg"
+                                    }
+                                },
+                                {
+                                    "full": {
+                                        "href": "https://avatars.akamai.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg"
+                                    }
+                                }
+                            ],
+                            "stats": {
+                                "rank": 4,
+                                "rating_max": 2600,
+                                "rating": 2400,
+                                "win_rate": 67.8,
+                                "streak": 2,
+                                "games_count": 264,
+                                "wins_count": 174,
+                                "losses_count": 90,
+                                "drops_count": 2,
+                                "rank_level": null,
+                                "rating_history": null,
+                                "civ_history": null,
+                                "map_history": null
+                            }
+                        },
+                        "match_slot": 1,
+                        "civilization": [
+                            {
+                                "value": "Chinese",
+                                "language": "en"
+                            },
+                            {
+                                "value": "Chinois",
+                                "language": "fr"
+                            }
+                        ],
+                        "colour": [
+                            {
+                                "value": "Green",
+                                "language": "en"
+                            },
+                            {
+                                "value": "Vert",
+                                "language": "fr"
+                            }
+                        ],
+                        "result_win": true
+                    }
+                ],
+                [
+                    {
+                        "self": {
+                            "profile": {
+                                "href": "https://api.librematch.org/v1/profiles/1141567",
+                                "rel": [
+                                    "item"
+                                ]
+                            },
+                            "teams": null,
+                            "verified": true,
+                            "first_name": "",
+                            "last_name": "",
+                            "alias": "MrYo",
+                            "country_code": "cn",
+                            "profile_id": 1141567,
+                            "steam_id": "",
+                            "avatars": [
+                                {
+                                    "small": {
+                                        "href": "https://avatars.akamai.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb.jpg"
+                                    }
+                                },
+                                {
+                                    "medium": {
+                                        "href": "https://avatars.akamai.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_medium.jpg"
+                                    }
+                                },
+                                {
+                                    "full": {
+                                        "href": "https://avatars.akamai.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg"
+                                    }
+                                }
+                            ],
+                            "stats": {
+                                "rank": 4,
+                                "rating_max": 2600,
+                                "rating": 2400,
+                                "win_rate": 67.8,
+                                "streak": 2,
+                                "games_count": 264,
+                                "wins_count": 174,
+                                "losses_count": 90,
+                                "drops_count": 2,
+                                "rank_level": null,
+                                "rating_history": null,
+                                "civ_history": null,
+                                "map_history": null
+                            }
+                        },
+                        "match_slot": 2,
+                        "civilization": [
+                            {
+                                "value": "Byzantines",
+                                "language": "en"
+                            },
+                            {
+                                "value": "Byzantines",
+                                "language": "fr"
+                            }
+                        ],
+                        "colour": [
+                            {
+                                "value": "Yellow",
+                                "language": "en"
+                            },
+                            {
+                                "value": "Jaune",
+                                "language": "fr"
+                            }
+                        ],
+                        "result_win": false
+                    }
+                ]
+            ]
+        }
+    ]
+}
