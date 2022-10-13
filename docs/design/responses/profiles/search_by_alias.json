@@ -24,14 +24,14 @@
         ]
     },
     "last": {
-        "href": "https://api.librematch.org/v1/profiles/search?by_name=TheViper&offset=200",
+        "href": "https://api.librematch.org/v1/profiles/search?alias=TheViper&offset=200",
         "rel": [
             "collection"
         ]
     },
     "filters": {
-        "by_name": "TheViper",
-        "by_steam_id": null,
+        "alias": "TheViper",
+        "steam_id": null,
         "exact": false
     },
     "value": [

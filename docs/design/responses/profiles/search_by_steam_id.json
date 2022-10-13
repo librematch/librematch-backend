@@ -1,7 +1,7 @@
 {
     "contentVersion": "v1",
     "self": {
-        "href": "https://api.librematch.org/v1/profiles/search?by_id=196243121513410",
+        "href": "https://api.librematch.org/v1/profiles/search?steam_id=196243121513410",
         "rel": [
             "collection"
         ]
@@ -15,8 +15,8 @@
     "next": null,
     "last": null,
     "filters": {
-        "by_name": null,
-        "by_steam_id": 196243121513410,
+        "alias": null,
+        "steam_id": 196243121513410,
         "exact": false
     },
     "value": [

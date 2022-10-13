@@ -454,29 +454,41 @@ paths:
         - Match data
     summary: match data for a certain Relic Link profile
     x-last-modified: 1665308784
+  /games/matches/{match_uuid}:
+    get:
+      operationId: get_details_for_match
+      parameters:
+        - $ref: "#/components/parameters/match_uuid"
+        # - $ref: "#/components/parameters/match_id" # TODO: Parameter Match_id
+      responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+        "501":
+          $ref: "#/components/responses/501"
+      summary: Retrieve details of a match
+      tags:
+        - Match data
+    summary: Information about a single match
+    x-last-modified: 1665308784
   /profiles/{relic_link_id}/ledger:
     get:
       operationId: get_ledger_collection_for_profile
       parameters:
         - $ref: "#/components/parameters/game_id"
-        - deprecated: false
-          description: Starting match
-          explode: false
-          in: query
-          name: start
-          required: false
-          schema:
-            $ref: "#/components/schemas/StartParam"
-          style: form
-        - deprecated: false
-          description: Leaderboard identifier
-          explode: false
-          in: query
-          name: leaderboard_id
-          required: false
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: form
+        - $ref: "#/components/parameters/start"
+        - $ref: "#/components/parameters/leaderboard_id"
         - $ref: "#/components/parameters/count"
         - $ref: "#/components/parameters/since"
         - $ref: "#/components/parameters/relic_link_id"
@@ -498,7 +510,6 @@ paths:
           $ref: "#/components/responses/429"
       summary: Retrieve the rating ledger for a specific profile
       tags:
-        - Match data
         - Ratings
     summary: Rating ledger a certain Relic Link profile
     x-last-modified: 1665308784
