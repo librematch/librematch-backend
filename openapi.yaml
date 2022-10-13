@@ -56,6 +56,7 @@ paths:
         "429":
           $ref: "#/components/responses/429"
       tags:
+        - Collections
         - Search
   /dumps/{timeframe}:
     description: Download database dumps
@@ -83,8 +84,9 @@ paths:
         "501":
           $ref: "#/components/responses/501"
       tags:
-        - Database Dumps
         - Statistics
+        - Database
+        - Items
     servers:
       - description: Override base path for all operations with the /dumps path
         url: https://dumps.librematch.org
@@ -107,9 +109,10 @@ paths:
           $ref: "#/components/responses/406"
         "429":
           $ref: "#/components/responses/429"
-      summary: Retrieve a list of all game identifiers for games
       tags:
-        - Information
+        - Collections
+        - Games
+      summary: Retrieve a list of all game identifiers for games
     summary: Endpoint for game-specific data
     x-last-modified: 1665308784
   /games/{game_id}/definitions:
@@ -136,7 +139,9 @@ paths:
           $ref: "#/components/responses/429"
       summary: Retrieve all available definitions for a specific game
       tags:
-        - Definition
+        - Collections
+        - Information
+        - Games
     summary: "game-specific definitions, e.g. map names, civilisation names, translations"
     x-last-modified: 1665308784
   /games/{game_id}/info:
@@ -162,7 +167,9 @@ paths:
           $ref: "#/components/responses/429"
       summary: Retrieve all available information for a specific game
       tags:
+        - Collections
         - Information
+        - Games
     summary:
       "information about server maintenance times, DLC stuff, patch releases,\
       \ etc."
@@ -195,9 +202,11 @@ paths:
           $ref: "#/components/responses/429"
       summary: Retrieve all matches for a specific game
       tags:
-        - Match data
+        - Collections
+        - Matches
+        - Games
     summary:
-      "match data spanning over the complete game (all leaderboards, basically\
+      "Match data spanning over the complete game (all leaderboards, basically\
       \ a log"
     x-last-modified: 1665308784
   /tournaments:
@@ -224,7 +233,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Remove all tournaments
       tags:
-        - Tournament Administration
+        - Not yet implemented
     get:
       operationId: get_tournament_identifier_collection
       responses:
@@ -247,8 +256,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Retrieve all available tournaments for all games
       tags:
-        - Information
-        - Tournament Administration
+        - Not yet implemented
     patch:
       description: ""
       operationId: partial_update_tournaments
@@ -274,7 +282,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Partial update of tournaments
       tags:
-        - Tournament Administration
+        - Not yet implemented
     post:
       description: ""
       operationId: create_new_tournament
@@ -300,7 +308,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Create a new tournament for a game
       tags:
-        - Tournament Administration
+        - Not yet implemented
     put:
       description: ""
       operationId: bulk_update_all_tournaments
@@ -326,7 +334,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Bulk update of tournaments
       tags:
-        - Tournament Administration
+        - Not yet implemented
     summary: Endpoint for tournament information
     x-last-modified: 1665308784
   /profiles:
@@ -350,7 +358,8 @@ paths:
           $ref: "#/components/responses/429"
       summary: Retrieve all available profiles
       tags:
-        - Administration
+        - Collections
+        - Profiles
     summary: Endpoint for player profiles on the Relic Link platform
     x-last-modified: 1665308784
   /profiles/{relic_link_id}:
@@ -376,7 +385,8 @@ paths:
           $ref: "#/components/responses/429"
       summary: Retrieve the details for a specific profile
       tags:
-        - Information
+        - Items
+        - Profiles
     summary: Profile information for a Relic Link player_ID
     x-last-modified: 1665308784
   /profiles/{relic_link_id}/matches:
@@ -410,7 +420,9 @@ paths:
           $ref: "#/components/responses/429"
       summary: Retrieve all matches for a specific profile
       tags:
-        - Match data
+        - Collections
+        - Profiles
+        - Matches
     summary: match data for a certain Relic Link profile
     x-last-modified: 1665308784
   /games/matches/{match_uuid}:
@@ -418,7 +430,7 @@ paths:
       operationId: get_details_for_match
       parameters:
         - $ref: "#/components/parameters/match_uuid"
-        - $ref: "#/components/parameters/match_id"
+        # - $ref: "#/components/parameters/match_id" # TODO
       responses:
         default:
           $ref: "#/components/responses/401"
@@ -438,7 +450,9 @@ paths:
           $ref: "#/components/responses/501"
       summary: Retrieve details of a match
       tags:
-        - Match data
+        - Items
+        - Matches
+        - Games
     summary: Information about a single match
     x-last-modified: 1665308784
   /profiles/{relic_link_id}/ledger:
@@ -469,6 +483,8 @@ paths:
           $ref: "#/components/responses/429"
       summary: Retrieve the rating ledger for a specific profile
       tags:
+        - Collections
+        - Profiles
         - Ratings
     summary: Rating ledger a certain Relic Link profile
     x-last-modified: 1665308784
@@ -494,7 +510,7 @@ paths:
           $ref: "#/components/responses/429"
       summary: Remove all users from our platform
       tags:
-        - User Administration
+        - Not yet implemented
     get:
       description: Authenticated Endpoint for Administrators or Libre:Match
       operationId: get_user_collection
@@ -516,7 +532,7 @@ paths:
           $ref: "#/components/responses/429"
       summary: Retrieve all users of our platform
       tags:
-        - User Administration
+        - Not yet implemented
     patch:
       description: ""
       operationId: partial_update_all_users
@@ -540,7 +556,7 @@ paths:
           $ref: "#/components/responses/429"
       summary: Partially update details for all user profiles
       tags:
-        - User Administration
+        - Not yet implemented
     post:
       description: ""
       operationId: create_new_user
@@ -567,9 +583,7 @@ paths:
           $ref: "#/components/responses/429"
       summary: Create a new user for our platform
       tags:
-        - Authentication
-        - Account Registration
-        - User Administration
+        - Not yet implemented
     put:
       description: ""
       operationId: bulk_update_all_users
@@ -593,7 +607,7 @@ paths:
           $ref: "#/components/responses/429"
       summary: Bulk update of all users of our platform
       tags:
-        - User Administration
+        - Not yet implemented
     summary: Endpoint for users of our API
     x-last-modified: 1665308784
   /users/{user_id}:
@@ -620,7 +634,7 @@ paths:
           $ref: "#/components/responses/429"
       summary: Remove user from our platform if it exists
       tags:
-        - User Administration
+        - Not yet implemented
     get:
       operationId: get_details_for_user
       parameters:
@@ -643,8 +657,7 @@ paths:
           $ref: "#/components/responses/429"
       summary: Retrieve details for a specific user profile on our platform
       tags:
-        - Information
-        - User Administration
+        - Not yet implemented
     patch:
       description: ""
       operationId: partial_update_user
@@ -670,7 +683,7 @@ paths:
           $ref: "#/components/responses/429"
       summary: Update details for a specific user profile on our platform if it exists
       tags:
-        - User Administration
+        - Not yet implemented
     put:
       description: ""
       operationId: bulk_update_all_user_details
@@ -698,7 +711,7 @@ paths:
         Bulk update details for a specific user profile on our platform if
         it exists
       tags:
-        - User Administration
+        - Not yet implemented
     summary: user profile for an API user
     x-last-modified: 1665308784
   /users/login:
@@ -723,7 +736,7 @@ paths:
         "429":
           $ref: "#/components/responses/429"
       tags:
-        - Authentication
+        - Not yet implemented
     summary: Login for users of our API
     x-last-modified: 1665308784
   /users/logout:
@@ -746,7 +759,7 @@ paths:
         "429":
           $ref: "#/components/responses/429"
       tags:
-        - Authentication
+        - Not yet implemented
     summary: Logout for users of our API
     x-last-modified: 1665308784
   /users/register:
@@ -771,7 +784,7 @@ paths:
         "429":
           $ref: "#/components/responses/429"
       tags:
-        - Account Registration
+        - Not yet implemented
     summary: Registering as a new User to our API
     x-last-modified: 1665308784
   /users/validate:
@@ -798,7 +811,6 @@ paths:
           $ref: "#/components/responses/429"
       tags:
         - Authentication
-        - API Token Validation
     post:
       operationId: create_new_user_validation
       responses:
@@ -820,8 +832,7 @@ paths:
         "429":
           $ref: "#/components/responses/429"
       tags:
-        - Authentication
-        - API Token Validation
+        - Not yet implemented
     summary: Validation for a user account and api tokens used for our API
     x-last-modified: 1665308784
   /application:
@@ -845,8 +856,7 @@ paths:
           $ref: "#/components/responses/429"
       summary: Retrieve a list of available application information
       tags:
-        - Internal
-        - Administration
+        - Not yet implemented
     summary:
       "General information and data about Libre:Match app, e.g. API updates,\
       \ possible upcoming maintenance and other news/stuff"
@@ -872,8 +882,7 @@ paths:
           $ref: "#/components/responses/429"
       summary: Retrieve a list of only application statistics
       tags:
-        - Internal
-        - Administration
+        - Not yet implemented
     summary:
       "Statistics of Libre:Match, e.g. usage statistics, collection rate, overall\
       \ amount of users, etc."
@@ -902,8 +911,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Remove all settings for a specific component of Libre:Match
       tags:
-        - Internal
-        - Administration
+        - Not yet implemented
     get:
       operationId: get_setting_collection_for_component
       parameters:
@@ -927,8 +935,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Retrieve all settings for a specific component of Libre:Match
       tags:
-        - Internal
-        - Administration
+        - Not yet implemented
     patch:
       description: ""
       operationId: partial_update_all_settings_for_component
@@ -955,8 +962,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Update a specific setting for a specific component of Libre:Match
       tags:
-        - Internal
-        - Administration
+        - Not yet implemented
     post:
       summary: Create a setting for a certain Libre:Match component
       operationId: create_new_setting_for_component
@@ -982,8 +988,7 @@ paths:
         "501":
           $ref: "#/components/responses/501"
       tags:
-        - Internal
-        - Administration
+        - Not yet implemented
     put:
       description: ""
       operationId: bulk_update_all_settings_for_component
@@ -1010,8 +1015,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Bulk update of settings for a specific component of Libre:Match
       tags:
-        - Internal
-        - Administration
+        - Not yet implemented
     summary: "Settings of Libre:Match components"
     x-last-modified: 1665308784
   /application/status:
@@ -1037,9 +1041,7 @@ paths:
           $ref: "#/components/responses/503"
       summary: Retrieve only application status
       tags:
-        - Internal
         - Administration
-        - Status Check
     summary: Status updates for health checks of our API
     x-last-modified: 1665308784
   /games/{game_id}:
@@ -1064,6 +1066,9 @@ paths:
         "429":
           $ref: "#/components/responses/429"
       summary: Retrieve details for a game with a specific identifiers
+      tags:
+        - Games
+        - Items
     summary: "game-specific definitions, e.g. map names, civilisation names, translations"
     x-last-modified: 1665308784
   /games/{game_id}/leaderboards:
@@ -1089,7 +1094,9 @@ paths:
           $ref: "#/components/responses/429"
       summary: Retrieve all leaderboards for a specific game
       tags:
+        - Games
         - Leaderboards
+        - Collections
     summary: Collection of leaderboard data spanning over the complete game
     x-last-modified: 1665308784
   /leaderboards/{leaderboard_id}:
@@ -1119,7 +1126,9 @@ paths:
           $ref: "#/components/responses/429"
       summary: Retrieve details for a specific leaderboard
       tags:
+        - Items
         - Leaderboards
+        - Ratings
     summary: game-specific leaderboards on the Relic Link platform
     x-last-modified: 1665308784
   /leaderboards/{leaderboard_id}/stats:
@@ -1149,6 +1158,7 @@ paths:
       tags:
         - Leaderboards
         - Statistics
+        - Collections
     summary: Collection of stats for a specific leaderboard
     x-last-modified: 1665308784
   /leaderboards/{leaderboard_id}/matches:
@@ -1178,8 +1188,9 @@ paths:
           $ref: "#/components/responses/429"
       summary: Retrieve all matches on a specific leaderboard for a certain game
       tags:
+        - Matches
+        - Collections
         - Leaderboards
-        - Match data
     summary: Collection of match data for a specific leaderboard
     x-last-modified: 1665308784
   /leaderboards:
@@ -1203,8 +1214,10 @@ paths:
           $ref: "#/components/responses/429"
       summary: Retrieve all leaderboards
       tags:
+        - Matches
+        - Collections
         - Leaderboards
-        - Information
+        - Ratings
     summary: Collection of all leaderboard data on the Relic Link platform
     x-last-modified: 1665308784
   /tournaments/{tournament_id}:
@@ -1234,7 +1247,7 @@ paths:
         Remove a tournament for a specific game available on the Relic Link
         platform
       tags:
-        - Administration
+        - Not yet implemented
     get:
       operationId: get_details_for_tournament
       parameters:
@@ -1260,7 +1273,7 @@ paths:
         Retrieve details for a tournament for a specific game available on
         the Relic Link platform
       tags:
-        - Information
+        - Not yet implemented
     patch:
       description: ""
       operationId: partial_update_tournament_details
@@ -1289,7 +1302,7 @@ paths:
         Partially update a tournament for a specific game available on the
         Relic Link platform
       tags:
-        - Administration
+        - Not yet implemented
     put:
       description: ""
       operationId: update_tournament_details
@@ -1316,7 +1329,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Update details for a tournament for a specific game
       tags:
-        - Administration
+        - Not yet implemented
     summary: game-specific tournaments
     x-last-modified: 1665308784
   /users/{user_id}/stats:
@@ -1344,7 +1357,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Remove all stats for a specific user profile on our platform
       tags:
-        - User Administration
+        - Not yet implemented
     get:
       operationId: get_stat_collection_for_user
       parameters:
@@ -1368,7 +1381,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Retrieve all stats for a specific user profile on our platform
       tags:
-        - Statistics
+        - Not yet implemented
     patch:
       description: ""
       operationId: partial_update_user_stats
@@ -1395,7 +1408,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Partially update stats for a specific user profile on our platform
       tags:
-        - Administration
+        - Not yet implemented
     post:
       description: ""
       operationId: create_new_user_stats
@@ -1422,7 +1435,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Create a new stat for a specific user profile on our platform
       tags:
-        - Administration
+        - Not yet implemented
     put:
       description: ""
       operationId: bulk_update_all_user_stats
@@ -1449,7 +1462,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Bulk update of stats for a specific user profile on our platform
       tags:
-        - Administration
+        - Not yet implemented
     summary: user profile for an API user
     x-last-modified: 1665308784
   /tournaments/{tournament_id}/info:
@@ -1476,9 +1489,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Retrieve all information for a specific tournament for a specific game
       tags:
-        - Information
-        - Tournaments
-        - Tournament Administration
+        - Not yet implemented
     summary: game-specific tournaments
     x-last-modified: 1665308784
   /tournaments/{tournament_id}/stats:
@@ -1505,9 +1516,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Retrieve all statistics for a specific tournament for a specific game
       tags:
-        - Statistics
-        - Tournaments
-        - Tournament Administration
+        - Not yet implemented
     summary: game-specific tournaments
     x-last-modified: 1665308784
   /tournaments/{tournament_id}/matches:
@@ -1539,9 +1548,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Retrieve all match data for a specific tournament for a specific game
       tags:
-        - Match data
-        - Tournaments
-        - Tournament Administration
+        - Not yet implemented
     summary: game-specific tournaments
     x-last-modified: 1665308784
   /tournaments/{tournament_id}/brackets:
@@ -1569,7 +1576,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Remove all brackets for a specific tournament for a specific game
       tags:
-        - Tournament Administration
+        - Not yet implemented
     get:
       operationId: get_bracket_collection_for_tournament
       parameters:
@@ -1593,9 +1600,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Retrieve all brackets for a specific tournament for a specific game
       tags:
-        - Information
-        - Tournaments
-        - Tournament Administration
+        - Not yet implemented
     patch:
       description: ""
       operationId: partial_update_bracket_for_tournament
@@ -1624,8 +1629,7 @@ paths:
         Partial update all brackets for a specific tournament for a specific
         game
       tags:
-        - Administration
-        - Tournament Administration
+        - Not yet implemented
     post:
       description: ""
       operationId: create_new_bracket_for_tournament
@@ -1651,10 +1655,8 @@ paths:
         "501":
           $ref: "#/components/responses/501"
       summary: Create a new bracket for a specific tournament for a specific game
-
       tags:
-        - Administration
-        - Tournament Administration
+        - Not yet implemented
     put:
       description: ""
       operationId: bulk_update_all_brackets_for_tournament
@@ -1681,8 +1683,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Bulk update all brackets for a specific tournament for a specific game
       tags:
-        - Administration
-        - Tournament Administration
+        - Not yet implemented
     summary: game-specific tournaments
     x-last-modified: 1665308784
   /tournaments/{tournament_id}/admins:
@@ -1710,8 +1711,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Remove all admins for a specific tournament for a specific game
       tags:
-        - Administration
-        - Tournament Administration
+        - Not yet implemented
     get:
       operationId: get_admin_collection_for_tournament
       parameters:
@@ -1737,8 +1737,7 @@ paths:
         Retrieve all admins for a specific tournament for a specific game available
         on the Relic Link platform
       tags:
-        - Administration
-        - Tournament Administration
+        - Not yet implemented
     patch:
       description: ""
       operationId: partial_update_all_admins_for_tournament
@@ -1765,8 +1764,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Update details of admins for a specific tournament for a specific game
       tags:
-        - Administration
-        - Tournament Administration
+        - Not yet implemented
     post:
       description: ""
       operationId: create_new_admin_for_tournament
@@ -1795,8 +1793,7 @@ paths:
         Create a new admin for a specific tournament for a specific game available
         on the Relic Link platform
       tags:
-        - Administration
-        - Tournament Administration
+        - Not yet implemented
     put:
       description: ""
       operationId: bulk_update_all_admins_for_tournament
@@ -1823,8 +1820,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Bulk update of admins for a specific tournament for a specific game
       tags:
-        - Administration
-        - Tournament Administration
+        - Not yet implemented
     summary: Endpoint for tournament admins
     x-last-modified: 1665308784
   /teams:
@@ -1850,8 +1846,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Remove all teams
       tags:
-        - Teams
-        - Team Administration
+        - Not yet implemented
     get:
       operationId: get_team_collection
       responses:
@@ -1873,9 +1868,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Retrieve all available teams
       tags:
-        - Information
-        - Teams
-        - Team Administration
+        - Not yet implemented
     patch:
       description: ""
       operationId: partial_update_all_teams
@@ -1900,8 +1893,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Partial update of all teams
       tags:
-        - Administration
-        - Team Administration
+        - Not yet implemented
     post:
       description: ""
       operationId: create_new_team
@@ -1926,8 +1918,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Create a new team
       tags:
-        - Administration
-        - Team Administration
+        - Not yet implemented
     put:
       description: ""
       operationId: bulk_update_all_teams
@@ -1952,8 +1943,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Bulk update of teams
       tags:
-        - Administration
-        - Team Administration
+        - Not yet implemented
     summary: Endpoint for team information
     x-last-modified: 1665308784
   /profiles/{relic_link_id}/settings:
@@ -1981,8 +1971,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Remove all settings for a specific profile
       tags:
-        - Profile Administration
-        - Administration
+        - Not yet implemented
     get:
       operationId: get_setting_collection_for_profile
       parameters:
@@ -2006,9 +1995,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Retrieve all settings for a specific profile
       tags:
-        - Profile Administration
-        - Administration
-        - Information
+        - Not yet implemented
     patch:
       description: ""
       operationId: partial_update_all_settings_for_profile
@@ -2037,8 +2024,7 @@ paths:
         Update a specific setting for a specific profile from the Relic Link
         API
       tags:
-        - Profile Administration
-        - Administration
+        - Not yet implemented
     post:
       description: ""
       operationId: create_new_setting_for_profile
@@ -2065,8 +2051,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Create a new setting for a specific profile from the Relic Link API
       tags:
-        - Profile Administration
-        - Administration
+        - Not yet implemented
     put:
       description: ""
       operationId: bulk_update_all_settings_for_profile
@@ -2095,8 +2080,7 @@ paths:
         Bulk update of settings for a specific profile from the Relic Link
         API
       tags:
-        - Profile Administration
-        - Administration
+        - Not yet implemented
     summary: Collection of settings specifically for a certain Relic Link profile
     x-last-modified: 1665308784
   /profiles/{relic_link_id}/stats:
@@ -2123,7 +2107,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Retrieve all stats for a specific profile
       tags:
-        - Statistics
+        - Not yet implemented
     summary: Collection of statistics specifically for a certain Relic Link profile
     x-last-modified: 1665308784
   /teams/{team_id}:
@@ -2150,8 +2134,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Retrieve details of a team
       tags:
-        - Teams
-        - Team Administration
+        - Not yet implemented
     summary: Team information
     x-last-modified: 1665308784
   /teams/{team_id}/matches:
@@ -2188,7 +2171,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Retrieve a list of matches for a specific team
       tags:
-        - Match data
+        - Not yet implemented
     summary: Collection of match information for a team
     x-last-modified: 1665308784
   /teams/{team_id}/stats:
@@ -2215,9 +2198,7 @@ paths:
           $ref: "#/components/responses/501"
       summary: Retrieve a list of stats for a specific team
       tags:
-        - Statistics
-        - Teams
-        - Team Administration
+        - Not yet implemented
     summary: Collection of stats for a team
     x-last-modified: 1665308784
 components:
