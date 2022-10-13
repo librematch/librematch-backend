@@ -125,12 +125,7 @@ paths:
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access.
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
           $ref: "#/components/responses/403"
         "404":
@@ -156,12 +151,7 @@ paths:
           description: Operation succeeded
           x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedError"
-          description: Unauthorized access.
-          x-last-modified: 1665308784
+          $ref: "#/components/responses/401"
         "403":
           $ref: "#/components/responses/403"
         "404":
@@ -376,9 +366,6 @@ paths:
           x-last-modified: 1665308784
         "401":
           $ref: "#/components/responses/401"
-
-          description: Unauthorized access
-          x-last-modified: 1665308784
         "403":
           $ref: "#/components/responses/403"
         "404":
@@ -396,44 +383,15 @@ paths:
     get:
       operationId: get_match_collection_for_profile
       parameters:
-        - $ref: "#/components/parameters/style"
-        - $ref: "#/components/parameters/language"
-        - $ref: "#/components/parameters/match_uuid"
-        - $ref: "#/components/parameters/last_match"
-        - $ref: "#/components/parameters/status"
-        - deprecated: false
-          description: Game identifier to query for
-          explode: true
-          in: query
-          name: game
-          required: false
-          schema:
-            $ref: "#/components/schemas/GameId"
-        - deprecated: false
-          description: Starting match
-          explode: false
-          in: query
-          name: start
-          required: false
-          schema:
-            $ref: "#/components/schemas/StartParam"
-        - deprecated: false
-          description: Number of entries to get
-          explode: false
-          in: query
-          name: count
-          required: false
-          schema:
-            $ref: "#/components/schemas/CountParam"
-        - deprecated: false
-          description: Only show matches starting after this Unix timestamp
-          explode: false
-          in: query
-          name: since
-          required: false
-          schema:
-            $ref: "#/components/schemas/SinceParam"
         - $ref: "#/components/parameters/relic_link_id"
+        - $ref: "#/components/parameters/game_ids"
+        - $ref: "#/components/parameters/language"
+        - $ref: "#/components/parameters/last_match"
+        - $ref: "#/components/parameters/style"
+        - $ref: "#/components/parameters/status_array"
+        - $ref: "#/components/parameters/since"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
       responses:
         default:
           $ref: "#/components/responses/401"
@@ -460,7 +418,7 @@ paths:
       operationId: get_details_for_match
       parameters:
         - $ref: "#/components/parameters/match_uuid"
-        # - $ref: "#/components/parameters/match_id" # TODO: Parameter Match_id
+        - $ref: "#/components/parameters/match_id"
       responses:
         default:
           $ref: "#/components/responses/401"
@@ -2345,6 +2303,15 @@ components:
         type: string
       style: simple
   parameters:
+    match_id:
+      deprecated: false
+      description: Match ID
+      explode: false
+      in: query
+      name: match_id
+      required: false
+      schema:
+        $ref: "#/components/schemas/MatchId"
     offset:
       deprecated: false
       description: Offset
@@ -2435,10 +2402,19 @@ components:
       schema:
         type: boolean
       x-last-modified: 1665308784
-    status:
+    status_array:
       deprecated: false
       description: Match status identifiers to filter for
       explode: true
+      in: query
+      name: status
+      required: false
+      schema:
+        $ref: "#/components/schemas/MatchStatusArray"
+    status:
+      deprecated: false
+      description: Match status identifiers to filter for
+      explode: false
       in: query
       name: status
       required: false
@@ -2453,6 +2429,7 @@ components:
       required: false
       schema:
         type: boolean
+        default: false
       example: false
     match_uuid:
       deprecated: false
@@ -2462,7 +2439,7 @@ components:
       name: match_uuid
       required: false
       schema:
-        $ref: "#/components/schemas/MatchId"
+        $ref: "#/components/schemas/MatchUuid"
     language:
       deprecated: false
       name: language
@@ -2481,6 +2458,18 @@ components:
       required: false
       schema:
         $ref: "#/components/schemas/ResponseStyle"
+    relic_link_ids:
+      deprecated: false
+      description:
+        An array of unique identifiers used by the Relic Link API for a player on
+        their platform
+      explode: false
+      in: query
+      name: relic_link_ids
+      required: false
+      schema:
+        $ref: "#/components/schemas/RelicLinkIdArray"
+      x-last-modified: 1665308784
     relic_link_id:
       deprecated: false
       description:
@@ -2530,6 +2519,18 @@ components:
       schema:
         $ref: "#/components/schemas/Ulid"
       style: simple
+      x-last-modified: 1665308784
+    game_ids:
+      deprecated: false
+      description:
+        The unique identifier we use for games that use the Relic Link
+        API
+      explode: true
+      required: false
+      in: query
+      name: game_ids
+      schema:
+        $ref: "#/components/schemas/GameIdArray"
       x-last-modified: 1665308784
     game_id:
       deprecated: false
@@ -2688,7 +2689,7 @@ components:
       pattern: "^[0-9]{11}$"
       type: integer
       default: 0
-      example: 250
+      example: 0
     LimitParam:
       format: int64
       maximum: 1000
@@ -2704,13 +2705,18 @@ components:
       pattern: "^1[6-9]([0-9]){8}$"
       type: integer
       example: 1702232026
-    MatchId:
+    MatchUuid:
       format: uuid
       pattern:
         "^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b\
         -[0-9a-fA-F]{12}$"
       type: string
-      example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+      example: 03531e31-31fd-5041-9f70-0264e158a40e
+    MatchId:
+      format: int64
+      pattern: "^[0-9]{14}$"
+      type: integer
+      example: 75984064
     SteamId:
       format: int64
       maximum: 18
@@ -2809,12 +2815,30 @@ components:
       pattern: "^\\d\\d\\d\\d-(0?[1-9]|1[0-2])-(0?[1-9]|[12][0-9]|3[01]) (00|[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9])$"
       type: string
       x-last-modified: 1665308784
+    RelicLinkIdArray:
+      type: array
+      items:
+        $ref: "#/components/schemas/RelicLinkId"
+      example:
+        - 196240
+        - 185043
+      x-last-modified: 1665308784
     RelicLinkId:
       format: int64
       maximum: 999999999
       minimum: 0
       type: integer
       example: 196240
+      x-last-modified: 1665308784
+    MatchStatusArray:
+      description: Array of match statuses
+      items:
+        $ref: "#/components/schemas/MatchStatus"
+      type: array
+      default: finished
+      example:
+        - ongoing
+        - finished
       x-last-modified: 1665308784
     MatchStatus:
       description: Match statuses
@@ -2825,6 +2849,15 @@ components:
       type: string
       default: finished
       example: ongoing
+      x-last-modified: 1665308784
+    GameIdArray:
+      description: Array of supported games by Relic Link API
+      items:
+        $ref: "#/components/schemas/GameId"
+      type: array
+      example:
+        - aoe2de
+        - aoe4
       x-last-modified: 1665308784
     GameId:
       description: Supported games by Relic Link API

@@ -1,7 +1,7 @@
 {
     "contentVersion": "v1",
     "self": {
-        "href": "https://api.librematch.org/v1/games/matches/3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "href": "https://api.librematch.org/v1/games/matches/03531e31-31fd-5041-9f70-0264e158a40e",
         "rel": [
             "item"
         ]
@@ -15,18 +15,13 @@
     "next": null,
     "last": null,
     "parameters": {
-        "uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "uuid": "03531e31-31fd-5041-9f70-0264e158a40e",
+        "match_id": null,
         "languages": [
             "en",
             "fr"
         ],
-        "style": "compact",
-        "last_match": false,
-        "status": null,
-        "game": null,
-        "start": null,
-        "count": null,
-        "since": null
+        "style": "compact"
     },
     "value": [
         {
