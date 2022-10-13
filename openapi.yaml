@@ -29,9 +29,10 @@ security:
 paths:
   /profiles/search:
     description: Search endpoint
+    summary: "Retrieve a list of `profile_ids` that are the result to a search by alias or steam_id"
     get:
-      description:
-        "Search for a profile by Steam ID or name, returns a single `profile_id`\
+      summary:
+        "Search for a profile by Steam ID or Alias, returns a single `profile_id`\
         \ usable with other endpoints"
       operationId: get_profile_information_from_search
       parameters:
@@ -59,7 +60,7 @@ paths:
   /dumps/{timeframe}:
     description: Download database dumps
     get:
-      description: Download a database dump from a given timeframe
+      summary: Download a database dump for a given timeframe
       operationId: get_database_dump_collection
       parameters:
         - $ref: "#/components/parameters/timeframe"
@@ -82,7 +83,7 @@ paths:
         "501":
           $ref: "#/components/responses/501"
       tags:
-        - Database
+        - Database Dumps
         - Statistics
     servers:
       - description: Override base path for all operations with the /dumps path
@@ -253,9 +254,7 @@ paths:
           $ref: "#/components/responses/429"
         "501":
           $ref: "#/components/responses/501"
-      summary:
-        Retrieve all available tournaments for all games available on the Relic
-        Link platform
+      summary: Retrieve all available tournaments for all games
       tags:
         - Information
         - Tournament Administration
@@ -308,7 +307,7 @@ paths:
           $ref: "#/components/responses/429"
         "501":
           $ref: "#/components/responses/501"
-      summary: Create a new tournament for a game available on the Relic Link platform
+      summary: Create a new tournament for a game
       tags:
         - Tournament Administration
     put:
@@ -909,6 +908,142 @@ paths:
       "Statistics of Libre:Match, e.g. usage statistics, collection rate, overall\
       \ amount of users, etc."
     x-last-modified: 1665308784
+  /application/{component_id}/settings:
+    delete:
+      operationId: remove_all_settings_for_component
+      parameters:
+        - $ref: "#/components/parameters/component_id"
+      responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+        "501":
+          $ref: "#/components/responses/501"
+      summary: Remove all settings for a specific component of Libre:Match
+      tags:
+        - Internal
+        - Administration
+    get:
+      operationId: get_setting_collection_for_component
+      parameters:
+        - $ref: "#/components/parameters/component_id"
+      responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+        "501":
+          $ref: "#/components/responses/501"
+      summary: Retrieve all settings for a specific component of Libre:Match
+      tags:
+        - Internal
+        - Administration
+    patch:
+      description: ""
+      operationId: partial_update_all_settings_for_component
+      parameters:
+        - $ref: "#/components/parameters/component_id"
+      responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
+        "501":
+          $ref: "#/components/responses/501"
+      summary: Update a specific setting for a specific component of Libre:Match
+      tags:
+        - Internal
+        - Administration
+    post:
+      summary: Create a setting for a certain Libre:Match component
+      operationId: create_new_setting_for_component
+      parameters:
+        - $ref: "#/components/parameters/component_id"
+      responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
+        "501":
+          $ref: "#/components/responses/501"
+      tags:
+        - Internal
+        - Administration
+    put:
+      description: ""
+      operationId: bulk_update_all_settings_for_component
+      parameters:
+        - $ref: "#/components/parameters/component_id"
+      responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
+        "501":
+          $ref: "#/components/responses/501"
+      summary: Bulk update of settings for a specific component of Libre:Match
+      tags:
+        - Internal
+        - Administration
+    summary: "Settings of Libre:Match components"
+    x-last-modified: 1665308784
   /application/status:
     get:
       operationId: get_status_collection_for_application
@@ -941,18 +1076,7 @@ paths:
     get:
       operationId: get_details_for_game
       parameters:
-        - deprecated: false
-          description:
-            The unique identifier we use for games that use the Relic Link
-            API
-          explode: false
-          in: path
-          name: game_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/GameId"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/game_id"
       responses:
         default:
           $ref: "#/components/responses/401"
@@ -976,18 +1100,7 @@ paths:
     get:
       operationId: get_leaderboard_collection_for_game
       parameters:
-        - deprecated: false
-          description:
-            The unique identifier we use for games that use the Relic Link
-            API
-          explode: false
-          in: path
-          name: game_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/GameId"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/game_id"
       responses:
         default:
           $ref: "#/components/responses/401"
@@ -1013,46 +1126,11 @@ paths:
     get:
       operationId: get_details_for_leaderboard
       parameters:
-        - deprecated: false
-          description: Search for a profile ID in a leaderboard
-          explode: false
-          in: query
-          name: profile_id
-          required: false
-          schema:
-            $ref: "#/components/schemas/RelicLinkId"
-          style: form
-        - deprecated: false
-          description: Search for a name in a leaderboard
-          explode: false
-          in: query
-          name: search
-          required: false
-          schema:
-            $ref: "#/components/schemas/SearchParam"
-          style: form
-        - deprecated: false
-          description: Starting rank
-          explode: false
-          in: query
-          name: start
-          required: false
-          schema:
-            $ref: "#/components/schemas/StartParam"
-          style: form
+        - $ref: "#/components/parameters/profile_id"
+        - $ref: "#/components/parameters/search_alias"
+        - $ref: "#/components/parameters/start"
         - $ref: "#/components/parameters/count"
-        - deprecated: false
-          description:
-            The unique identifier (ULID) we use for leaderboards of the Relic
-            Link API
-          explode: false
-          in: path
-          name: leaderboard_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/leaderboard_id"
       responses:
         default:
           $ref: "#/components/responses/401"
@@ -1078,18 +1156,7 @@ paths:
     get:
       operationId: get_stat_collection_for_leaderboard
       parameters:
-        - deprecated: false
-          description:
-            The unique identifier (ULID) we use for leaderboards of the Relic
-            Link API
-          explode: false
-          in: path
-          name: leaderboard_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/leaderboard_id"
       responses:
         default:
           $ref: "#/components/responses/401"
@@ -1121,18 +1188,7 @@ paths:
         - $ref: "#/components/parameters/status"
         - $ref: "#/components/parameters/count"
         - $ref: "#/components/parameters/since"
-        - deprecated: false
-          description:
-            The unique identifier (ULID) we use for leaderboards of the Relic
-            Link API
-          explode: false
-          in: path
-          name: leaderboard_id
-          required: true
-          schema:
-            $ref: "#/components/schemas/Ulid"
-          style: simple
-          x-last-modified: 1665308784
+        - $ref: "#/components/parameters/leaderboard_id"
       responses:
         default:
           $ref: "#/components/responses/401"
@@ -1594,7 +1650,7 @@ paths:
           $ref: "#/components/responses/501"
       summary:
         Partial update all brackets for a specific tournament for a specific
-        game available on the Relic Link platform
+        game
       tags:
         - Administration
         - Tournament Administration
@@ -1622,9 +1678,8 @@ paths:
           $ref: "#/components/responses/429"
         "501":
           $ref: "#/components/responses/501"
-      summary:
-        Create a new bracket for a specific tournament for a specific game
-        available on the Relic Link platform
+      summary: Create a new bracket for a specific tournament for a specific game
+
       tags:
         - Administration
         - Tournament Administration
@@ -1652,9 +1707,7 @@ paths:
           $ref: "#/components/responses/429"
         "501":
           $ref: "#/components/responses/501"
-      summary:
-        Bulk update all brackets for a specific tournament for a specific game
-        available on the Relic Link platform
+      summary: Bulk update all brackets for a specific tournament for a specific game
       tags:
         - Administration
         - Tournament Administration
@@ -1738,9 +1791,7 @@ paths:
           $ref: "#/components/responses/429"
         "501":
           $ref: "#/components/responses/501"
-      summary:
-        Update details of admins for a specific tournament for a specific game
-        available on the Relic Link platform
+      summary: Update details of admins for a specific tournament for a specific game
       tags:
         - Administration
         - Tournament Administration
@@ -2282,6 +2333,15 @@ components:
         type: string
       style: simple
   parameters:
+    start:
+      deprecated: false
+      description: Starting
+      explode: false
+      in: query
+      name: start
+      required: false
+      schema:
+        $ref: "#/components/schemas/StartParam"
     count:
       deprecated: false
       description: Number of leaderboard entries to get
@@ -2404,6 +2464,19 @@ components:
         $ref: "#/components/schemas/RelicLinkId"
       style: simple
       x-last-modified: 1665308784
+    profile_id:
+      deprecated: false
+      description:
+        The unique identifier used by the Relic Link API for a player on
+        their platform
+      explode: false
+      in: path
+      name: profile_id
+      required: true
+      schema:
+        $ref: "#/components/schemas/RelicLinkId"
+      style: simple
+      x-last-modified: 1665308784
     tournament_id:
       deprecated: false
       description: The unique identifier (ULID) we use for tournaments
@@ -2460,6 +2533,17 @@ components:
       explode: false
       in: path
       name: user_id
+      required: true
+      schema:
+        $ref: "#/components/schemas/Ulid"
+      style: simple
+      x-last-modified: 1665308784
+    component_id:
+      deprecated: false
+      description: The unique identifier (ULID) we use for internal components of Libre:Match
+      explode: false
+      in: path
+      name: component_id
       required: true
       schema:
         $ref: "#/components/schemas/Ulid"
