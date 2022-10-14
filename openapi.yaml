@@ -929,6 +929,7 @@ paths:
     summary: Registering as a new User to our API
     x-last-modified: 1665308784
   /users/validate:
+    summary: Validation for a user account and api tokens used for our API
     description:
       "Validate API tokens, can give information about how long a token\
       \ is still valid and help automating updating a token"
@@ -974,7 +975,6 @@ paths:
           $ref: "#/components/responses/429"
       tags:
         - Not yet implemented
-    summary: Validation for a user account and api tokens used for our API
     x-last-modified: 1665308784
   /application:
     summary:
@@ -983,24 +983,24 @@ paths:
     get:
       summary: Retrieve a list of available application information
       description: |
-        ### ⚔️ LibreMatch
+        # ⚔️ Libre:Match
 
-        #### 🙋‍♀️ Introduction
+        ## 🙋‍♀️ Introduction
 
         LibreMatch is a project to create a **stable, reliable and feature-rich API** for match 
         information, leaderboards, and tournament organisation for the Age of 
         Empires multiplayer platform Relic Link. 
 
-        #### 📞 Contact
+        ## 📞 Contact
         It is done **by the community for the community** - so feel free to join us on our [Discord](https://discord.gg/MvuusBxtuB) if you have any suggestions, feature requests, found a bug, or if you really just want to talk to like-minded people.
 
-        #### 👩‍💻 News
+        ## 👩‍💻 News
         We are currently working on desgning the API (synchronous), if you want to follow progress, you can do that [here](https://github.com/librematch/librematch-backend/pull/1) or in the forums on our [Discord](https://discord.gg/MvuusBxtuB).
 
-        ### Response
+        # Response
         TODO: Return information such as maintenance intervals, next maintenance,
         API updates, news, contacts to us, small introductory sentence, disclaimer that
-        we are not affiliated with Microsoft(!!!)
+        we are not affiliated with Microsoft(!!!), link to api documentation, blog, etc.
       operationId: get_general_collection_for_application
       responses:
         default:
@@ -1021,8 +1021,25 @@ paths:
       tags:
         - Not yet implemented
     x-last-modified: 1665308784
-  /application/statistics:
+  /application/stats:
+    summary:
+      "Statistics of Libre:Match itself, e.g. usage statistics, collection rate, overall\
+      \ amount of users, etc."
     get:
+      summary: Retrieve a list of application stats
+      description: |
+        # ⚔️ Libre:Match Statistics
+
+        TODO
+
+        ## Response
+        - usage statistics
+        - collection rate
+        - overall amount of API users
+        - timings
+        - uptime
+        - amount of data collected
+        - etc.
       operationId: get_stat_collection_for_application
       responses:
         default:
@@ -1040,17 +1057,14 @@ paths:
           $ref: "#/components/responses/406"
         "429":
           $ref: "#/components/responses/429"
-      summary: Retrieve a list of only application statistics
       tags:
         - Not yet implemented
-    summary:
-      "Statistics of Libre:Match, e.g. usage statistics, collection rate, overall\
-      \ amount of users, etc."
     x-last-modified: 1665308784
   /application/components:
     summary: "Libre:Match components"
     delete:
       summary: Remove all components
+      description: TODO
       operationId: remove_all_components
       # parameters:
       responses:
@@ -1074,6 +1088,7 @@ paths:
         - Not yet implemented
     get:
       summary: Retrieve all settings for a specific component
+      description: TODO
       operationId: get_general_collection_for_components
       # parameters:
       responses:
@@ -1097,7 +1112,7 @@ paths:
         - Not yet implemented
     patch:
       summary: Partially update all components
-      description: ""
+      description: TODO
       operationId: partial_update_all_components
       # parameters:
       responses:
@@ -1123,6 +1138,7 @@ paths:
         - Not yet implemented
     post:
       summary: Create a new component
+      description: TODO
       operationId: create_new_component
       # parameters:
       responses:
@@ -1148,7 +1164,7 @@ paths:
         - Not yet implemented
     put:
       summary: Bulk update of all components
-      description: ""
+      description: TODO
       operationId: bulk_update_all_components
       parameters:
         - $ref: "#/components/parameters/component_id"
@@ -1178,6 +1194,7 @@ paths:
     summary: "Settings of Libre:Match components"
     delete:
       summary: Remove all settings for a specific component of Libre:Match
+      description: TODO
       operationId: remove_all_settings_for_component
       parameters:
         - $ref: "#/components/parameters/component_id"
@@ -1202,6 +1219,7 @@ paths:
         - Not yet implemented
     get:
       summary: Retrieve all settings for a specific component of Libre:Match
+      description: TODO
       operationId: get_setting_collection_for_component
       parameters:
         - $ref: "#/components/parameters/component_id"
@@ -1226,7 +1244,7 @@ paths:
         - Not yet implemented
     patch:
       summary: Update a specific setting for a specific component of Libre:Match
-      description: ""
+      description: TODO
       operationId: partial_update_all_settings_for_component
       parameters:
         - $ref: "#/components/parameters/component_id"
@@ -1253,6 +1271,7 @@ paths:
         - Not yet implemented
     post:
       summary: Create a setting for a certain Libre:Match component
+      description: TODO
       operationId: create_new_setting_for_component
       parameters:
         - $ref: "#/components/parameters/component_id"
@@ -1279,7 +1298,7 @@ paths:
         - Not yet implemented
     put:
       summary: Bulk update of settings for a specific component of Libre:Match
-      description: ""
+      description: TODO
       operationId: bulk_update_all_settings_for_component
       parameters:
         - $ref: "#/components/parameters/component_id"
@@ -1309,6 +1328,7 @@ paths:
     summary: Status updates for health checks of our API
     get:
       summary: Retrieve application status information
+      description: TODO
       operationId: get_status_collection_for_application
       responses:
         default:
