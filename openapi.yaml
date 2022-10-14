@@ -35,16 +35,16 @@ paths:
         # Profile Search
 
         Search for a profile by 
-        - `SteamID64`
-        - `alias`
+        - **SteamID64**
+        - **alias**
 
         ## Response
         This returns a single profile when a SteamID64 is provided.
         It will return a list of profiles when you search for an alias.
 
-        When used with the `exact` parameter it will not return a result
+        When used with the **exact** parameter it will not return a result
         if there isn't an exact match within our database for the provided
-        `alias`.
+        **alias**.
       operationId: get_profile_information_from_search
       parameters:
         - $ref: "#/components/parameters/exact"
@@ -82,12 +82,12 @@ paths:
         ## Filters
         You can filter for dumps that were uploaded either
 
-        - since a certain `Unix timestamp`/`Datetime string`
-        - between two `Unix timestamps`/`Datetime strings`
-        - the `type of information` that are present 
+        - since a certain **Unix timestamp**/**Datetime string**
+        - between two **Unix timestamps**/**Datetime strings**
+        - the **type of information** that are present 
 
         ## Response
-        This returns `paginated` results.
+        This returns **paginated** results.
       operationId: get_database_dump_collection
       parameters:
         - $ref: "#/components/parameters/since_timestamp"
@@ -119,9 +119,9 @@ paths:
         - Statistics
         - Database
         - Collection
-    servers:
-      - description: Override base path for all operations with the /dumps path
-        url: https://db.librematch.org
+    # servers:
+    #   - description: TODO? Override base path for all operations with the /dumps path
+    #     url: https://db.librematch.org
   /dumps/{dump_id}:
     get:
       summary: Retrieve details about a database dump
@@ -131,8 +131,12 @@ paths:
         A single database dump item and details about it.
 
         ## Response
-        This contains information about a database dump, such as its `URL`, `size`, `uploaded_date`,
-        or an `amount of contained items` and their `type`.
+        This contains information about a database dump, such as:
+        - its **URL**
+        - **size**
+        - **uploaded_date**,
+        - **amount of contained items**
+        - their **type**.
       operationId: get_database_dump_item
       parameters:
         - $ref: "#/components/parameters/dump_id"
@@ -158,9 +162,9 @@ paths:
         - Statistics
         - Database
         - Items
-    servers:
-      - description: Override base path for all operations with the /dumps path
-        url: https://db.librematch.org
+    # servers:
+    #   - description: TODO? Override base path for all operations with the /dumps path
+    #     url: https://db.librematch.org
   /games:
     get:
       operationId: get_game_identifier_collection
