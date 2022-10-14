@@ -28,12 +28,22 @@ security:
   - HttpAuth: []
 paths:
   /profiles/search:
-    description: Search endpoint
-    summary: "Retrieve a list of `profile_ids` that are the result to a search by alias or steam_id"
+    description: Endpoint for Profile Search
     get:
-      summary:
-        "Search for a profile by Steam ID or Alias, returns a single `profile_id`\
-        \ usable with other endpoints"
+      summary: Search for profiles by Steam ID and/or alias
+      description: |
+        # Profile Search
+
+        Search for a profile by 
+        - `SteamID64`
+        - `alias`
+
+        This returns a single profile when a SteamID64 is provided.
+        It will return a list of profiles when you search for an alias.
+
+        When used with the `exact` parameter it will not return a result
+        if there isn't an exact match within our database for the provided
+        `alias`.
       operationId: get_profile_information_from_search
       parameters:
         - $ref: "#/components/parameters/exact"
@@ -58,16 +68,66 @@ paths:
       tags:
         - Collections
         - Search
-  /dumps/{timeframe}:
-    description: Download database dumps
+  /dumps:
+    description: Endpoint for database dumps
     get:
-      summary: Download a database dump for a given timeframe
-      description:
-        "...: /dumps/{dump_id} -> size, uploaded date, amount of unique items (leaderboard, profiles, etc.)
-        ..: /dumps?param (since, limit, offset, type of content (leaderboards?)"
+      summary: Retrieve a list of available database dumps
+      description: |
+        # Database Dumps
+
+        We offer database dumps for the purpose of statistical analysis
+        which would otherwise cause a high load on our API.
+
+        To filter for a certain
+
       operationId: get_database_dump_collection
       parameters:
-        - $ref: "#/components/parameters/timeframe"
+        - $ref: "#/components/parameters/between_timestamps"
+        - $ref: "#/components/parameters/between_datetimes"
+        - $ref: "#/components/parameters/started_after_datetime"
+        - $ref: "#/components/parameters/finished_after_datetime"
+        - $ref: "#/components/parameters/started_after_timestamp"
+        - $ref: "#/components/parameters/finished_after_timestamp"
+        - $ref: "#/components/parameters/dump_type_array"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+      responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+          x-last-modified: 1665308784
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+        "501":
+          $ref: "#/components/responses/501"
+      tags:
+        - Statistics
+        - Database
+        - Collection
+    servers:
+      - description: Override base path for all operations with the /dumps path
+        url: https://db.librematch.org
+  /dumps/{dump_id}:
+    get:
+      summary: Retrieve details about a database dump
+      description: |
+
+
+        Download a database dump for a given timeframe
+        "...: /dumps/{dump_id} -> size, uploaded date, amount of unique items (leaderboard, profiles, etc.)
+
+      operationId: get_database_dump_item
+      parameters:
+        - $ref: "#/components/parameters/dump_id"
       responses:
         default:
           $ref: "#/components/responses/401"
@@ -92,7 +152,7 @@ paths:
         - Items
     servers:
       - description: Override base path for all operations with the /dumps path
-        url: https://dumps.librematch.org
+        url: https://db.librematch.org
   /games:
     get:
       operationId: get_game_identifier_collection
@@ -186,7 +246,12 @@ paths:
         - $ref: "#/components/parameters/offset"
         - $ref: "#/components/parameters/limit"
         - $ref: "#/components/parameters/status_array"
-        - $ref: "#/components/parameters/since"
+        - $ref: "#/components/parameters/between_timestamps"
+        - $ref: "#/components/parameters/between_datetimes"
+        - $ref: "#/components/parameters/started_after_datetime"
+        - $ref: "#/components/parameters/finished_after_datetime"
+        - $ref: "#/components/parameters/started_after_timestamp"
+        - $ref: "#/components/parameters/finished_after_timestamp"
         - $ref: "#/components/parameters/game_id"
         - $ref: "#/components/parameters/language"
       responses:
@@ -221,7 +286,12 @@ paths:
         - $ref: "#/components/parameters/offset"
         - $ref: "#/components/parameters/limit"
         - $ref: "#/components/parameters/status_array"
-        - $ref: "#/components/parameters/since"
+        - $ref: "#/components/parameters/between_timestamps"
+        - $ref: "#/components/parameters/between_datetimes"
+        - $ref: "#/components/parameters/started_after_datetime"
+        - $ref: "#/components/parameters/finished_after_datetime"
+        - $ref: "#/components/parameters/started_after_timestamp"
+        - $ref: "#/components/parameters/finished_after_timestamp"
         - $ref: "#/components/parameters/game_id"
         - $ref: "#/components/parameters/language"
       responses:
@@ -437,7 +507,12 @@ paths:
         - $ref: "#/components/parameters/last_match"
         - $ref: "#/components/parameters/style"
         - $ref: "#/components/parameters/status_array"
-        - $ref: "#/components/parameters/since"
+        - $ref: "#/components/parameters/between_timestamps"
+        - $ref: "#/components/parameters/between_datetimes"
+        - $ref: "#/components/parameters/started_after_datetime"
+        - $ref: "#/components/parameters/finished_after_datetime"
+        - $ref: "#/components/parameters/started_after_timestamp"
+        - $ref: "#/components/parameters/finished_after_timestamp"
         - $ref: "#/components/parameters/limit"
         - $ref: "#/components/parameters/offset"
       responses:
@@ -501,7 +576,12 @@ paths:
         - $ref: "#/components/parameters/offset"
         - $ref: "#/components/parameters/leaderboard_id"
         - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/since"
+        - $ref: "#/components/parameters/between_timestamps"
+        - $ref: "#/components/parameters/between_datetimes"
+        - $ref: "#/components/parameters/started_after_datetime"
+        - $ref: "#/components/parameters/finished_after_datetime"
+        - $ref: "#/components/parameters/started_after_timestamp"
+        - $ref: "#/components/parameters/finished_after_timestamp"
         - $ref: "#/components/parameters/relic_link_id"
       responses:
         default:
@@ -1206,7 +1286,12 @@ paths:
         - $ref: "#/components/parameters/status_array"
         - $ref: "#/components/parameters/limit"
         - $ref: "#/components/parameters/offset"
-        - $ref: "#/components/parameters/since"
+        - $ref: "#/components/parameters/between_timestamps"
+        - $ref: "#/components/parameters/between_datetimes"
+        - $ref: "#/components/parameters/started_after_datetime"
+        - $ref: "#/components/parameters/finished_after_datetime"
+        - $ref: "#/components/parameters/started_after_timestamp"
+        - $ref: "#/components/parameters/finished_after_timestamp"
         - $ref: "#/components/parameters/leaderboard_id"
       responses:
         default:
@@ -1568,7 +1653,12 @@ paths:
         - $ref: "#/components/parameters/languages"
         - $ref: "#/components/parameters/offset"
         - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/since"
+        - $ref: "#/components/parameters/between_timestamps"
+        - $ref: "#/components/parameters/between_datetimes"
+        - $ref: "#/components/parameters/started_after_datetime"
+        - $ref: "#/components/parameters/finished_after_datetime"
+        - $ref: "#/components/parameters/started_after_timestamp"
+        - $ref: "#/components/parameters/finished_after_timestamp"
         - $ref: "#/components/parameters/tournament_id"
       responses:
         default:
@@ -2188,10 +2278,14 @@ paths:
         - $ref: "#/components/parameters/last_match"
         - $ref: "#/components/parameters/style"
         - $ref: "#/components/parameters/status_array"
-        - $ref: "#/components/parameters/since"
+        - $ref: "#/components/parameters/between_timestamps"
+        - $ref: "#/components/parameters/between_datetimes"
+        - $ref: "#/components/parameters/started_after_datetime"
+        - $ref: "#/components/parameters/finished_after_datetime"
+        - $ref: "#/components/parameters/started_after_timestamp"
+        - $ref: "#/components/parameters/finished_after_timestamp"
         - $ref: "#/components/parameters/limit"
         - $ref: "#/components/parameters/offset"
-        - $ref: "#/components/parameters/since"
         - $ref: "#/components/parameters/relic_link_ids"
       responses:
         default:
@@ -2360,24 +2454,69 @@ components:
       required: false
       schema:
         $ref: "#/components/schemas/LimitParam"
-    since:
+    between_timestamps:
       deprecated: false
-      description: Only show matches starting after this Unix timestamp
-      explode: false
+      description: In between two comma-delimited UNIX timestamps
+      explode: true
       in: query
-      name: since
+      name: between_timestamps
       required: false
       schema:
-        $ref: "#/components/schemas/SinceParam"
-    timeframe:
+        $ref: "#/components/schemas/BetweenReasonableUnixTimestamps"
+    between_datetimes:
+      deprecated: false
+      description: In between two comma-delimited Datetime string
+      explode: true
+      in: query
+      name: between_datetimes
+      required: false
+      schema:
+        $ref: "#/components/schemas/BetweenDatetimeStrings"
+    started_after_datetime:
+      deprecated: false
+      description: Only show matches that started after this Datetime string
+      explode: false
+      in: query
+      name: started_after_datetime
+      required: false
+      schema:
+        $ref: "#/components/schemas/DateTimeString"
+    finished_after_datetime:
+      deprecated: false
+      description: Only show matches that ended after this Datetime string
+      explode: false
+      in: query
+      name: finished_after_datetime
+      required: false
+      schema:
+        $ref: "#/components/schemas/DateTimeString"
+    started_after_timestamp:
+      deprecated: false
+      description: Only show matches that started after this Unix timestamp
+      explode: false
+      in: query
+      name: started_after_timestamp
+      required: false
+      schema:
+        $ref: "#/components/schemas/ReasonableUnixTimestamp"
+    finished_after_timestamp:
+      deprecated: false
+      description: Only show matches that ended after this Unix timestamp
+      explode: false
+      in: query
+      name: finished_after_timestamp
+      required: false
+      schema:
+        $ref: "#/components/schemas/ReasonableUnixTimestamp"
+    datetime:
       deprecated: false
       description: The timeframe from which to download a database dump
       explode: false
       in: path
-      name: timeframe
+      name: datetime
       required: true
       schema:
-        $ref: "#/components/schemas/Timeframe"
+        $ref: "#/components/schemas/DateTimeString"
       style: simple
       x-last-modified: 1665308784
     search_steam_id:
@@ -2414,6 +2553,15 @@ components:
       schema:
         type: boolean
       x-last-modified: 1665308784
+    dump_type_array:
+      deprecated: false
+      description: Dump type identifiers to filter for
+      explode: true
+      in: query
+      name: dump_types
+      required: false
+      schema:
+        $ref: "#/components/schemas/DumpTypeArray"
     status_array:
       deprecated: false
       description: Match status identifiers to filter for
@@ -2515,6 +2663,17 @@ components:
       required: true
       schema:
         $ref: "#/components/schemas/RelicLinkId"
+      style: simple
+      x-last-modified: 1665308784
+    dump_id:
+      deprecated: false
+      description: The unique identifier (ULID) we use for database dumps
+      explode: false
+      in: path
+      name: dump_id
+      required: true
+      schema:
+        $ref: "#/components/schemas/Ulid"
       style: simple
       x-last-modified: 1665308784
     tournament_id:
@@ -2704,6 +2863,7 @@ components:
       x-last-modified: 1665308784
   schemas:
     OffsetParam:
+      description: An integer between '0' and '999,999,999,999'. Serves as a start parameter.
       format: int64
       maximum: 999999999999
       minimum: 0
@@ -2711,8 +2871,8 @@ components:
       type: integer
       default: 0
       example: 0
-      description: An integer between '0' and '999,999,999,999'. Serves as a start parameter.
     LimitParam:
+      description: An integer between '1' and '1,000'. Serves as a page limit.
       format: int64
       maximum: 1000
       minimum: 1
@@ -2720,8 +2880,14 @@ components:
       type: integer
       default: 50
       example: 25
-      description: An integer between '1' and '1,000'. Serves as a page limit.
-    SinceParam:
+    BetweenReasonableUnixTimestamps:
+      description: Two comma-delimited UNIX TimeStamps between 'Fri, 09 Oct 2020 08:27:06 +0000' and 'Sat, 09 Oct 2032 08:27:06 +0000'.
+      pattern: "^1[6-9]([0-9]){8}$"
+      type: string
+      format: string
+      example: "1702232026,1702232026"
+      x-last-modified: 1665308784
+    ReasonableUnixTimestamp:
       format: int64
       maximum: 1980923226
       minimum: 1602232026
@@ -2834,14 +3000,24 @@ components:
       pattern: "^[a-fA-F0-9]{32}$"
       type: string
       x-last-modified: 1665308784
-    Timeframe:
+    BetweenDatetimeStrings:
+      description: Two comma-delimited Datetime strings
       format: string
-      maxLength: 15
-      maximum: 15
-      pattern: "^\\d\\d\\d\\d-(0?[1-9]|1[0-2])-(0?[1-9]|[12][0-9]|3[01]) (00|[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9])$"
+      maxLength: 50
+      pattern: '^\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d(?:\.\d+)?Z?$'
       type: string
+      example: "2022-04-19T08:00:00.000Z,2022-04-19T10:00:00.000Z"
+      x-last-modified: 1665308784
+    DateTimeString:
+      description: A Datetime string
+      format: string
+      maxLength: 25
+      pattern: '^\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d(?:\.\d+)?Z?$'
+      type: string
+      example: "2022-09-19T15:22:08.452Z"
       x-last-modified: 1665308784
     RelicLinkIdArray:
+      description: Array of Relic Link IDs
       type: array
       items:
         $ref: "#/components/schemas/RelicLinkId"
@@ -2850,6 +3026,7 @@ components:
         - 185043
       x-last-modified: 1665308784
     RelicLinkId:
+      description: A Relic Link ID
       format: int64
       maximum: 999999999
       minimum: 0
@@ -2865,6 +3042,29 @@ components:
       example:
         - ongoing
         - finished
+      x-last-modified: 1665308784
+    DumpTypeArray:
+      description: Dump content types
+      items:
+        $ref: "#/components/schemas/DumpType"
+      type: array
+      default:
+        - leaderboards
+        - matches
+        - ratings
+      example:
+        - matches
+        - ratings
+      x-last-modified: 1665308784
+    DumpType:
+      description: Dump content type
+      enum:
+        - leaderboards
+        - matches
+        - ratings
+      type: string
+      default: leaderboards
+      example: leaderboards
       x-last-modified: 1665308784
     MatchStatus:
       description: Match statuses
