@@ -78,7 +78,7 @@ paths:
         We offer database dumps for the purpose of statistical analysis
         which would otherwise cause a high load on our API.
 
-        To filter for a certain
+        You can filter
 
       operationId: get_database_dump_collection
       parameters:
@@ -2456,7 +2456,7 @@ components:
         $ref: "#/components/schemas/LimitParam"
     between_timestamps:
       deprecated: false
-      description: In between two comma-delimited UNIX timestamps
+      description: Items in  between two comma-delimited UNIX timestamps
       explode: true
       in: query
       name: between_timestamps
@@ -2465,7 +2465,7 @@ components:
         $ref: "#/components/schemas/BetweenReasonableUnixTimestamps"
     between_datetimes:
       deprecated: false
-      description: In between two comma-delimited Datetime string
+      description: Items in between two comma-delimited Datetime string
       explode: true
       in: query
       name: between_datetimes
@@ -2474,7 +2474,7 @@ components:
         $ref: "#/components/schemas/BetweenDatetimeStrings"
     started_after_datetime:
       deprecated: false
-      description: Only show matches that started after this Datetime string
+      description: Only show items that started after this Datetime string
       explode: false
       in: query
       name: started_after_datetime
@@ -2483,7 +2483,7 @@ components:
         $ref: "#/components/schemas/DateTimeString"
     finished_after_datetime:
       deprecated: false
-      description: Only show matches that ended after this Datetime string
+      description: Only show items that ended after this Datetime string
       explode: false
       in: query
       name: finished_after_datetime
@@ -2492,7 +2492,7 @@ components:
         $ref: "#/components/schemas/DateTimeString"
     started_after_timestamp:
       deprecated: false
-      description: Only show matches that started after this Unix timestamp
+      description: Only show items that started after this Unix timestamp
       explode: false
       in: query
       name: started_after_timestamp
@@ -2501,24 +2501,13 @@ components:
         $ref: "#/components/schemas/ReasonableUnixTimestamp"
     finished_after_timestamp:
       deprecated: false
-      description: Only show matches that ended after this Unix timestamp
+      description: Only show items that ended after this Unix timestamp
       explode: false
       in: query
       name: finished_after_timestamp
       required: false
       schema:
         $ref: "#/components/schemas/ReasonableUnixTimestamp"
-    datetime:
-      deprecated: false
-      description: The timeframe from which to download a database dump
-      explode: false
-      in: path
-      name: datetime
-      required: true
-      schema:
-        $ref: "#/components/schemas/DateTimeString"
-      style: simple
-      x-last-modified: 1665308784
     search_steam_id:
       deprecated: false
       description: The Steam ID to search a `profile_id` for
