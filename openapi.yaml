@@ -1021,7 +1021,7 @@ paths:
       tags:
         - Not yet implemented
     x-last-modified: 1665308784
-  /application/stats:
+  /application/statistics:
     summary:
       "Statistics of Libre:Match itself, e.g. usage statistics, collection rate, overall\
       \ amount of users, etc."
@@ -1352,10 +1352,20 @@ paths:
         - Administration
     x-last-modified: 1665308784
   /games/{game_id}:
-    summary: "Name of game, release date, steam and microsoft store links, features pages (liquipedia, aoezone, aoe reddit, community pages)"
+    summary: "Game-related Information"
     get:
       summary: Retrieve details for a specific game
-      description: ""
+      description: |
+        # Game related information
+
+        TODO
+
+        ## Response
+        - Name of game
+        - release date
+        - steam and microsoft store links
+        - links to community pages (liquipedia, aoezone, aoe reddit, community pages)
+        -
       operationId: get_details_for_game
       parameters:
         - $ref: "#/components/parameters/game_id"
@@ -1381,6 +1391,7 @@ paths:
     x-last-modified: 1665308784
   /games/{game_id}/leaderboards:
     get:
+      summary: Retrieve all leaderboards for a specific game
       operationId: get_leaderboard_collection_for_game
       parameters:
         - $ref: "#/components/parameters/game_id"
@@ -1400,7 +1411,6 @@ paths:
           $ref: "#/components/responses/406"
         "429":
           $ref: "#/components/responses/429"
-      summary: Retrieve all leaderboards for a specific game
       tags:
         - Games
         - Leaderboards
