@@ -38,6 +38,7 @@ paths:
         - `SteamID64`
         - `alias`
 
+        ## Response
         This returns a single profile when a SteamID64 is provided.
         It will return a list of profiles when you search for an alias.
 
@@ -78,16 +79,20 @@ paths:
         We offer database dumps for the purpose of statistical analysis
         which would otherwise cause a high load on our API.
 
-        You can filter
+        ## Filters
+        You can filter for dumps that were uploaded either
 
+        - since a certain `Unix timestamp`/`Datetime string`
+        - between two `Unix timestamps`/`Datetime strings`
+
+        ## Response
+        This returns `paginated` results.
       operationId: get_database_dump_collection
       parameters:
+        - $ref: "#/components/parameters/since_timestamp"
+        - $ref: "#/components/parameters/since_datetime"
         - $ref: "#/components/parameters/between_timestamps"
         - $ref: "#/components/parameters/between_datetimes"
-        - $ref: "#/components/parameters/started_after_datetime"
-        - $ref: "#/components/parameters/finished_after_datetime"
-        - $ref: "#/components/parameters/started_after_timestamp"
-        - $ref: "#/components/parameters/finished_after_timestamp"
         - $ref: "#/components/parameters/dump_type_array"
         - $ref: "#/components/parameters/limit"
         - $ref: "#/components/parameters/offset"
@@ -2508,6 +2513,24 @@ components:
       required: false
       schema:
         $ref: "#/components/schemas/ReasonableUnixTimestamp"
+    since_timestamp:
+      deprecated: false
+      description: Only show items that were added since this Unix timestamp
+      explode: false
+      in: query
+      name: since_timestamp
+      required: false
+      schema:
+        $ref: "#/components/schemas/ReasonableUnixTimestamp"
+    since_datetime:
+      deprecated: false
+      description: Only show items that were added since this Datetime string
+      explode: false
+      in: query
+      name: since_datetime
+      schema:
+        $ref: "#/components/schemas/DateTimeString"
+      x-last-modified: 1665308784
     search_steam_id:
       deprecated: false
       description: The Steam ID to search a `profile_id` for
