@@ -62,6 +62,9 @@ paths:
     description: Download database dumps
     get:
       summary: Download a database dump for a given timeframe
+      description:
+        "...: /dumps/{dump_id} -> size, uploaded date, amount of unique items (leaderboard, profiles, etc.)
+        ..: /dumps?param (since, limit, offset, type of content (leaderboards?)"
       operationId: get_database_dump_collection
       parameters:
         - $ref: "#/components/parameters/timeframe"
@@ -176,11 +179,13 @@ paths:
     x-last-modified: 1665308784
   /games/{game_id}/matches:
     get:
+      summary: Retrieve all matches for a specific game
+      description: Test Use case (TODO Markdown here) implement ongoing matches over all leaderboards, array of arrays (e.g. as in teams) with a leaderboard in each array
       operationId: get_match_collection_for_game
       parameters:
         - $ref: "#/components/parameters/offset"
         - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/status"
+        - $ref: "#/components/parameters/status_array"
         - $ref: "#/components/parameters/since"
         - $ref: "#/components/parameters/game_id"
         - $ref: "#/components/parameters/language"
@@ -200,11 +205,43 @@ paths:
           $ref: "#/components/responses/406"
         "429":
           $ref: "#/components/responses/429"
-      summary: Retrieve all matches for a specific game
       tags:
         - Collections
         - Matches
         - Games
+    summary:
+      "Match data spanning over the complete game (all leaderboards, basically\
+      \ a log"
+    x-last-modified: 1665308784
+  /games/{game_id}/stats:
+    get:
+      summary: Retrieve all stats for a specific game
+      operationId: get_stat_collection_for_game
+      parameters:
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/status_array"
+        - $ref: "#/components/parameters/since"
+        - $ref: "#/components/parameters/game_id"
+        - $ref: "#/components/parameters/language"
+      responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+          x-last-modified: 1665308784
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+      tags:
+        - Not yet implemented
     summary:
       "Match data spanning over the complete game (all leaderboards, basically\
       \ a log"
@@ -384,6 +421,7 @@ paths:
         "429":
           $ref: "#/components/responses/429"
       summary: Retrieve the details for a specific profile
+      description: "current wins/losses on leaderboards, rankings, rating history on leaderboards for a month, 5 (or X) last_matches on each leaderboard with datetime "
       tags:
         - Items
         - Profiles
@@ -1069,7 +1107,7 @@ paths:
       tags:
         - Games
         - Items
-    summary: "game-specific definitions, e.g. map names, civilisation names, translations"
+    summary: "Name of game, release date, steam and microsoft store links, features pages (liquipedia, aoezone, aoe reddit, community pages)"
     x-last-modified: 1665308784
   /games/{game_id}/leaderboards:
     get:
@@ -1101,6 +1139,7 @@ paths:
     x-last-modified: 1665308784
   /leaderboards/{leaderboard_id}:
     get:
+      description: Returns the profiles on the leaderboard with thei current ranking, rating, wins, losses, winrate, rel-link->last-match (more infos) and UNIXTIME + ISO-Format
       operationId: get_details_for_leaderboard
       parameters:
         - $ref: "#/components/parameters/profile_id"
@@ -1161,6 +1200,7 @@ paths:
     x-last-modified: 1665308784
   /leaderboards/{leaderboard_id}/matches:
     get:
+      description: Logfile for matches, ordered descending, first is newest, use case maybe ongoing matches per leaderboard or filter from games/X/matches
       operationId: get_match_collection_for_leaderboard
       parameters:
         - $ref: "#/components/parameters/status_array"
@@ -1193,7 +1233,9 @@ paths:
     x-last-modified: 1665308784
   /leaderboards:
     get:
+      description: Returns all leaderboards for all games, more thought of as a starting point to figure out which leaderboard is worth to query
       operationId: get_leaderboard_collection
+      # filter for games TODO
       responses:
         default:
           $ref: "#/components/responses/401"

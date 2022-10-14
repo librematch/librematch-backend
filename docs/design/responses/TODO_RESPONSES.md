@@ -25,3 +25,7 @@
 - GET /profiles/{profile_id}/matches?single_match=
 - GET /profiles/search?steam_id
 - GET /profiles/search?alias
+
+## Notes
+
+- do we need ranks/percentiles in ratinghistory, so people can use that to create a graph of profiles also for their ranking at a certain moment in time? (-> Coolio)

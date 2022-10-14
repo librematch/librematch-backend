@@ -1,0 +1,68 @@
+{
+    "contentVersion": "v1",
+    "self": {
+        "href": "https://api.librematch.org/v1/leaderboards/4Y89HG5TKRF7BGMMSQMRPZ6S1B",
+        "rel": [
+            "item",
+            "collection"
+        ]
+    },
+    "desc": "Showing X of Y item(s).",
+    "offset": 0,
+    "limit": 25,
+    "size": 1,
+    "first": null,
+    "previous": null,
+    "next": null,
+    "last": null,
+    "parameters": {
+        "uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "languages": [
+            "en",
+            "fr"
+        ],
+        "style": "compact",
+        "last_match": false,
+        "status": null,
+        "game": null,
+        "start": null,
+        "count": null,
+        "since": null
+    },
+    "value": [
+        {
+            "self": {
+                "href": "https://api.librematch.org/v1/leaderboards/4Y89HG5TKRF7BGMMSQMRPZ6S1B",
+                "name": "rm_1v1",
+                "rel": [
+                    "collection"
+                ]
+            },
+            "leaderboard": [
+                {
+                    "clan": "Biry",
+                    "country": "VN",
+                    "drops": 43,
+                    "games": 3408,
+                    "highest_rating": 2345,
+                    "highest_streak": 12,
+                    "icon": null,
+                    "last_match": 1615386197,
+                    "last_match_time": 1615386197,
+                    "losses": 1467,
+                    "lowest_streak": -9,
+                    "name": "DS_HOANG |AOEBuilds.com",
+                    "previous_rating": 2188,
+                    "profile_id": 459658,
+                    "rank": 91,
+                    "rating": 2181,
+                    "steam_id": "76561199003184910",
+                    "streak": -3,
+                    "wins": 1941
+                }
+            ],
+            "leaderboard_id": 3,
+            "total": 48132
+        }
+    ]
+}

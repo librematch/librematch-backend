@@ -31,7 +31,8 @@
     },
     "value": [
         {
-            "...": "..."
+            "...": "/dumps/{dump_id} -> size, uploaded date, amount of unique items (leaderboard, profiles, etc.)",
+            "..": "/dumps?param (since, limit, offset, type of content (leaderboards?)"
         }
     ]
 }
