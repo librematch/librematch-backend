@@ -84,6 +84,7 @@ paths:
 
         - since a certain `Unix timestamp`/`Datetime string`
         - between two `Unix timestamps`/`Datetime strings`
+        - the `type of information` that are present 
 
         ## Response
         This returns `paginated` results.
@@ -125,11 +126,13 @@ paths:
     get:
       summary: Retrieve details about a database dump
       description: |
+        # Database dump
 
+        A single database dump item and details about it.
 
-        Download a database dump for a given timeframe
-        "...: /dumps/{dump_id} -> size, uploaded date, amount of unique items (leaderboard, profiles, etc.)
-
+        ## Response
+        This contains information about a database dump, such as its `URL`, `size`, `uploaded_date`,
+        or an `amount of contained items` and their `type`.
       operationId: get_database_dump_item
       parameters:
         - $ref: "#/components/parameters/dump_id"
