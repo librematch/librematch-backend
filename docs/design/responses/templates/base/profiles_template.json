@@ -81,13 +81,13 @@
         {
             "aoe2de": {
                 "datetime": "2022-04-19T08:36:35.000Z",
-                "href": "https://api.librematch.org/v1/profiles/196240/matches?single_match=3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                "href": "https://api.librematch.org/v1/games/matches/3fa85f64-5717-4562-b3fc-2c963f66afa6"
             }
         },
         {
             "aoe4": {
                 "datetime": "2022-04-20T08:38:35.000Z",
-                "href": "https://api.librematch.org/v1/profiles/196240/matches?single_match=3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                "href": "https://api.librematch.org/v1/games/matches/3fa85f64-5717-4562-b3fc-2c963f66afa6"
             }
         }
     ],
@@ -111,7 +111,9 @@
     "socials": [
         {
             "discord": {
-                "href": "",
+                "server_invite": {
+                    "href": ""
+                },
                 "user_name": ""
             }
         },

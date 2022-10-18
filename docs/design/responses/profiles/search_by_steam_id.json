@@ -73,7 +73,10 @@
             "socials": [
                 {
                     "discord": {
-                        "href": ""
+                        "server_invite": {
+                            "href": ""
+                        },
+                        "user_name": ""
                     }
                 },
                 {
