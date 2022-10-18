@@ -17,6 +17,66 @@
     "country_code": "no",
     "profile_id": 196240,
     "steam_id": "",
+    "leaderboards": [
+        {
+            "self": {
+                "href": "https://api.librematch.org/v1/leaderboards/4Y89HG5TKRF7BGMMSQMRPZ6S1B",
+                "name": "rm_1v1",
+                "rel": [
+                    "collection"
+                ]
+            },
+            "drops": 3,
+            "games": 833,
+            "last_match": 1615410209,
+            "losses": 277,
+            "wins": 556,
+            "rating": {
+                "current": 2408,
+                "highest": 2510,
+                "lowest": 2415
+            },
+            "streak": {
+                "current": -1,
+                "highest": 22,
+                "lowest": -9
+            },
+            "rank": {
+                "current": 18,
+                "highest": 1,
+                "lowest": 2623
+            }
+        },
+        {
+            "self": {
+                "href": "https://api.librematch.org/v1/leaderboards/4Y89HG5TKRF7BGMMSQMRPZ6S1B",
+                "name": "rm_2v2",
+                "rel": [
+                    "collection"
+                ]
+            },
+            "drops": 3,
+            "games": 833,
+            "last_match": 1615410209,
+            "losses": 277,
+            "wins": 556,
+            "rating": {
+                "current": 2408,
+                "highest": 2510,
+                "lowest": 2415
+            },
+            "streak": {
+                "current": -1,
+                "highest": 22,
+                "lowest": -9
+            },
+            "rank": {
+                "current": 18,
+                "highest": 1,
+                "lowest": 2623
+            }
+        }
+    ],
     "last_matches": [
         {
             "aoe2de": {
@@ -51,7 +111,8 @@
     "socials": [
         {
             "discord": {
-                "href": ""
+                "href": "",
+                "user_name": ""
             }
         },
         {
@@ -66,12 +127,14 @@
         },
         {
             "twitch": {
-                "href": ""
+                "href": "",
+                "is_live": false
             }
         },
         {
             "fbgaming": {
-                "href": ""
+                "href": "",
+                "is_live": false
             }
         },
         {
@@ -91,11 +154,6 @@
         },
         {
             "aoeelo": {
-                "href": ""
-            }
-        },
-        {
-            "discord_id": {
                 "href": ""
             }
         },
