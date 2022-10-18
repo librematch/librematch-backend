@@ -5,10 +5,13 @@
 - GET /application/status
 - GET /dumps/{timeframe}
 - GET /users/validate
-- GET /games
-- GET /games/{game_id}
 - GET /games/{game_id}/definitions
 - GET /games/{game_id}/info
+
+### Blocking
+
+- GET /games
+- GET /games/{game_id}
 - GET /games/{game_id}/matches
 - GET /games/{game_id}/leaderboards
 - GET /games/matches/{match_uuid}

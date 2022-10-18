@@ -1365,10 +1365,14 @@ paths:
         - Not yet implemented
     x-last-modified: 1665308784
   /application/status:
-    summary: Status updates for health checks of our API
+    summary: Health check of our API
     get:
       summary: Retrieve application status information
-      description: TODO
+      description: |
+        # Application Status
+        This shows the status of various internal components, e.g. Proxy, Collector and Cache,
+        and application specific metrics like throughput of requests, imported matches,
+        updated profiles, and others.
       operationId: get_status_collection_for_application
       responses:
         default:
