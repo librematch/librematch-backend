@@ -180,7 +180,7 @@ paths:
           - general statistical data (overall unique player amount)
           - how many players from which platform (steam, ms store)
           - activity of players (last 1/7/14/30 days)
-      operationId: get_game_collection
+      operationId: get_general_collection_for_games
       responses:
         default:
           $ref: "#/components/responses/401"
@@ -365,7 +365,7 @@ paths:
       tags:
         - Not yet implemented
     get:
-      operationId: get_tournament_identifier_collection
+      operationId: get_general_collection_for_tournaments
       responses:
         default:
           $ref: "#/components/responses/401"
@@ -469,7 +469,7 @@ paths:
     x-last-modified: 1665308784
   /profiles:
     get:
-      operationId: get_profile_collection
+      operationId: get_general_collection_for_profiles
       responses:
         default:
           $ref: "#/components/responses/401"
@@ -654,7 +654,7 @@ paths:
         - Not yet implemented
     get:
       description: Authenticated Endpoint for Administrators or Libre:Match
-      operationId: get_user_collection
+      operationId: get_general_collection_for_users
       responses:
         default:
           $ref: "#/components/responses/401"
@@ -1061,10 +1061,16 @@ paths:
         - Not yet implemented
     x-last-modified: 1665308784
   /application/components:
-    summary: "Libre:Match components"
+    summary: "Libre:Match managed components"
     delete:
       summary: Remove all components
-      description: TODO
+      description: |
+        # Removing all managed components
+        This doesn't remove components itself, but rather their settings.
+        So when components run, they won't be able to access their settings.
+
+        ## Response
+        This operation responds with the status of the removal.
       operationId: remove_all_components
       # parameters:
       responses:
@@ -1087,8 +1093,16 @@ paths:
       tags:
         - Not yet implemented
     get:
-      summary: Retrieve all settings for a specific component
-      description: TODO
+      summary: Retrieve all components
+      description: |
+        # Retrieving all managed components
+        This endpoints' purpose is to give **Libre:Match administrators** a convenient
+        opportunity to change settings of certain components, while these component
+        are running. 
+
+        ## Response
+        This operation returns all managed components with their identifiers and some
+        general information about and status for each component.
       operationId: get_general_collection_for_components
       # parameters:
       responses:
@@ -1112,7 +1126,16 @@ paths:
         - Not yet implemented
     patch:
       summary: Partially update all components
-      description: TODO
+      description: |
+        # Partially update all managed components
+        Here we can change certain settings that are common to all components.
+
+        ## Request body
+        The request body specifies the set of changes to apply to the resource.
+
+        ## Response
+        This contains the status of the operation, so if the changes were applied
+        successfully.
       operationId: partial_update_all_components
       # parameters:
       responses:
@@ -1138,7 +1161,15 @@ paths:
         - Not yet implemented
     post:
       summary: Create a new component
-      description: TODO
+      description: |
+        # Creating a new component
+        TODO
+
+        ## Request body
+        The body of the request message provides the details of the new resource.
+
+        ## Response
+        TODO
       operationId: create_new_component
       # parameters:
       responses:
@@ -1164,7 +1195,15 @@ paths:
         - Not yet implemented
     put:
       summary: Bulk update of all components
-      description: TODO
+      description: |
+        # Bulk updating components
+        TODO
+          
+        ## Request body
+        The body of the request message specifies the resource to be created or updated.
+
+        ## Response
+        TODO
       operationId: bulk_update_all_components
       parameters:
         - $ref: "#/components/parameters/component_id"
@@ -1191,7 +1230,7 @@ paths:
         - Not yet implemented
     x-last-modified: 1665308784
   /application/components/{component_id}:
-    summary: "Settings of Libre:Match components"
+    summary: A Libre:Match component
     delete:
       summary: Remove all settings for a specific component of Libre:Match
       description: TODO
@@ -1271,7 +1310,8 @@ paths:
         - Not yet implemented
     post:
       summary: Create a setting for a certain Libre:Match component
-      description: TODO
+      description: |
+        THIS SHOULD ERROR!
       operationId: create_new_setting_for_component
       parameters:
         - $ref: "#/components/parameters/component_id"
@@ -1390,8 +1430,14 @@ paths:
         - Items
     x-last-modified: 1665308784
   /games/{game_id}/leaderboards:
+    summary: Collection of leaderboard data spanning over the complete game
     get:
-      summary: Retrieve all leaderboards for a specific game
+      summary: Retrieve identifiers of the leaderboards for a specific game
+      description: |
+        # Leaderboard identifiers
+
+        ## Parameters
+        ## Response
       operationId: get_leaderboard_collection_for_game
       parameters:
         - $ref: "#/components/parameters/game_id"
@@ -1415,7 +1461,6 @@ paths:
         - Games
         - Leaderboards
         - Collections
-    summary: Collection of leaderboard data spanning over the complete game
     x-last-modified: 1665308784
   /leaderboards/{leaderboard_id}:
     get:
@@ -1518,8 +1563,13 @@ paths:
     x-last-modified: 1665308784
   /leaderboards:
     get:
-      description: Returns all leaderboards for all games, more thought of as a starting point to figure out which leaderboard is worth to query
-      operationId: get_leaderboard_collection
+      summary: Retrieve identifiers for all leaderboards spanning over all games
+      description: |
+        # Leaderboards
+
+        ## Response
+        Returns all leaderboards for all games, more thought of as a starting point to figure out which leaderboard is worth to query
+      operationId: get_general_collection_for_leaderboards
       # filter for games TODO
       responses:
         default:
@@ -1537,7 +1587,6 @@ paths:
           $ref: "#/components/responses/406"
         "429":
           $ref: "#/components/responses/429"
-      summary: Retrieve all leaderboards
       tags:
         - Matches
         - Collections
@@ -2179,7 +2228,7 @@ paths:
       tags:
         - Not yet implemented
     get:
-      operationId: get_team_collection
+      operationId: get_general_collection_for_teams
       responses:
         default:
           $ref: "#/components/responses/401"
