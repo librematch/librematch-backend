@@ -112,6 +112,13 @@
             "collection"
         ]
     },
+    "tournament": {
+        "href": "https://api.librematch.org/v1/tournaments/4Y89HG5TKRF7BGMMSQMRPZ6S1B",
+        "name": "NAC3 Group Stage",
+        "rel": [
+            "collection"
+        ]
+    },
     "rematch": true,
     "server": [
         {

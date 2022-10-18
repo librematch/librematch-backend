@@ -10,25 +10,10 @@
     "offset": 0,
     "limit": 25,
     "size": "Y",
-    "first": {
-        "href": "https://api.librematch.org/v1/profiles/search",
-        "rel": [
-            "collection"
-        ]
-    },
+    "first": null,
     "previous": null,
-    "next": {
-        "href": "https://api.librematch.org/v1/profiles/search?offset=25",
-        "rel": [
-            "collection"
-        ]
-    },
-    "last": {
-        "href": "https://api.librematch.org/v1/profiles/search?offset=200",
-        "rel": [
-            "collection"
-        ]
-    },
+    "next": null,
+    "last": null,
     "parameters": {
         "by_name": null,
         "by_steam_id": null,

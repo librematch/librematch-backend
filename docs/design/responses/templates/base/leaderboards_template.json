@@ -1,0 +1,46 @@
+{
+    "self": {
+        "href": "https://api.librematch.org/v1/profiles/196240",
+        "name": "rm_1v1",
+        "rel": [
+            "collection"
+        ],
+        "verified": true,
+        "first_name": "",
+        "last_name": "",
+        "alias": "TheViper",
+        "country_code": "no",
+        "steam_id": "76561197984749679",
+        "profile_id": 196240,
+        "teams": [
+            {
+                "href": "https://api.librematch.org/v1/teams/4Y89HG5TKRF7BGMMSQMRPZ6S1B",
+                "name": "GamerLegion",
+                "name_tag": "GL",
+                "rel": [
+                    "item"
+                ]
+            }
+        ]
+    },
+    "drops": 3,
+    "games": 833,
+    "last_match": 1615410209,
+    "losses": 277,
+    "wins": 556,
+    "rating": {
+        "current": 2408,
+        "highest": 2510,
+        "lowest": 2415
+    },
+    "streak": {
+        "current": -1,
+        "highest": 22,
+        "lowest": -9
+    },
+    "rank": {
+        "current": 18,
+        "highest": 1,
+        "lowest": 2623
+    }
+}

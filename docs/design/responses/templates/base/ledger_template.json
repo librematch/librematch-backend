@@ -1,0 +1,70 @@
+{
+    "self": {
+        "href": "https://api.librematch.org/v1/profiles/196240",
+        "name": "rm_1v1",
+        "rel": [
+            "collection"
+        ],
+        "verified": true,
+        "first_name": "",
+        "last_name": "",
+        "alias": "TheViper",
+        "country_code": "no",
+        "steam_id": "76561197984749679",
+        "profile_id": 196240,
+        "teams": [
+            {
+                "href": "https://api.librematch.org/v1/teams/4Y89HG5TKRF7BGMMSQMRPZ6S1B",
+                "name": "GamerLegion",
+                "name_tag": "GL",
+                "rel": [
+                    "item"
+                ]
+            }
+        ]
+    },
+    "leaderboards": [
+        {
+            "self": {
+                "href": "https://api.librematch.org/v1/leaderboards/4Y89HG5TKRF7BGMMSQMRPZ6S1B",
+                "name": "rm_1v1",
+                "rel": [
+                    "collection"
+                ]
+            },
+            "history": [
+                {
+                    "drops": 3,
+                    "rank": 5,
+                    "losses": 276,
+                    "wins": 556,
+                    "rating": 2415,
+                    "streak": 3,
+                    "timestamp": 1615409542,
+                    "datetime": "2022-10-12T06:36:57.000Z"
+                }
+            ]
+        },
+        {
+            "self": {
+                "href": "https://api.librematch.org/v1/leaderboards/4Y89HG5TKRF7BGMMSQMRPZ6S1B",
+                "name": "rm_2v2",
+                "rel": [
+                    "collection"
+                ]
+            },
+            "history": [
+                {
+                    "drops": 3,
+                    "rank": 5,
+                    "losses": 276,
+                    "wins": 556,
+                    "rating": 2415,
+                    "streak": 3,
+                    "timestamp": 1615409542,
+                    "datetime": "2022-10-12T06:23:57.000Z"
+                }
+            ]
+        }
+    ]
+}
