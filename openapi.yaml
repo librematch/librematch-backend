@@ -2620,6 +2620,12 @@ components:
       schema:
         type: integer
       style: simple
+    X-RateLimit-Retry-After:
+      description: The number of seconds to wait until you can make a request again without being throttled.
+      explode: false
+      schema:
+        type: integer
+      style: simple
     X-RateLimit-Reset:
       description:
         The number of seconds left in the current period until the rate
