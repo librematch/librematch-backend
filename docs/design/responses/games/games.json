@@ -16,6 +16,293 @@
     "last": null,
     "parameters": {},
     "value": [
-        {}
+        {
+            "aoe1de": {
+                "stats": {
+                    "self": {
+                        "href": "https://api.librematch.org/v1/games/aoe1de/stats",
+                        "rel": [
+                            "collection"
+                        ]
+                    }
+                },
+                "information": {
+                    "self": {
+                        "href": "https://api.librematch.org/v1/games/aoe1de/info",
+                        "rel": [
+                            "collection"
+                        ]
+                    },
+                    "long_name": "Age of Empires: Definitive Edition",
+                    "shops": {
+                        "steam": {
+                            "href": "https://store.steampowered.com/app/1017900/Age_of_Empires_Definitive_Edition/"
+                        },
+                        "microsoft": {
+                            "href": "https://www.microsoft.com/store/productId/9NJWTJSVGVLJ"
+                        }
+                    }
+                },
+                "definitions": {
+                    "self": {
+                        "href": "https://api.librematch.org/v1/games/aoe1de/definitions",
+                        "rel": [
+                            "collection"
+                        ]
+                    }
+                },
+                "matches": {
+                    "self": {
+                        "href": "https://api.librematch.org/v1/games/aoe1de/matches",
+                        "rel": [
+                            "collection"
+                        ]
+                    }
+                },
+                "leaderboards": {
+                    "self": {
+                        "href": "https://api.librematch.org/v1/games/aoe1de/leaderboards",
+                        "rel": [
+                            "collection"
+                        ]
+                    }
+                },
+                "community_pages": {
+                    "todo!": "todo!"
+                },
+                "tournaments": {
+                    "self": {
+                        "href": "https://api.librematch.org/v1/tournaments?game=aoe1de",
+                        "rel": [
+                            "collection"
+                        ]
+                    }
+                },
+                "teams": {
+                    "self": {
+                        "href": "https://api.librematch.org/v1/teams?game=aoe1de",
+                        "rel": [
+                            "collection"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "aoe2de": {
+                "stats": {
+                    "self": {
+                        "href": "https://api.librematch.org/v1/games/aoe2de/stats",
+                        "rel": [
+                            "collection"
+                        ]
+                    }
+                },
+                "information": {
+                    "self": {
+                        "href": "https://api.librematch.org/v1/games/aoe2de/info",
+                        "rel": [
+                            "collection"
+                        ]
+                    },
+                    "long_name": "Age of Empires II: Definitive Edition",
+                    "shops": {
+                        "steam": {
+                            "href": "https://store.steampowered.com/app/813780/Age_of_Empires_II_Definitive_Edition/"
+                        },
+                        "microsoft": {
+                            "href": "https://www.microsoft.com/store/productId/9NJDD0JGPP2Q"
+                        }
+                    }
+                },
+                "definitions": {
+                    "self": {
+                        "href": "https://api.librematch.org/v1/games/aoe2de/definitions",
+                        "rel": [
+                            "collection"
+                        ]
+                    }
+                },
+                "matches": {
+                    "self": {
+                        "href": "https://api.librematch.org/v1/games/aoe2de/matches",
+                        "rel": [
+                            "collection"
+                        ]
+                    }
+                },
+                "leaderboards": {
+                    "self": {
+                        "href": "https://api.librematch.org/v1/games/aoe2de/leaderboards",
+                        "rel": [
+                            "collection"
+                        ]
+                    }
+                },
+                "community_pages": {
+                    "todo!": "todo!"
+                },
+                "tournaments": {
+                    "self": {
+                        "href": "https://api.librematch.org/v1/tournaments?game=aoe2de",
+                        "rel": [
+                            "collection"
+                        ]
+                    }
+                },
+                "teams": {
+                    "self": {
+                        "href": "https://api.librematch.org/v1/teams?game=aoe2de",
+                        "rel": [
+                            "collection"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "aoe3de": {
+                "stats": {
+                    "self": {
+                        "href": "https://api.librematch.org/v1/games/aoe3de/stats",
+                        "rel": [
+                            "collection"
+                        ]
+                    }
+                },
+                "information": {
+                    "self": {
+                        "href": "https://api.librematch.org/v1/games/aoe3de/info",
+                        "rel": [
+                            "collection"
+                        ]
+                    },
+                    "long_name": "Age of Empires III: Definitive Edition",
+                    "shops": {
+                        "steam": {
+                            "href": "https://store.steampowered.com/app/933110/Age_of_Empires_III_Definitive_Edition/"
+                        },
+                        "microsoft": {
+                            "href": "https://www.microsoft.com/store/productId/9N1HF804QXN4"
+                        }
+                    }
+                },
+                "definitions": {
+                    "self": {
+                        "href": "https://api.librematch.org/v1/games/aoe3de/definitions",
+                        "rel": [
+                            "collection"
+                        ]
+                    }
+                },
+                "matches": {
+                    "self": {
+                        "href": "https://api.librematch.org/v1/games/aoe3de/matches",
+                        "rel": [
+                            "collection"
+                        ]
+                    }
+                },
+                "leaderboards": {
+                    "self": {
+                        "href": "https://api.librematch.org/v1/games/aoe3de/leaderboards",
+                        "rel": [
+                            "collection"
+                        ]
+                    }
+                },
+                "community_pages": {
+                    "todo!": "todo!"
+                },
+                "tournaments": {
+                    "self": {
+                        "href": "https://api.librematch.org/v1/tournaments?game=aoe3de",
+                        "rel": [
+                            "collection"
+                        ]
+                    }
+                },
+                "teams": {
+                    "self": {
+                        "href": "https://api.librematch.org/v1/teams?game=aoe3de",
+                        "rel": [
+                            "collection"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "aoe4": {
+                "stats": {
+                    "self": {
+                        "href": "https://api.librematch.org/v1/games/aoe4/stats",
+                        "rel": [
+                            "collection"
+                        ]
+                    }
+                },
+                "information": {
+                    "self": {
+                        "href": "https://api.librematch.org/v1/games/aoe4/info",
+                        "rel": [
+                            "collection"
+                        ]
+                    },
+                    "long_name": "Age of Empires IV",
+                    "shops": {
+                        "steam": {
+                            "href": "https://store.steampowered.com/app/1466860/Age_of_Empires_IV/"
+                        },
+                        "microsoft": {
+                            "href": "https://www.microsoft.com/store/productId/9N94NCGM1Q2N"
+                        }
+                    }
+                },
+                "definitions": {
+                    "self": {
+                        "href": "https://api.librematch.org/v1/games/aoe4/definitions",
+                        "rel": [
+                            "collection"
+                        ]
+                    }
+                },
+                "matches": {
+                    "self": {
+                        "href": "https://api.librematch.org/v1/games/aoe4/matches",
+                        "rel": [
+                            "collection"
+                        ]
+                    }
+                },
+                "leaderboards": {
+                    "self": {
+                        "href": "https://api.librematch.org/v1/games/aoe4/leaderboards",
+                        "rel": [
+                            "collection"
+                        ]
+                    }
+                },
+                "community_pages": {
+                    "todo!": "todo!"
+                },
+                "tournaments": {
+                    "self": {
+                        "href": "https://api.librematch.org/v1/tournaments?game=aoe4",
+                        "rel": [
+                            "collection"
+                        ]
+                    }
+                },
+                "teams": {
+                    "self": {
+                        "href": "https://api.librematch.org/v1/teams?game=aoe4",
+                        "rel": [
+                            "collection"
+                        ]
+                    }
+                }
+            }
+        }
     ]
 }
