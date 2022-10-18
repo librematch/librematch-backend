@@ -25,7 +25,7 @@
 
 ## Done
 
-- GET /profiles/{profile_id}/matches?single_match=
+- GET /games/matches/{match_uuid}
 - GET /profiles/search?steam_id
 - GET /profiles/search?alias
 

@@ -1,0 +1,21 @@
+{
+    "contentVersion": "v1",
+    "self": {
+        "href": "https://api.librematch.org/v1/games",
+        "rel": [
+            "collection"
+        ]
+    },
+    "desc": "Showing X of Y profiles.",
+    "offset": 0,
+    "limit": 25,
+    "size": "Y",
+    "first": null,
+    "previous": null,
+    "next": null,
+    "last": null,
+    "parameters": {},
+    "value": [
+        {}
+    ]
+}
