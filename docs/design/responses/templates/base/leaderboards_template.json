@@ -6,8 +6,7 @@
             "collection"
         ],
         "verified": true,
-        "first_name": "",
-        "last_name": "",
+        "person_name": "",
         "alias": "TheViper",
         "country_code": "no",
         "steam_id": "76561197984749679",
@@ -24,7 +23,7 @@
         ]
     },
     "drops": 3,
-    "games": 833,
+    "overall_matches": 833,
     "last_match": 1615410209,
     "losses": 277,
     "wins": 556,
