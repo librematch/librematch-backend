@@ -1,0 +1,25 @@
+{
+    "contentVersion": "v1",
+    "self": {
+        "href": "https://api.librematch.org/v1/",
+        "rel": [
+            "collection"
+        ]
+    },
+    "desc": "Showing X of Y profiles.",
+    "offset": 0,
+    "limit": 25,
+    "size": "Y",
+    "first": null,
+    "previous": null,
+    "next": null,
+    "last": null,
+    "parameters": {
+        "by_name": null,
+        "by_steam_id": null,
+        "exact": false
+    },
+    "value": [
+        {}
+    ]
+}

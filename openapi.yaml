@@ -4,1474 +4,2600 @@ info:
     email: info@librematch.org
     name: Libre:Match Team
     url: https://librematch.org
-  description: "stable, reliable and feature-rich API for match information, leaderboards,\
+  description:
+    "stable, reliable and feature-rich API for match information, leaderboards,\
     \ and tournament organisation for the Age of Empires multiplayer community"
   license:
     name: GNU AGPLv3
     url: https://www.gnu.org/licenses/agpl.txt
-    x-last-modified: 1663947772699
+    x-last-modified: 1665308784
   title: Libre:Match API
-  version: 1.0.0
+  version: 1.0.0-DRAFT
   x-logo:
     url: ""
+  x-api-id: 01GGD7CFHGZ5TXXAMNKWF9M1B9
+  x-audience: external-public
 servers:
-- description: ""
-  url: https://api.librematch.org/v1
-  x-last-modified: 1663947810574
+  - description: Libre:Match Production Server v1
+    url: https://api.librematch.org/v1
+    x-last-modified: 1665308784
+  - description: Libre:Match Development Server v1
+    url: https://dev.librematch.org/v1
+    x-last-modified: 1665308784
 security:
-- BasicAuth: []
-- X-Api-Key: []
+  - BasicAuth: []
+  - X-Api-Key: []
+  - HttpAuth: []
 paths:
-  /games:
+  /profiles/search:
+    description: Endpoint for Profile Search
     get:
-      operationId: get_game_identifier_collection
+      summary: Search for profiles by Steam ID and/or alias
+      description: |
+        # Profile Search
+
+        Search for a profile by 
+        - **SteamID64**
+        - **alias**
+
+        ## Response
+        This returns a single profile when a SteamID64 is provided.
+        It will return a list of profiles when you search for an alias.
+
+        When used with the **exact** parameter it will not return a result
+        if there isn't an exact match within our database for the provided
+        **alias**.
+      operationId: get_profile_information_from_search
+      parameters:
+        - $ref: "#/components/parameters/exact"
+        - $ref: "#/components/parameters/search_alias"
+        - $ref: "#/components/parameters/search_steam_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
-          x-last-modified: 1665056670316
+          x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedError'
-          description: Unauthorized access.
-          x-last-modified: 1665072543221
-      summary: Retrieve a list of all game identifiers for games using Relic Link
-        API
-      tags: []
-    summary: Endpoint for game-specific data
-    x-last-modified: 1663947918891
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+      tags:
+        - Collections
+        - Search
+  /dumps:
+    description: Endpoint for database dumps
+    get:
+      summary: Retrieve a list of available database dumps
+      description: |
+        # Database Dumps
+
+        We offer database dumps for the purpose of statistical analysis
+        which would otherwise cause a high load on our API.
+
+        ## Filters
+        You can filter for dumps that were uploaded either
+
+        - since a certain **Unix timestamp**/**Datetime string**
+        - between two **Unix timestamps**/**Datetime strings**
+        - the **type of information** that are present 
+
+        ## Response
+        This returns **paginated** results.
+      operationId: get_general_collection_for_dumps
+      parameters:
+        - $ref: "#/components/parameters/since_timestamp"
+        - $ref: "#/components/parameters/since_datetime"
+        - $ref: "#/components/parameters/between_timestamps"
+        - $ref: "#/components/parameters/between_datetimes"
+        - $ref: "#/components/parameters/dump_type_array"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+      responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+          x-last-modified: 1665308784
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+        "501":
+          $ref: "#/components/responses/501"
+      tags:
+        - Statistics
+        - Database
+        - Collections
+    # servers:
+    #   - description: TODO? Override base path for all operations with the /dumps path
+    #     url: https://db.librematch.org
+  /dumps/{dump_id}:
+    get:
+      summary: Retrieve details about a database dump
+      description: |
+        # Database dump
+
+        A single database dump item and details about it.
+
+        ## Response
+        This contains information about a database dump, such as:
+        - its **URL**
+        - **size**
+        - **uploaded_date**,
+        - **amount of contained items**
+        - their **type**.
+      operationId: get_database_dump_item
+      parameters:
+        - $ref: "#/components/parameters/dump_id"
+      responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+          x-last-modified: 1665308784
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+        "501":
+          $ref: "#/components/responses/501"
+      tags:
+        - Statistics
+        - Database
+        - Items
+    # servers:
+    #   - description: TODO? Override base path for all operations with the /dumps path
+    #     url: https://db.librematch.org
+  /games:
+    summary: Endpoint for game-specific information
+    get:
+      summary: Retrieve a list of all supported games
+      description: |
+        # Games
+
+        TODO: Parameters
+
+        ## Response
+        TODO: What is being returned here?
+        Possible:
+          - general statistical data (overall unique player amount)
+          - how many players from which platform (steam, ms store)
+          - activity of players (last 1/7/14/30 days)
+      operationId: get_general_collection_for_games
+      responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+          x-last-modified: 1665308784
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+      tags:
+        - Collections
+        - Games
+    x-last-modified: 1665308784
   /games/{game_id}/definitions:
+    summary: "game-specific definitions, e.g. map names, civilisation names, translations"
     get:
       operationId: get_definition_collection_for_game
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for games that use the Relic
-          Link API
-        explode: false
-        in: path
-        name: game_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949717971
+        - $ref: "#/components/parameters/language"
+        - $ref: "#/components/parameters/game_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
-          x-last-modified: 1665056670316
+          x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedError'
-          description: Unauthorized access.
-          x-last-modified: 1665072543221
-      summary: Retrieve all available definitions for a specific game using Relic
-        Link API
-      tags: []
-    summary: "game-specific definitions, e.g. map names, civilisation names, translations"
-    x-last-modified: 1663948104836
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+      summary: Retrieve all available definitions for a specific game
+      tags:
+        - Collections
+        - Information
+        - Games
+    x-last-modified: 1665308784
   /games/{game_id}/info:
     get:
       operationId: get_info_collection_for_game
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for games that use the Relic
-          Link API
-        explode: false
-        in: path
-        name: game_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949717971
+        - $ref: "#/components/parameters/game_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
-          x-last-modified: 1665056670316
+          x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedError'
-          description: Unauthorized access.
-          x-last-modified: 1665072543221
-      summary: Retrieve all available information for a specific game using Relic
-        Link API
-      tags: []
-    summary: "information about server maintenance times, DLC stuff, patch releases,\
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+      summary: Retrieve all available information for a specific game
+      tags:
+        - Collections
+        - Information
+        - Games
+    summary:
+      "information about server maintenance times, DLC stuff, patch releases,\
       \ etc."
-    x-last-modified: 1663948169247
+    x-last-modified: 1665308784
   /games/{game_id}/matches:
     get:
+      summary: Retrieve all matches for a specific game
+      description: Test Use case (TODO Markdown here) implement ongoing matches over all leaderboards, array of arrays (e.g. as in teams) with a leaderboard in each array
       operationId: get_match_collection_for_game
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for games that use the Relic
-          Link API
-        explode: false
-        in: path
-        name: game_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949717971
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/status_array"
+        - $ref: "#/components/parameters/between_timestamps"
+        - $ref: "#/components/parameters/between_datetimes"
+        - $ref: "#/components/parameters/started_after_datetime"
+        - $ref: "#/components/parameters/finished_after_datetime"
+        - $ref: "#/components/parameters/started_after_timestamp"
+        - $ref: "#/components/parameters/finished_after_timestamp"
+        - $ref: "#/components/parameters/game_id"
+        - $ref: "#/components/parameters/language"
       responses:
+        default:
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
-          x-last-modified: 1665056670316
+          x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedError'
-          description: Unauthorized access.
-          x-last-modified: 1665072543221
-      summary: Retrieve all matches for a specific game using Relic Link API
-      tags: []
-    summary: "match data spanning over the complete game (all leaderboards, basically\
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+      tags:
+        - Collections
+        - Matches
+        - Games
+    summary:
+      "Match data spanning over the complete game (all leaderboards, basically\
       \ a log"
-    x-last-modified: 1663948210036
+    x-last-modified: 1665308784
+  /games/{game_id}/stats:
+    get:
+      summary: Retrieve all stats for a specific game
+      operationId: get_stat_collection_for_game
+      parameters:
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/status_array"
+        - $ref: "#/components/parameters/between_timestamps"
+        - $ref: "#/components/parameters/between_datetimes"
+        - $ref: "#/components/parameters/started_after_datetime"
+        - $ref: "#/components/parameters/finished_after_datetime"
+        - $ref: "#/components/parameters/started_after_timestamp"
+        - $ref: "#/components/parameters/finished_after_timestamp"
+        - $ref: "#/components/parameters/game_id"
+        - $ref: "#/components/parameters/language"
+      responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+          x-last-modified: 1665308784
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+      tags:
+        - Not yet implemented
+    summary:
+      "Match data spanning over the complete game (all leaderboards, basically\
+      \ a log"
+    x-last-modified: 1665308784
   /tournaments:
     delete:
       description: ""
       operationId: remove_all_tournaments
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+          x-last-modified: 1665308784
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
+          $ref: "#/components/responses/501"
       summary: Remove all tournaments
+      tags:
+        - Not yet implemented
     get:
-      operationId: get_tournament_identifier_collection
+      operationId: get_general_collection_for_tournaments
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+          x-last-modified: 1665308784
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
-      summary: Retrieve all available tournaments for all games available on the Relic
-        Link platform
-      tags: []
+          $ref: "#/components/responses/501"
+      summary: Retrieve all available tournaments for all games
+      tags:
+        - Not yet implemented
     patch:
       description: ""
       operationId: partial_update_tournaments
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+          x-last-modified: 1665308784
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
+          $ref: "#/components/responses/501"
       summary: Partial update of tournaments
+      tags:
+        - Not yet implemented
     post:
       description: ""
       operationId: create_new_tournament
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+          x-last-modified: 1665308784
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
-      summary: Create a new tournament for a game available on the Relic Link platform
+          $ref: "#/components/responses/501"
+      summary: Create a new tournament for a game
+      tags:
+        - Not yet implemented
     put:
       description: ""
       operationId: bulk_update_all_tournaments
       responses:
-        "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
-      summary: Bulk update of tournaments
-    summary: Endpoint for tournament information
-    x-last-modified: 1663948422917
-  /profiles:
-    get:
-      operationId: get_profile_collection
-      responses:
+        default:
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
-          x-last-modified: 1665056670316
+          x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedError'
-          description: Unauthorized access.
-          x-last-modified: 1665072543221
-      summary: Retrieve all available profiles from the Relic Link API
-      tags: []
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
+        "501":
+          $ref: "#/components/responses/501"
+      summary: Bulk update of tournaments
+      tags:
+        - Not yet implemented
+    summary: Endpoint for tournament information
+    x-last-modified: 1665308784
+  /profiles:
+    get:
+      operationId: get_general_collection_for_profiles
+      responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+          x-last-modified: 1665308784
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+      summary: Retrieve all available profiles
+      tags:
+        - Collections
+        - Profiles
     summary: Endpoint for player profiles on the Relic Link platform
-    x-last-modified: 1663948530301
+    x-last-modified: 1665308784
   /profiles/{relic_link_id}:
     get:
       operationId: get_details_for_profile
       parameters:
-      - deprecated: false
-        description: The unique identifier used by the Relic Link API for a player
-          on their platform
-        explode: false
-        in: path
-        name: relic_link_id
-        required: true
-        schema:
-          type: integer
-        style: simple
-        x-last-modified: 1663949613648
+        - $ref: "#/components/parameters/relic_link_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
-          x-last-modified: 1665056670316
+          x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedError'
-          description: Unauthorized access.
-          x-last-modified: 1665072543221
-      summary: Retrieve the details for a specific profile from the Relic Link API
-      tags: []
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+      summary: Retrieve the details for a specific profile
+      description: "current wins/losses on leaderboards, rankings, rating history on leaderboards for a month, 5 (or X) last_matches on each leaderboard with datetime "
+      tags:
+        - Items
+        - Profiles
     summary: Profile information for a Relic Link player_ID
-    x-last-modified: 1663948567394
+    x-last-modified: 1665308784
   /profiles/{relic_link_id}/matches:
     get:
       operationId: get_match_collection_for_profile
       parameters:
-      - deprecated: false
-        description: The unique identifier used by the Relic Link API for a player
-          on their platform
-        explode: false
-        in: path
-        name: relic_link_id
-        required: true
-        schema:
-          type: integer
-        style: simple
-        x-last-modified: 1663949613648
+        - $ref: "#/components/parameters/relic_link_id"
+        - $ref: "#/components/parameters/game_ids"
+        - $ref: "#/components/parameters/languages"
+        - $ref: "#/components/parameters/last_match"
+        - $ref: "#/components/parameters/style"
+        - $ref: "#/components/parameters/status_array"
+        - $ref: "#/components/parameters/between_timestamps"
+        - $ref: "#/components/parameters/between_datetimes"
+        - $ref: "#/components/parameters/started_after_datetime"
+        - $ref: "#/components/parameters/finished_after_datetime"
+        - $ref: "#/components/parameters/started_after_timestamp"
+        - $ref: "#/components/parameters/finished_after_timestamp"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
       responses:
+        default:
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
-          x-last-modified: 1665056670316
+          x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedError'
-          description: Unauthorized access.
-          x-last-modified: 1665072543221
-      summary: Retrieve all matches for a specific profile from the Relic Link API
-      tags: []
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+      summary: Retrieve all matches for a specific profile
+      tags:
+        - Collections
+        - Profiles
+        - Matches
     summary: match data for a certain Relic Link profile
-    x-last-modified: 1663948607956
+    x-last-modified: 1665308784
+  /games/matches/{match_uuid}:
+    get:
+      operationId: get_details_for_match
+      parameters:
+        - $ref: "#/components/parameters/match_uuid"
+        # - $ref: "#/components/parameters/match_id" # TODO
+      responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+        "501":
+          $ref: "#/components/responses/501"
+      summary: Retrieve details of a match
+      tags:
+        - Items
+        - Matches
+        - Games
+    summary: Information about a single match
+    x-last-modified: 1665308784
+  /profiles/{relic_link_id}/ledger:
+    get:
+      operationId: get_ledger_collection_for_profile
+      parameters:
+        - $ref: "#/components/parameters/game_id"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/leaderboard_id"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/between_timestamps"
+        - $ref: "#/components/parameters/between_datetimes"
+        - $ref: "#/components/parameters/started_after_datetime"
+        - $ref: "#/components/parameters/finished_after_datetime"
+        - $ref: "#/components/parameters/started_after_timestamp"
+        - $ref: "#/components/parameters/finished_after_timestamp"
+        - $ref: "#/components/parameters/relic_link_id"
+      responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+          x-last-modified: 1665308784
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+      summary: Retrieve the rating ledger for a specific profile
+      tags:
+        - Collections
+        - Profiles
+        - Ratings
+    summary: Rating ledger a certain Relic Link profile
+    x-last-modified: 1665308784
   /users:
     delete:
       description: ""
       operationId: remove_all_users
       responses:
+        default:
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
-          x-last-modified: 1665056670316
+          x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedError'
-          description: Unauthorized access.
-          x-last-modified: 1665072543221
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
       summary: Remove all users from our platform
+      tags:
+        - Not yet implemented
     get:
       description: Authenticated Endpoint for Administrators or Libre:Match
-      operationId: get_user_collection
+      operationId: get_general_collection_for_users
       responses:
+        default:
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
-          x-last-modified: 1665056670316
+          x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedError'
-          description: Unauthorized access.
-          x-last-modified: 1665072543221
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
       summary: Retrieve all users of our platform
-      tags: []
+      tags:
+        - Not yet implemented
     patch:
       description: ""
       operationId: partial_update_all_users
       responses:
+        default:
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
-          x-last-modified: 1665056670316
+          x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedError'
-          description: Unauthorized access.
-          x-last-modified: 1665072543221
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
       summary: Partially update details for all user profiles
+      tags:
+        - Not yet implemented
     post:
       description: ""
       operationId: create_new_user
       responses:
+        default:
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
-          x-last-modified: 1665056670316
+          x-last-modified: 1665308784
         "201":
           description: Created
-          x-last-modified: 1665072508175
+          x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedError'
-          description: Unauthorized access.
-          x-last-modified: 1665072543221
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
       summary: Create a new user for our platform
+      tags:
+        - Not yet implemented
     put:
       description: ""
       operationId: bulk_update_all_users
       responses:
+        default:
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
-          x-last-modified: 1665056670316
+          x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedError'
-          description: Unauthorized access.
-          x-last-modified: 1665072543221
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
       summary: Bulk update of all users of our platform
+      tags:
+        - Not yet implemented
     summary: Endpoint for users of our API
-    x-last-modified: 1663948638250
+    x-last-modified: 1665308784
   /users/{user_id}:
     delete:
       description: ""
       operationId: remove_user
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for users of our API
-        explode: false
-        in: path
-        name: user_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1665078217885
+        - $ref: "#/components/parameters/user_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
-          x-last-modified: 1665056670316
+          x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedError'
-          description: Unauthorized access.
-          x-last-modified: 1665072543221
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
       summary: Remove user from our platform if it exists
+      tags:
+        - Not yet implemented
     get:
       operationId: get_details_for_user
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for users of our API
-        explode: false
-        in: path
-        name: user_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1665078217885
+        - $ref: "#/components/parameters/user_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
-          x-last-modified: 1665056670316
+          x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedError'
-          description: Unauthorized access.
-          x-last-modified: 1665072543221
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
       summary: Retrieve details for a specific user profile on our platform
-      tags: []
+      tags:
+        - Not yet implemented
     patch:
       description: ""
       operationId: partial_update_user
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for users of our API
-        explode: false
-        in: path
-        name: user_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1665078217885
+        - $ref: "#/components/parameters/user_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
-          x-last-modified: 1665056670316
+          x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedError'
-          description: Unauthorized access.
-          x-last-modified: 1665072543221
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
       summary: Update details for a specific user profile on our platform if it exists
+      tags:
+        - Not yet implemented
     put:
       description: ""
       operationId: bulk_update_all_user_details
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for users of our API
-        explode: false
-        in: path
-        name: user_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1665078217885
+        - $ref: "#/components/parameters/user_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
-          x-last-modified: 1665056670316
+          x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedError'
-          description: Unauthorized access.
-          x-last-modified: 1665072543221
-      summary: Bulk update details for a specific user profile on our platform if
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
+      summary:
+        Bulk update details for a specific user profile on our platform if
         it exists
+      tags:
+        - Not yet implemented
     summary: user profile for an API user
-    x-last-modified: 1663948686307
+    x-last-modified: 1665308784
   /users/login:
     post:
       operationId: user_login
       responses:
+        default:
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
-          x-last-modified: 1665056670316
-      tags: []
+          x-last-modified: 1665308784
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
+      tags:
+        - Not yet implemented
     summary: Login for users of our API
-    x-last-modified: 1663948709646
+    x-last-modified: 1665308784
   /users/logout:
     get:
       operationId: user_logout
       responses:
+        default:
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
-          x-last-modified: 1665056670316
+          x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedError'
-          description: Unauthorized access.
-          x-last-modified: 1665072543221
-      tags: []
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+      tags:
+        - Not yet implemented
     summary: Logout for users of our API
-    x-last-modified: 1663948774846
+    x-last-modified: 1665308784
   /users/register:
     post:
       operationId: user_register
       responses:
+        default:
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
-          x-last-modified: 1665056670316
+          x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedError'
-          description: Unauthorized access.
-          x-last-modified: 1665072543221
-      tags: []
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
+      tags:
+        - Not yet implemented
     summary: Registering as a new User to our API
-    x-last-modified: 1663948797787
+    x-last-modified: 1665308784
   /users/validate:
-    description: "Validate API tokens, can give information about how long a token\
+    summary: Validation for a user account and api tokens used for our API
+    description:
+      "Validate API tokens, can give information about how long a token\
       \ is still valid and help automating updating a token"
     get:
       operationId: get_user_validation_details
       responses:
+        default:
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
-          x-last-modified: 1665056670316
+          x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedError'
-          description: Unauthorized access.
-          x-last-modified: 1665072543221
-      tags: []
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+      tags:
+        - Authentication
     post:
       operationId: create_new_user_validation
       responses:
+        default:
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
-          x-last-modified: 1665056670316
+          x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedError'
-          description: Unauthorized access.
-          x-last-modified: 1665072543221
-      tags: []
-    summary: Validation for a user account and api tokens used for our API
-    x-last-modified: 1663948876606
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
+      tags:
+        - Not yet implemented
+    x-last-modified: 1665308784
   /application:
+    summary:
+      "General information and data about the Libre:Match API, e.g. API updates,\
+      \ possible upcoming maintenance and other news"
     get:
-      operationId: get_information_collection_for_application
+      summary: Retrieve a list of available application information
+      description: |
+        # ⚔️ Libre:Match
+
+        ## 🙋‍♀️ Introduction
+
+        LibreMatch is a project to create a **stable, reliable and feature-rich API** for match 
+        information, leaderboards, and tournament organisation for the Age of 
+        Empires multiplayer platform Relic Link. 
+
+        ## 📞 Contact
+        It is done **by the community for the community** - so feel free to join us on our [Discord](https://discord.gg/MvuusBxtuB) if you have any suggestions, feature requests, found a bug, or if you really just want to talk to like-minded people.
+
+        ## 👩‍💻 News
+        We are currently working on desgning the API (synchronous), if you want to follow progress, you can do that [here](https://github.com/librematch/librematch-backend/pull/1) or in the forums on our [Discord](https://discord.gg/MvuusBxtuB).
+
+        # Response
+        TODO: Return information such as maintenance intervals, next maintenance,
+        API updates, news, contacts to us, small introductory sentence, disclaimer that
+        we are not affiliated with Microsoft(!!!), link to api documentation, blog, etc.
+      operationId: get_general_collection_for_application
       responses:
+        default:
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
-          x-last-modified: 1665056670316
+          x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedError'
-          description: Unauthorized access.
-          x-last-modified: 1665072543221
-      summary: Retrieve a list of available application information
-      tags: []
-    summary: "General information and data about Libre:Match app, e.g. API updates,\
-      \ possible upcoming maintenance and other news/stuff"
-    x-last-modified: 1663948904071
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+      tags:
+        - Not yet implemented
+    x-last-modified: 1665308784
   /application/statistics:
+    summary:
+      "Statistics of Libre:Match itself, e.g. usage statistics, collection rate, overall\
+      \ amount of users, etc."
     get:
+      summary: Retrieve a list of application stats
+      description: |
+        # ⚔️ Libre:Match Statistics
+
+        TODO
+
+        ## Response
+        - usage statistics
+        - collection rate
+        - overall amount of API users
+        - timings
+        - uptime
+        - amount of data collected
+        - etc.
       operationId: get_stat_collection_for_application
       responses:
+        default:
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
-          x-last-modified: 1665056670316
+          x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedError'
-          description: Unauthorized access.
-          x-last-modified: 1665072543221
-      summary: Retrieve a list of only application statistics
-      tags: []
-    summary: "Statistics of Libre:Match, e.g. usage statistics, collection rate, overall\
-      \ amount of users, etc."
-    x-last-modified: 1663948946628
-  /application/status:
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+      tags:
+        - Not yet implemented
+    x-last-modified: 1665308784
+  /application/components:
+    summary: "Libre:Match managed components"
+    delete:
+      summary: Remove all components
+      description: |
+        # Removing all managed components
+        This doesn't remove components itself, but rather their settings.
+        So when components run, they won't be able to access their settings.
+
+        ## Response
+        This operation responds with the status of the removal.
+      operationId: remove_all_components
+      # parameters:
+      responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+        "501":
+          $ref: "#/components/responses/501"
+      tags:
+        - Not yet implemented
     get:
+      summary: Retrieve all components
+      description: |
+        # Retrieving all managed components
+        This endpoints' purpose is to give **Libre:Match administrators** a convenient
+        opportunity to change settings of certain components, while these component
+        are running. 
+
+        ## Response
+        This operation returns all managed components with their identifiers and some
+        general information about and status for each component.
+      operationId: get_general_collection_for_components
+      # parameters:
+      responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+        "501":
+          $ref: "#/components/responses/501"
+      tags:
+        - Not yet implemented
+    patch:
+      summary: Partially update all components
+      description: |
+        # Partially update all managed components
+        Here we can change certain settings that are common to all components.
+
+        ## Request body
+        The request body specifies the set of changes to apply to the resource.
+
+        ## Response
+        This contains the status of the operation, so if the changes were applied
+        successfully.
+      operationId: partial_update_all_components
+      # parameters:
+      responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
+        "501":
+          $ref: "#/components/responses/501"
+      tags:
+        - Not yet implemented
+    post:
+      summary: Create a new component
+      description: |
+        # Creating a new component
+        TODO
+
+        ## Request body
+        The body of the request message provides the details of the new resource.
+
+        ## Response
+        TODO
+      operationId: create_new_component
+      # parameters:
+      responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
+        "501":
+          $ref: "#/components/responses/501"
+      tags:
+        - Not yet implemented
+    put:
+      summary: Bulk update of all components
+      description: |
+        # Bulk updating components
+        TODO
+          
+        ## Request body
+        The body of the request message specifies the resource to be created or updated.
+
+        ## Response
+        TODO
+      operationId: bulk_update_all_components
+      parameters:
+        - $ref: "#/components/parameters/component_id"
+      responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
+        "501":
+          $ref: "#/components/responses/501"
+      tags:
+        - Not yet implemented
+    x-last-modified: 1665308784
+  /application/components/{component_id}:
+    summary: A Libre:Match component
+    delete:
+      summary: Remove all settings for a specific component of Libre:Match
+      description: TODO
+      operationId: remove_all_settings_for_component
+      parameters:
+        - $ref: "#/components/parameters/component_id"
+      responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+        "501":
+          $ref: "#/components/responses/501"
+      tags:
+        - Not yet implemented
+    get:
+      summary: Retrieve all settings for a specific component of Libre:Match
+      description: TODO
+      operationId: get_setting_collection_for_component
+      parameters:
+        - $ref: "#/components/parameters/component_id"
+      responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+        "501":
+          $ref: "#/components/responses/501"
+      tags:
+        - Not yet implemented
+    patch:
+      summary: Update a specific setting for a specific component of Libre:Match
+      description: TODO
+      operationId: partial_update_all_settings_for_component
+      parameters:
+        - $ref: "#/components/parameters/component_id"
+      responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
+        "501":
+          $ref: "#/components/responses/501"
+      tags:
+        - Not yet implemented
+    post:
+      summary: Create a setting for a certain Libre:Match component
+      description: |
+        THIS SHOULD ERROR!
+      operationId: create_new_setting_for_component
+      parameters:
+        - $ref: "#/components/parameters/component_id"
+      responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
+        "501":
+          $ref: "#/components/responses/501"
+      tags:
+        - Not yet implemented
+    put:
+      summary: Bulk update of settings for a specific component of Libre:Match
+      description: TODO
+      operationId: bulk_update_all_settings_for_component
+      parameters:
+        - $ref: "#/components/parameters/component_id"
+      responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
+        "501":
+          $ref: "#/components/responses/501"
+      tags:
+        - Not yet implemented
+    x-last-modified: 1665308784
+  /application/status:
+    summary: Health check of our API
+    get:
+      summary: Retrieve application status information
+      description: |
+        # Application Status
+        This shows the status of various internal components, e.g. Proxy, Collector and Cache,
+        and application specific metrics like throughput of requests, imported matches,
+        updated profiles, and others.
       operationId: get_status_collection_for_application
       responses:
+        default:
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
-          x-last-modified: 1665056670316
+          x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedError'
-          description: Unauthorized access.
-          x-last-modified: 1665072543221
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
         "503":
-          description: Service Unavailable
-          x-last-modified: 1665057340292
-      summary: Retrieve only application status
-      tags: []
-    summary: Status updates for health checks of our API
-    x-last-modified: 1663948961011
+          $ref: "#/components/responses/503"
+      tags:
+        - Administration
+    x-last-modified: 1665308784
   /games/{game_id}:
+    summary: "Game-related Information"
     get:
+      summary: Retrieve details for a specific game
+      description: |
+        # Game related information
+
+        TODO
+
+        ## Response
+        - Name of game
+        - release date
+        - steam and microsoft store links
+        - links to community pages (liquipedia, aoezone, aoe reddit, community pages)
+        -
       operationId: get_details_for_game
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for games that use the Relic
-          Link API
-        explode: false
-        in: path
-        name: game_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949717971
+        - $ref: "#/components/parameters/game_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
-          x-last-modified: 1665056670316
+          x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedError'
-          description: Unauthorized access.
-          x-last-modified: 1665072543221
-      summary: Retrieve details for a game with a specific identifier using Relic
-        Link API
-      tags: []
-    summary: "game-specific definitions, e.g. map names, civilisation names, translations"
-    x-last-modified: 1663950376911
-  /tournaments/{game_id}:
-    get:
-      operationId: get_tournament_details_for_game
-      parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for games that use the Relic
-          Link API
-        explode: false
-        in: path
-        name: game_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949717971
-      responses:
-        "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
-      summary: Retrieve all available tournaments for a specific game available on
-        the Relic Link platform
-      tags: []
-    summary: game-specific tournaments
-    x-last-modified: 1663952888032
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+      tags:
+        - Games
+        - Items
+    x-last-modified: 1665308784
   /games/{game_id}/leaderboards:
+    summary: Collection of leaderboard data spanning over the complete game
     get:
+      summary: Retrieve identifiers of the leaderboards for a specific game
+      description: |
+        # Leaderboard identifiers
+
+        ## Parameters
+        ## Response
       operationId: get_leaderboard_collection_for_game
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for games that use the Relic
-          Link API
-        explode: false
-        in: path
-        name: game_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949717971
+        - $ref: "#/components/parameters/game_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
-          x-last-modified: 1665056670316
+          x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedError'
-          description: Unauthorized access.
-          x-last-modified: 1665072543221
-      summary: Retrieve all leaderboards for a specific game using Relic Link API
-      tags: []
-    summary: Collection of leaderboard data spanning over the complete game
-    x-last-modified: 1665053521883
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+      tags:
+        - Games
+        - Leaderboards
+        - Collections
+    x-last-modified: 1665308784
   /leaderboards/{leaderboard_id}:
     get:
+      description: Returns the profiles on the leaderboard with thei current ranking, rating, wins, losses, winrate, rel-link->last-match (more infos) and UNIXTIME + ISO-Format
       operationId: get_details_for_leaderboard
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for leaderboards of the Relic
-          Link API
-        explode: false
-        in: path
-        name: leaderboard_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949692803
+        - $ref: "#/components/parameters/profile_id"
+        - $ref: "#/components/parameters/search_alias"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/leaderboard_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
-          x-last-modified: 1665056670316
+          x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedError'
-          description: Unauthorized access.
-          x-last-modified: 1665072543221
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
       summary: Retrieve details for a specific leaderboard
-      tags: []
+      tags:
+        - Items
+        - Leaderboards
+        - Ratings
     summary: game-specific leaderboards on the Relic Link platform
-    x-last-modified: 1665053547091
+    x-last-modified: 1665308784
   /leaderboards/{leaderboard_id}/stats:
     get:
       operationId: get_stat_collection_for_leaderboard
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for leaderboards of the Relic
-          Link API
-        explode: false
-        in: path
-        name: leaderboard_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949692803
+        - $ref: "#/components/parameters/leaderboard_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+          x-last-modified: 1665308784
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
-      summary: Retrieve all stats on a specific leaderboard for a certain game hosted
-        on the Relic Link API
-      tags: []
+          $ref: "#/components/responses/501"
+      summary: Retrieve all stats on a specific leaderboard for a certain game
+      tags:
+        - Not yet implemented
     summary: Collection of stats for a specific leaderboard
-    x-last-modified: 1665053642553
+    x-last-modified: 1665308784
   /leaderboards/{leaderboard_id}/matches:
     get:
+      description: Logfile for matches, ordered descending, first is newest, use case maybe ongoing matches per leaderboard or filter from games/X/matches
       operationId: get_match_collection_for_leaderboard
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for leaderboards of the Relic
-          Link API
-        explode: false
-        in: path
-        name: leaderboard_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949692803
+        - $ref: "#/components/parameters/status_array"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/between_timestamps"
+        - $ref: "#/components/parameters/between_datetimes"
+        - $ref: "#/components/parameters/started_after_datetime"
+        - $ref: "#/components/parameters/finished_after_datetime"
+        - $ref: "#/components/parameters/started_after_timestamp"
+        - $ref: "#/components/parameters/finished_after_timestamp"
+        - $ref: "#/components/parameters/leaderboard_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
-          x-last-modified: 1665056670316
+          x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedError'
-          description: Unauthorized access.
-          x-last-modified: 1665072543221
-      summary: Retrieve all matches on a specific leaderboard for a certain game hosted
-        on the Relic Link API
-      tags: []
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+      summary: Retrieve all matches on a specific leaderboard for a certain game
+      tags:
+        - Matches
+        - Collections
+        - Leaderboards
     summary: Collection of match data for a specific leaderboard
-    x-last-modified: 1665053682780
+    x-last-modified: 1665308784
   /leaderboards:
     get:
-      operationId: get_leaderboard_collection
+      summary: Retrieve identifiers for all leaderboards spanning over all games
+      description: |
+        # Leaderboards
+
+        ## Response
+        Returns all leaderboards for all games, more thought of as a starting point to figure out which leaderboard is worth to query
+      operationId: get_general_collection_for_leaderboards
+      # filter for games TODO
       responses:
+        default:
+          $ref: "#/components/responses/401"
         "200":
           description: Operation succeeded
-          x-last-modified: 1665056670316
+          x-last-modified: 1665308784
         "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedError'
-          description: Unauthorized access.
-          x-last-modified: 1665072543221
-      summary: Retrieve all leaderboards hosted on the Relic Link API
-      tags: []
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+      tags:
+        - Matches
+        - Collections
+        - Leaderboards
+        - Ratings
     summary: Collection of all leaderboard data on the Relic Link platform
-    x-last-modified: 1665053727563
+    x-last-modified: 1665308784
   /tournaments/{tournament_id}:
     delete:
       description: ""
       operationId: remove_tournament_details
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - $ref: "#/components/parameters/tournament_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
-      summary: Remove a tournament for a specific game available on the Relic Link
+          $ref: "#/components/responses/501"
+      summary:
+        Remove a tournament for a specific game available on the Relic Link
         platform
+      tags:
+        - Not yet implemented
     get:
       operationId: get_details_for_tournament
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - $ref: "#/components/parameters/tournament_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
-      summary: Retrieve details for a tournament for a specific game available on
+          $ref: "#/components/responses/501"
+      summary:
+        Retrieve details for a tournament for a specific game available on
         the Relic Link platform
-      tags: []
+      tags:
+        - Not yet implemented
     patch:
       description: ""
       operationId: partial_update_tournament_details
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - $ref: "#/components/parameters/tournament_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
-      summary: Partially update a tournament for a specific game available on the
+          $ref: "#/components/responses/501"
+      summary:
+        Partially update a tournament for a specific game available on the
         Relic Link platform
+      tags:
+        - Not yet implemented
     put:
       description: ""
       operationId: update_tournament_details
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - $ref: "#/components/parameters/tournament_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
-      summary: Update details for a tournament for a specific game available on the
-        Relic Link platform
+          $ref: "#/components/responses/501"
+      summary: Update details for a tournament for a specific game
+      tags:
+        - Not yet implemented
     summary: game-specific tournaments
-    x-last-modified: 1665054574222
+    x-last-modified: 1665308784
   /users/{user_id}/stats:
     delete:
       description: ""
       operationId: remove_all_user_stats
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for users of our API
-        explode: false
-        in: path
-        name: user_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1665078217885
+        - $ref: "#/components/parameters/user_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
+          $ref: "#/components/responses/501"
       summary: Remove all stats for a specific user profile on our platform
+      tags:
+        - Not yet implemented
     get:
       operationId: get_stat_collection_for_user
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for users of our API
-        explode: false
-        in: path
-        name: user_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1665078217885
+        - $ref: "#/components/parameters/user_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
+          $ref: "#/components/responses/501"
       summary: Retrieve all stats for a specific user profile on our platform
-      tags: []
+      tags:
+        - Not yet implemented
     patch:
       description: ""
       operationId: partial_update_user_stats
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for users of our API
-        explode: false
-        in: path
-        name: user_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1665078217885
+        - $ref: "#/components/parameters/user_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
+          $ref: "#/components/responses/501"
       summary: Partially update stats for a specific user profile on our platform
+      tags:
+        - Not yet implemented
     post:
       description: ""
       operationId: create_new_user_stats
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for users of our API
-        explode: false
-        in: path
-        name: user_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1665078217885
+        - $ref: "#/components/parameters/user_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+        "415":
+          $ref: "#/components/responses/415"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
+          $ref: "#/components/responses/501"
       summary: Create a new stat for a specific user profile on our platform
+      tags:
+        - Not yet implemented
     put:
       description: ""
       operationId: bulk_update_all_user_stats
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for users of our API
-        explode: false
-        in: path
-        name: user_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1665078217885
+        - $ref: "#/components/parameters/user_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
+          $ref: "#/components/responses/501"
       summary: Bulk update of stats for a specific user profile on our platform
+      tags:
+        - Not yet implemented
     summary: user profile for an API user
-    x-last-modified: 1665054653031
+    x-last-modified: 1665308784
   /tournaments/{tournament_id}/info:
     get:
       operationId: get_info_collection_for_tournament
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - $ref: "#/components/parameters/tournament_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
+          $ref: "#/components/responses/501"
       summary: Retrieve all information for a specific tournament for a specific game
-        available on the Relic Link platform
-      tags: []
+      tags:
+        - Not yet implemented
     summary: game-specific tournaments
-    x-last-modified: 1665054963238
+    x-last-modified: 1665308784
+  /tournaments/{tournament_id}/stats:
+    get:
+      operationId: get_stat_collection_for_tournament
+      parameters:
+        - $ref: "#/components/parameters/tournament_id"
+      responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+        "501":
+          $ref: "#/components/responses/501"
+      summary: Retrieve all statistics for a specific tournament for a specific game
+      tags:
+        - Not yet implemented
+    summary: game-specific tournaments
+    x-last-modified: 1665308784
+  /tournaments/{tournament_id}/matches:
+    get:
+      operationId: get_match_collection_for_tournament
+      parameters:
+        - $ref: "#/components/parameters/status"
+        - $ref: "#/components/parameters/game_id"
+        - $ref: "#/components/parameters/languages"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/between_timestamps"
+        - $ref: "#/components/parameters/between_datetimes"
+        - $ref: "#/components/parameters/started_after_datetime"
+        - $ref: "#/components/parameters/finished_after_datetime"
+        - $ref: "#/components/parameters/started_after_timestamp"
+        - $ref: "#/components/parameters/finished_after_timestamp"
+        - $ref: "#/components/parameters/tournament_id"
+      responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
+        "501":
+          $ref: "#/components/responses/501"
+      summary: Retrieve all match data for a specific tournament for a specific game
+      tags:
+        - Not yet implemented
+    summary: game-specific tournaments
+    x-last-modified: 1665308784
   /tournaments/{tournament_id}/brackets:
     delete:
       description: ""
       operationId: remove_all_brackets_for_tournament
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - $ref: "#/components/parameters/tournament_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
-      summary: Remove all brackets for a specific tournament for a specific game available
-        on the Relic Link platform
+          $ref: "#/components/responses/501"
+      summary: Remove all brackets for a specific tournament for a specific game
+      tags:
+        - Not yet implemented
     get:
       operationId: get_bracket_collection_for_tournament
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - $ref: "#/components/parameters/tournament_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
+          $ref: "#/components/responses/501"
       summary: Retrieve all brackets for a specific tournament for a specific game
-        available on the Relic Link platform
-      tags: []
+      tags:
+        - Not yet implemented
     patch:
       description: ""
       operationId: partial_update_bracket_for_tournament
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - $ref: "#/components/parameters/tournament_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
-      summary: Partial update all brackets for a specific tournament for a specific
-        game available on the Relic Link platform
+          $ref: "#/components/responses/501"
+      summary:
+        Partial update all brackets for a specific tournament for a specific
+        game
+      tags:
+        - Not yet implemented
     post:
       description: ""
       operationId: create_new_bracket_for_tournament
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - $ref: "#/components/parameters/tournament_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
+          $ref: "#/components/responses/501"
       summary: Create a new bracket for a specific tournament for a specific game
-        available on the Relic Link platform
+      tags:
+        - Not yet implemented
     put:
       description: ""
       operationId: bulk_update_all_brackets_for_tournament
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - $ref: "#/components/parameters/tournament_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
+          $ref: "#/components/responses/501"
       summary: Bulk update all brackets for a specific tournament for a specific game
-        available on the Relic Link platform
+      tags:
+        - Not yet implemented
     summary: game-specific tournaments
-    x-last-modified: 1665054981775
+    x-last-modified: 1665308784
   /tournaments/{tournament_id}/admins:
     delete:
       description: ""
       operationId: remove_all_admins_for_tournament
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - $ref: "#/components/parameters/tournament_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
-      summary: Remove all admins for a specific tournament for a specific game available
-        on the Relic Link platform
+          $ref: "#/components/responses/501"
+      summary: Remove all admins for a specific tournament for a specific game
+      tags:
+        - Not yet implemented
     get:
       operationId: get_admin_collection_for_tournament
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - $ref: "#/components/parameters/tournament_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
-      summary: Retrieve all admins for a specific tournament for a specific game available
+          $ref: "#/components/responses/501"
+      summary:
+        Retrieve all admins for a specific tournament for a specific game available
         on the Relic Link platform
-      tags: []
+      tags:
+        - Not yet implemented
     patch:
       description: ""
       operationId: partial_update_all_admins_for_tournament
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - $ref: "#/components/parameters/tournament_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
+          $ref: "#/components/responses/501"
       summary: Update details of admins for a specific tournament for a specific game
-        available on the Relic Link platform
+      tags:
+        - Not yet implemented
     post:
       description: ""
       operationId: create_new_admin_for_tournament
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - $ref: "#/components/parameters/tournament_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
-      summary: Create a new admin for a specific tournament for a specific game available
+          $ref: "#/components/responses/501"
+      summary:
+        Create a new admin for a specific tournament for a specific game available
         on the Relic Link platform
+      tags:
+        - Not yet implemented
     put:
       description: ""
       operationId: bulk_update_all_admins_for_tournament
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for tournaments
-        explode: false
-        in: path
-        name: tournament_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1663949674724
+        - $ref: "#/components/parameters/tournament_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
+          $ref: "#/components/responses/501"
       summary: Bulk update of admins for a specific tournament for a specific game
-        available on the Relic Link platform
+      tags:
+        - Not yet implemented
     summary: Endpoint for tournament admins
-    x-last-modified: 1665055638796
+    x-last-modified: 1665308784
   /teams:
     delete:
       description: ""
       operationId: remove_all_teams
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
+          $ref: "#/components/responses/501"
       summary: Remove all teams
-      tags: []
+      tags:
+        - Not yet implemented
     get:
-      operationId: get_team_collection
+      operationId: get_general_collection_for_teams
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
+          $ref: "#/components/responses/501"
       summary: Retrieve all available teams
-      tags: []
+      tags:
+        - Not yet implemented
     patch:
       description: ""
       operationId: partial_update_all_teams
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
+          $ref: "#/components/responses/501"
       summary: Partial update of all teams
-      tags: []
+      tags:
+        - Not yet implemented
     post:
       description: ""
       operationId: create_new_team
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
+          $ref: "#/components/responses/501"
       summary: Create a new team
-      tags: []
+      tags:
+        - Not yet implemented
     put:
       description: ""
       operationId: bulk_update_all_teams
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
+          $ref: "#/components/responses/501"
       summary: Bulk update of teams
-      tags: []
+      tags:
+        - Not yet implemented
     summary: Endpoint for team information
-    x-last-modified: 1665138931985
+    x-last-modified: 1665308784
   /profiles/{relic_link_id}/settings:
     delete:
       description: ""
       operationId: remove_all_settings_for_profile
       parameters:
-      - deprecated: false
-        description: The unique identifier used by the Relic Link API for a player
-          on their platform
-        explode: false
-        in: path
-        name: relic_link_id
-        required: true
-        schema:
-          type: integer
-        style: simple
-        x-last-modified: 1663949613648
+        - $ref: "#/components/parameters/relic_link_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
-      summary: Remove all settings for a specific profile from the Relic Link API
-      tags: []
+          $ref: "#/components/responses/501"
+      summary: Remove all settings for a specific profile
+      tags:
+        - Not yet implemented
     get:
       operationId: get_setting_collection_for_profile
       parameters:
-      - deprecated: false
-        description: The unique identifier used by the Relic Link API for a player
-          on their platform
-        explode: false
-        in: path
-        name: relic_link_id
-        required: true
-        schema:
-          type: integer
-        style: simple
-        x-last-modified: 1663949613648
+        - $ref: "#/components/parameters/relic_link_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
-      summary: Retrieve all settings for a specific profile from the Relic Link API
-      tags: []
+          $ref: "#/components/responses/501"
+      summary: Retrieve all settings for a specific profile
+      tags:
+        - Not yet implemented
     patch:
       description: ""
       operationId: partial_update_all_settings_for_profile
       parameters:
-      - deprecated: false
-        description: The unique identifier used by the Relic Link API for a player
-          on their platform
-        explode: false
-        in: path
-        name: relic_link_id
-        required: true
-        schema:
-          type: integer
-        style: simple
-        x-last-modified: 1663949613648
+        - $ref: "#/components/parameters/relic_link_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
-      summary: Update a specific setting for a specific profile from the Relic Link
+          $ref: "#/components/responses/501"
+      summary:
+        Update a specific setting for a specific profile from the Relic Link
         API
-      tags: []
+      tags:
+        - Not yet implemented
     post:
       description: ""
       operationId: create_new_setting_for_profile
       parameters:
-      - deprecated: false
-        description: The unique identifier used by the Relic Link API for a player
-          on their platform
-        explode: false
-        in: path
-        name: relic_link_id
-        required: true
-        schema:
-          type: integer
-        style: simple
-        x-last-modified: 1663949613648
+        - $ref: "#/components/parameters/relic_link_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
+          $ref: "#/components/responses/501"
       summary: Create a new setting for a specific profile from the Relic Link API
-      tags: []
+      tags:
+        - Not yet implemented
     put:
       description: ""
       operationId: bulk_update_all_settings_for_profile
       parameters:
-      - deprecated: false
-        description: The unique identifier used by the Relic Link API for a player
-          on their platform
-        explode: false
-        in: path
-        name: relic_link_id
-        required: true
-        schema:
-          type: integer
-        style: simple
-        x-last-modified: 1663949613648
+        - $ref: "#/components/parameters/relic_link_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "415":
+          $ref: "#/components/responses/415"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
-      summary: Bulk update of settings for a specific profile from the Relic Link
+          $ref: "#/components/responses/501"
+      summary:
+        Bulk update of settings for a specific profile from the Relic Link
         API
-      tags: []
+      tags:
+        - Not yet implemented
     summary: Collection of settings specifically for a certain Relic Link profile
-    x-last-modified: 1665138974395
+    x-last-modified: 1665308784
   /profiles/{relic_link_id}/stats:
     get:
       operationId: get_stat_collection_for_profile
       parameters:
-      - deprecated: false
-        description: The unique identifier used by the Relic Link API for a player
-          on their platform
-        explode: false
-        in: path
-        name: relic_link_id
-        required: true
-        schema:
-          type: integer
-        style: simple
-        x-last-modified: 1663949613648
+        - $ref: "#/components/parameters/relic_link_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
-      summary: Retrieve all stats for a specific profile from the Relic Link API
-      tags: []
+          $ref: "#/components/responses/501"
+      summary: Retrieve all stats for a specific profile
+      tags:
+        - Not yet implemented
     summary: Collection of statistics specifically for a certain Relic Link profile
-    x-last-modified: 1665138997585
+    x-last-modified: 1665308784
   /teams/{team_id}:
     get:
       operationId: get_details_for_team
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for teams that play on games
-          using the Relic Link API
-        explode: false
-        in: path
-        name: game_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1665069480649
+        - $ref: "#/components/parameters/team_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
+          $ref: "#/components/responses/501"
       summary: Retrieve details of a team
-      tags: []
+      tags:
+        - Not yet implemented
     summary: Team information
-    x-last-modified: 1665139023265
+    x-last-modified: 1665308784
   /teams/{team_id}/matches:
     get:
       operationId: get_match_collection_for_team
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for teams that play on games
-          using the Relic Link API
-        explode: false
-        in: path
-        name: game_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1665069480649
+        - $ref: "#/components/parameters/team_id"
+        - $ref: "#/components/parameters/game_ids"
+        - $ref: "#/components/parameters/languages"
+        - $ref: "#/components/parameters/last_match"
+        - $ref: "#/components/parameters/style"
+        - $ref: "#/components/parameters/status_array"
+        - $ref: "#/components/parameters/between_timestamps"
+        - $ref: "#/components/parameters/between_datetimes"
+        - $ref: "#/components/parameters/started_after_datetime"
+        - $ref: "#/components/parameters/finished_after_datetime"
+        - $ref: "#/components/parameters/started_after_timestamp"
+        - $ref: "#/components/parameters/finished_after_timestamp"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/relic_link_ids"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
+          $ref: "#/components/responses/501"
       summary: Retrieve a list of matches for a specific team
-      tags: []
+      tags:
+        - Not yet implemented
     summary: Collection of match information for a team
-    x-last-modified: 1665139050992
+    x-last-modified: 1665308784
   /teams/{team_id}/stats:
     get:
       operationId: get_stat_collection_for_team
       parameters:
-      - deprecated: false
-        description: The unique identifier (ULID) we use for teams that play on games
-          using the Relic Link API
-        explode: false
-        in: path
-        name: game_id
-        required: true
-        schema:
-          format: ulid
-          type: string
-        style: simple
-        x-last-modified: 1665069480649
+        - $ref: "#/components/parameters/team_id"
       responses:
+        default:
+          $ref: "#/components/responses/401"
+        "200":
+          description: Operation succeeded
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "406":
+          $ref: "#/components/responses/406"
+        "429":
+          $ref: "#/components/responses/429"
         "501":
-          description: Not Implemented
-          x-last-modified: 1665058119290
+          $ref: "#/components/responses/501"
       summary: Retrieve a list of stats for a specific team
-      tags: []
+      tags:
+        - Not yet implemented
     summary: Collection of stats for a team
-    x-last-modified: 1665139090952
+    x-last-modified: 1665308784
 components:
   headers:
     Authorization:
       description: Authorization header
       explode: false
       schema:
-        type: string
+        $ref: "#/components/schemas/AuthorizationHeader"
       style: simple
     X-RateLimit-Remaining:
       description: The number of remaining requests in the current period
@@ -1480,15 +2606,15 @@ components:
         type: integer
       style: simple
     X-Transaction-ID:
-      description: "When set by the client code with an alphanumeric value, the transaction\
+      description:
+        "When set by the client code with an alphanumeric value, the transaction\
         \ ID is logged in the log files for debugging. \nWhen the client is not specifying\
         \ this value, the server auto generates this value for the incoming request.\
         \ \nThe main purpose is to filter various logs at once for a single transaction\
         \ ID, to ease the debugging."
       explode: false
       schema:
-        format: uuid
-        type: string
+        $ref: "#/components/schemas/Ulid"
       style: simple
     X-RateLimit-Limit:
       description: The number of allowed requests in the current period
@@ -1496,8 +2622,15 @@ components:
       schema:
         type: integer
       style: simple
+    X-RateLimit-Retry-After:
+      description: The number of seconds to wait until you can make a request again without being throttled.
+      explode: false
+      schema:
+        type: integer
+      style: simple
     X-RateLimit-Reset:
-      description: The number of seconds left in the current period until the rate
+      description:
+        The number of seconds left in the current period until the rate
         limit resets
       explode: false
       schema:
@@ -1505,11 +2638,14 @@ components:
       style: simple
     Pragma:
       deprecated: false
-      description: Implementation-specific fields that may have various effects anywhere
+      description:
+        Implementation-specific fields that may have various effects anywhere
         along the request-response chain.
       explode: false
       required: false
       schema:
+        maxLength: 32
+        pattern: "^example-[0-9a-z]+$"
         type: string
       style: simple
     If-Modified-Since:
@@ -1518,27 +2654,28 @@ components:
       explode: false
       required: false
       schema:
-        format: datetime
-        type: number
+        format: date-time
+        type: string
       style: simple
     If-None-Match:
       deprecated: false
-      description: "Allows a 304 Not Modified to be returned if content is unchanged,\
+      description:
+        "Allows a 304 Not Modified to be returned if content is unchanged,\
         \ see HTTP ETag."
       explode: false
       required: false
       schema:
-        format: md5
-        type: string
+        $ref: "#/components/schemas/Md5"
       style: simple
     WWW-Authenticate:
       deprecated: false
-      description: Defines the HTTP authentication methods ("challenges") that might
+      description:
+        Defines the HTTP authentication methods ("challenges") that might
         be used to gain access to a specific resource
       explode: false
       required: false
       schema:
-        type: string
+        $ref: "#/components/schemas/WwwAuthenticate"
       style: simple
     Location:
       deprecated: false
@@ -1546,21 +2683,267 @@ components:
       explode: false
       required: false
       schema:
+        maxLength: 32
+        pattern: "^example-[0-9a-z]+$"
         type: string
       style: simple
   parameters:
+    match_id:
+      deprecated: false
+      description: Match ID
+      explode: false
+      in: query
+      name: match_id
+      required: false
+      schema:
+        $ref: "#/components/schemas/MatchId"
+    offset:
+      deprecated: false
+      description: Offset
+      explode: false
+      in: query
+      name: offset
+      required: false
+      schema:
+        $ref: "#/components/schemas/OffsetParam"
+    limit:
+      deprecated: false
+      description: Limit
+      explode: false
+      in: query
+      name: limit
+      required: false
+      schema:
+        $ref: "#/components/schemas/LimitParam"
+    between_timestamps:
+      deprecated: false
+      description: Items in  between two comma-delimited UNIX timestamps
+      explode: true
+      in: query
+      name: between_timestamps
+      required: false
+      schema:
+        $ref: "#/components/schemas/BetweenReasonableUnixTimestamps"
+    between_datetimes:
+      deprecated: false
+      description: Items in between two comma-delimited Datetime string
+      explode: true
+      in: query
+      name: between_datetimes
+      required: false
+      schema:
+        $ref: "#/components/schemas/BetweenDatetimeStrings"
+    started_after_datetime:
+      deprecated: false
+      description: Only show items that started after this Datetime string
+      explode: false
+      in: query
+      name: started_after_datetime
+      required: false
+      schema:
+        $ref: "#/components/schemas/DateTimeString"
+    finished_after_datetime:
+      deprecated: false
+      description: Only show items that ended after this Datetime string
+      explode: false
+      in: query
+      name: finished_after_datetime
+      required: false
+      schema:
+        $ref: "#/components/schemas/DateTimeString"
+    started_after_timestamp:
+      deprecated: false
+      description: Only show items that started after this Unix timestamp
+      explode: false
+      in: query
+      name: started_after_timestamp
+      required: false
+      schema:
+        $ref: "#/components/schemas/ReasonableUnixTimestamp"
+    finished_after_timestamp:
+      deprecated: false
+      description: Only show items that ended after this Unix timestamp
+      explode: false
+      in: query
+      name: finished_after_timestamp
+      required: false
+      schema:
+        $ref: "#/components/schemas/ReasonableUnixTimestamp"
+    since_timestamp:
+      deprecated: false
+      description: Only show items that were added since this Unix timestamp
+      explode: false
+      in: query
+      name: since_timestamp
+      required: false
+      schema:
+        $ref: "#/components/schemas/ReasonableUnixTimestamp"
+    since_datetime:
+      deprecated: false
+      description: Only show items that were added since this Datetime string
+      explode: false
+      in: query
+      name: since_datetime
+      schema:
+        $ref: "#/components/schemas/DateTimeString"
+      x-last-modified: 1665308784
+    search_steam_id:
+      deprecated: false
+      description: The Steam ID to search a `profile_id` for
+      explode: false
+      in: query
+      name: steam_id
+      required: false
+      schema:
+        $ref: "#/components/schemas/SteamId"
+      style: form
+      x-last-modified: 1665308784
+    search_alias:
+      deprecated: false
+      description:
+        First 10 characters of a search string for name to search a `profile_id`
+        for
+      explode: false
+      in: query
+      name: alias
+      required: false
+      schema:
+        $ref: "#/components/schemas/SearchParam"
+      style: form
+      x-last-modified: 1665308784
+    exact:
+      deprecated: false
+      description: If only exact matches should be returned
+      explode: false
+      in: query
+      name: exact
+      required: false
+      schema:
+        type: boolean
+      x-last-modified: 1665308784
+    dump_type_array:
+      deprecated: false
+      description: Dump type identifiers to filter for
+      explode: true
+      in: query
+      name: dump_types
+      required: false
+      schema:
+        $ref: "#/components/schemas/DumpTypeArray"
+    status_array:
+      deprecated: false
+      description: Match status identifiers to filter for
+      explode: true
+      in: query
+      name: status
+      required: false
+      schema:
+        $ref: "#/components/schemas/MatchStatusArray"
+    status:
+      deprecated: false
+      description: Match status identifiers to filter for
+      explode: false
+      in: query
+      name: status
+      required: false
+      schema:
+        $ref: "#/components/schemas/MatchStatus"
+    last_match:
+      deprecated: false
+      description: Only show exactly the last available match
+      explode: false
+      in: query
+      name: last_match
+      required: false
+      schema:
+        type: boolean
+        default: false
+      example: false
+    match_uuid:
+      deprecated: false
+      description: Match ID to filter for its details
+      explode: false
+      in: query
+      name: match_uuid
+      required: false
+      schema:
+        $ref: "#/components/schemas/MatchUuid"
+    languages:
+      deprecated: false
+      name: language
+      in: query
+      description: Languages to receive content for
+      explode: true
+      required: false
+      schema:
+        $ref: "#/components/schemas/LanguageStringArray"
+    language:
+      deprecated: false
+      name: language
+      in: query
+      description: "Language to receive content for"
+      explode: true
+      required: false
+      schema:
+        $ref: "#/components/schemas/LanguageString"
+    style:
+      deprecated: false
+      name: style
+      in: query
+      description: "Style to receive content in"
+      explode: false
+      required: false
+      schema:
+        $ref: "#/components/schemas/ResponseStyle"
+    relic_link_ids:
+      deprecated: false
+      description:
+        An array of unique identifiers used by the Relic Link API for a player on
+        their platform
+      explode: false
+      in: query
+      name: relic_link_ids
+      required: false
+      schema:
+        $ref: "#/components/schemas/RelicLinkIdArray"
+      x-last-modified: 1665308784
     relic_link_id:
       deprecated: false
-      description: The unique identifier used by the Relic Link API for a player on
+      description:
+        The unique identifier used by the Relic Link API for a player on
         their platform
       explode: false
       in: path
       name: relic_link_id
       required: true
       schema:
-        type: integer
+        $ref: "#/components/schemas/RelicLinkId"
       style: simple
-      x-last-modified: 1663949613648
+      x-last-modified: 1665308784
+    profile_id:
+      deprecated: false
+      description:
+        The unique identifier used by the Relic Link API for a player on
+        their platform
+      explode: false
+      in: path
+      name: profile_id
+      required: true
+      schema:
+        $ref: "#/components/schemas/RelicLinkId"
+      style: simple
+      x-last-modified: 1665308784
+    dump_id:
+      deprecated: false
+      description: The unique identifier (ULID) we use for database dumps
+      explode: false
+      in: path
+      name: dump_id
+      required: true
+      schema:
+        $ref: "#/components/schemas/Ulid"
+      style: simple
+      x-last-modified: 1665308784
     tournament_id:
       deprecated: false
       description: The unique identifier (ULID) we use for tournaments
@@ -1569,49 +2952,60 @@ components:
       name: tournament_id
       required: true
       schema:
-        format: ulid
-        type: string
+        $ref: "#/components/schemas/Ulid"
       style: simple
-      x-last-modified: 1663949674724
+      x-last-modified: 1665308784
     leaderboard_id:
       deprecated: false
-      description: The unique identifier (ULID) we use for leaderboards of the Relic
+      description:
+        The unique identifier (ULID) we use for leaderboards of the Relic
         Link API
       explode: false
       in: path
       name: leaderboard_id
       required: true
       schema:
-        format: ulid
-        type: string
+        $ref: "#/components/schemas/Ulid"
       style: simple
-      x-last-modified: 1663949692803
+      x-last-modified: 1665308784
+    game_ids:
+      deprecated: false
+      description:
+        The unique identifier we use for games that use the Relic Link
+        API
+      explode: true
+      required: false
+      in: query
+      name: game_ids
+      schema:
+        $ref: "#/components/schemas/GameIdArray"
+      x-last-modified: 1665308784
     game_id:
       deprecated: false
-      description: The unique identifier (ULID) we use for games that use the Relic
-        Link API
+      description:
+        The unique identifier we use for games that use the Relic Link
+        API
       explode: false
       in: path
       name: game_id
       required: true
       schema:
-        format: ulid
-        type: string
+        $ref: "#/components/schemas/GameId"
       style: simple
-      x-last-modified: 1663949717971
+      x-last-modified: 1665308784
     team_id:
       deprecated: false
-      description: The unique identifier (ULID) we use for teams that play on games
+      description:
+        The unique identifier (ULID) we use for teams that play on games
         using the Relic Link API
       explode: false
       in: path
-      name: game_id
+      name: team_id
       required: true
       schema:
-        format: ulid
-        type: string
+        $ref: "#/components/schemas/Ulid"
       style: simple
-      x-last-modified: 1665069480649
+      x-last-modified: 1665308784
     user_id:
       deprecated: false
       description: The unique identifier (ULID) we use for users of our API
@@ -1620,83 +3014,549 @@ components:
       name: user_id
       required: true
       schema:
-        format: ulid
-        type: string
+        $ref: "#/components/schemas/Ulid"
       style: simple
-      x-last-modified: 1665078217885
+      x-last-modified: 1665308784
+    component_id:
+      deprecated: false
+      description: The unique identifier (ULID) we use for internal components of Libre:Match
+      explode: false
+      in: path
+      name: component_id
+      required: true
+      schema:
+        $ref: "#/components/schemas/Ulid"
+      style: simple
+      x-last-modified: 1665308784
   responses:
     "200":
       description: Operation succeeded
-      x-last-modified: 1665056670316
+      x-last-modified: 1665308784
     "201":
       description: Created
-      x-last-modified: 1665072508175
+      x-last-modified: 1665308784
     "202":
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Accepted"
       description: Accepted
-      x-last-modified: 1665057162357
+      x-last-modified: 1665308784
     "204":
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/NoContent"
       description: No Content
-      x-last-modified: 1665056770881
+      x-last-modified: 1665308784
     "304":
       description: Not Modified
-      x-last-modified: 1665056864543
+      x-last-modified: 1665308784
     "400":
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/IllegalInputError'
+            $ref: "#/components/schemas/IllegalInputError"
       description: Bad Request
-      x-last-modified: 1665057215110
+      x-last-modified: 1665308784
     "401":
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/UnauthorizedError'
-      description: Unauthorized access.
-      x-last-modified: 1665072543221
+            $ref: "#/components/schemas/UnauthorizedError"
+      description: Unauthorized access
+      x-last-modified: 1665308784
     "403":
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ForbiddenError"
       description: Forbidden
-      x-last-modified: 1665056800086
+      x-last-modified: 1665308784
     "404":
-      description: Entity not found.
-      x-last-modified: 1665056674861
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/NotFoundError"
+      description: Entity not found
+      x-last-modified: 1665308784
+    "406":
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/NotAcceptableError"
+      description: Not acceptable
+      x-last-modified: 1665308784
     "408":
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/RequestTimeoutError"
       description: Request Timeout
-      x-last-modified: 1665057248987
+      x-last-modified: 1665308784
+    "415":
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UnsupportedMediaTypeError"
+      description: Unsupported Media Type
+      x-last-modified: 1665308784
     "429":
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/TooManyRequestsError"
       description: Too Many Requests
-      x-last-modified: 1665056827121
+      x-last-modified: 1665308784
     "500":
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ServerError'
+            $ref: "#/components/schemas/ServerError"
       description: Server Error
-      x-last-modified: 1665056677455
+      x-last-modified: 1665308784
     "501":
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/NotImplementedError"
       description: Not Implemented
-      x-last-modified: 1665058119290
+      x-last-modified: 1665308784
     "503":
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ServiceUnavailableError"
       description: Service Unavailable
-      x-last-modified: 1665057340292
+      x-last-modified: 1665308784
   schemas:
-    IllegalInputError:
+    OffsetParam:
+      description: An integer between '0' and '999,999,999,999'. Serves as a start parameter.
+      format: int64
+      maximum: 999999999999
+      minimum: 0
+      pattern: "^[0-9]{11}$"
+      type: integer
+      default: 0
+      example: 0
+    LimitParam:
+      description: An integer between '1' and '1,000'. Serves as a page limit.
+      format: int64
+      maximum: 1000
+      minimum: 1
+      pattern: "^[0-9]{3}$"
+      type: integer
+      default: 50
+      example: 25
+    BetweenReasonableUnixTimestamps:
+      description: Two comma-delimited UNIX TimeStamps between 'Fri, 09 Oct 2020 08:27:06 +0000' and 'Sat, 09 Oct 2032 08:27:06 +0000'.
+      pattern: "^1[6-9]([0-9]){8}$"
+      type: string
+      format: string
+      example: "1702232026,1702232026"
+      x-last-modified: 1665308784
+    ReasonableUnixTimestamp:
+      format: int64
+      maximum: 1980923226
+      minimum: 1602232026
+      pattern: "^1[6-9]([0-9]){8}$"
+      type: integer
+      example: 1702232026
+      description: An UNIX TimeStamp between 'Fri, 09 Oct 2020 08:27:06 +0000' and 'Sat, 09 Oct 2032 08:27:06 +0000'.
+    MatchUuid:
+      format: uuid
+      pattern:
+        "^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b\
+        -[0-9a-fA-F]{12}$"
+      type: string
+      example: 03531e31-31fd-5041-9f70-0264e158a40e
+      description: A valid UUID that is being used to find matches.
+    MatchId:
+      format: int64
+      pattern: "^[0-9]{14}$"
+      type: integer
+      example: 75984064
+      description: An Integer defined as Match ID serving to identify a match.
+    SteamId:
+      format: int64
+      maximum: 18
+      minimum: 14
+      pattern: "^7[0-9]{16}$"
+      type: integer
+      example: 76561197984749679
+      description: A valid SteamID64 that is being used in the '/profiles/search' to find the Relic Link ID of a profile.
+    SearchParam:
+      format: string
+      maxLength: 10
+      pattern: "^.{10}$"
+      type: string
+      example: TheViper
+      description: First 10 characters of a search string that is being used in the '/profiles/search' to find the Relic Link ID of a profile.
+    ResponseStyle:
+      enum:
+        - compact
+        - full
+      type: string
+      default: compact
+      example: compact
+      description: An enum send from the client to style the response that we send. Custom use cases, e.g. 'overlay' can be added later.
+      x-last-modified: 1665308784
+    LanguageStringArray:
+      type: array
+      items:
+        $ref: "#/components/schemas/LanguageString"
+      default:
+        - en
+      example:
+        - en
+        - fr
+      description: An array of languages helping the client to chose the languages they want to receive certain parts of their response in.
+    LanguageString:
+      format: string
+      enum:
+        - en
+        - de
+        - el
+        - es
+        - es-MX
+        - fr
+        - hi
+        - it
+        - ja
+        - ko
+        - ms
+        - nl
+        - pt
+        - ru
+        - tr
+        - vi
+        - zh
+        - zh-TW
+      maxLength: 5
+      minLength: 2
+      pattern: "^([a-z]{2}){1}\b(-[A-Z]{2}){0,1}$"
+      type: string
+      default: en
+      example: en
+      description: An enum of Language strings being used in a language array.
+    AuthorizationHeader:
+      additionalProperties: false
+      properties:
+        self:
+          format: string
+          maxLength: 33
+          type: string
+      required:
+        - self
+      type: object
+      x-last-modified: 1665308784
+    WwwAuthenticate:
+      additionalProperties: false
+      properties:
+        self:
+          format: string
+          maxLength: 33
+          type: string
+      required:
+        - self
+      type: object
+      x-last-modified: 1665308784
+    Md5:
+      format: string
+      maxLength: 33
+      maximum: 33
+      pattern: "^[a-fA-F0-9]{32}$"
+      type: string
+      x-last-modified: 1665308784
+    BetweenDatetimeStrings:
+      description: Two comma-delimited Datetime strings
+      format: string
+      maxLength: 50
+      pattern: '^\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d(?:\.\d+)?Z?$'
+      type: string
+      example: "2022-04-19T08:00:00.000Z,2022-04-19T10:00:00.000Z"
+      x-last-modified: 1665308784
+    DateTimeString:
+      description: A Datetime string
+      format: string
+      maxLength: 25
+      pattern: '^\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d(?:\.\d+)?Z?$'
+      type: string
+      example: "2022-09-19T15:22:08.452Z"
+      x-last-modified: 1665308784
+    RelicLinkIdArray:
+      description: Array of Relic Link IDs
+      type: array
+      items:
+        $ref: "#/components/schemas/RelicLinkId"
+      example:
+        - 196240
+        - 185043
+      x-last-modified: 1665308784
+    RelicLinkId:
+      description: A Relic Link ID
+      format: int64
+      maximum: 999999999
+      minimum: 0
+      type: integer
+      example: 196240
+      x-last-modified: 1665308784
+    MatchStatusArray:
+      description: Array of match statuses
+      items:
+        $ref: "#/components/schemas/MatchStatus"
+      type: array
+      default: finished
+      example:
+        - ongoing
+        - finished
+      x-last-modified: 1665308784
+    DumpTypeArray:
+      description: Dump content types
+      items:
+        $ref: "#/components/schemas/DumpType"
+      type: array
+      default:
+        - leaderboards
+        - matches
+        - ratings
+      example:
+        - matches
+        - ratings
+      x-last-modified: 1665308784
+    DumpType:
+      description: Dump content type
+      enum:
+        - leaderboards
+        - matches
+        - ratings
+      type: string
+      default: leaderboards
+      example: leaderboards
+      x-last-modified: 1665308784
+    MatchStatus:
+      description: Match statuses
+      enum:
+        - drafting
+        - ongoing
+        - finished
+      type: string
+      default: finished
+      example: ongoing
+      x-last-modified: 1665308784
+    GameIdArray:
+      description: Array of supported games by Relic Link API
+      items:
+        $ref: "#/components/schemas/GameId"
+      type: array
+      example:
+        - aoe2de
+        - aoe4
+      x-last-modified: 1665308784
+    GameId:
+      description: Supported games by Relic Link API
+      enum:
+        - aoe1de
+        - aoe2de
+        - aoe3de
+        - aoe4
+      type: string
+      example: aoe2de
+      x-last-modified: 1665308784
+    Ulid:
+      format: ulid
+      maxLength: 26
+      maximum: 26
+      minimum: 26
+      pattern: "^[0-7][0-9A-HJKMNP-TV-Z]{25}$"
+      type: string
+      example: 4Y89HG5TKRF7BGMMSQMRPZ6S1B
+      x-last-modified: 1665308784
+    UnsupportedMediaTypeError:
+      additionalProperties: false
       properties:
         message:
+          title: message
+          type: string
+        code:
+          maximum: 415
+          minimum: 415
+          title: code
+          type: integer
+      required:
+        - code
+        - message
+      title: UnsupportedMediaTypeError
+      type: object
+      x-last-modified: 1665308784
+    ServiceUnavailableError:
+      additionalProperties: false
+      properties:
+        message:
+          type: string
+        code:
+          maximum: 503
+          minimum: 503
+          type: integer
+      required:
+        - code
+        - message
+      type: object
+      x-last-modified: 1665308784
+    NotImplementedError:
+      additionalProperties: false
+      properties:
+        message:
+          title: message
+          type: string
+        code:
+          maximum: 501
+          minimum: 501
+          title: code
+          type: integer
+      required:
+        - code
+        - message
+      title: NotImplementedError
+      type: object
+      x-last-modified: 1665308784
+    TooManyRequestsError:
+      additionalProperties: false
+      properties:
+        message:
+          title: message
+          type: string
+        code:
+          maximum: 429
+          minimum: 429
+          title: code
+          type: integer
+      required:
+        - code
+        - message
+      title: TooManyRequestsError
+      type: object
+      x-last-modified: 1665308784
+    RequestTimeoutError:
+      additionalProperties: false
+      properties:
+        message:
+          type: string
+        code:
+          maximum: 408
+          minimum: 408
+          type: integer
+      required:
+        - code
+        - message
+      type: object
+      x-last-modified: 1665308784
+    NotAcceptableError:
+      additionalProperties: false
+      properties:
+        message:
+          title: message
+          type: string
+        code:
+          maximum: 406
+          minimum: 406
+          title: code
+          type: integer
+      required:
+        - code
+        - message
+      title: NotAcceptableError
+      type: object
+      x-last-modified: 1665308784
+    NotFoundError:
+      additionalProperties: false
+      properties:
+        message:
+          title: message
+          type: string
+        code:
+          maximum: 404
+          minimum: 404
+          title: code
+          type: integer
+      required:
+        - code
+        - message
+      title: NotFoundError
+      type: object
+      x-last-modified: 1665308784
+    ForbiddenError:
+      additionalProperties: false
+      properties:
+        message:
+          title: message
+          type: string
+        code:
+          maximum: 403
+          minimum: 403
+          title: code
+          type: integer
+      required:
+        - code
+        - message
+      title: ForbiddenError
+      type: object
+      x-last-modified: 1665308784
+    Accepted:
+      additionalProperties: false
+      properties:
+        message:
+          type: string
+        code:
+          maximum: 202
+          minimum: 202
+          type: integer
+      required:
+        - code
+        - message
+      type: object
+      x-last-modified: 1665308784
+    NoContent:
+      additionalProperties: false
+      properties:
+        message:
+          maxLength: 32
+          pattern: "^example-[0-9a-z]+$"
+          title: No Content
+          type: string
+        code:
+          maximum: 204
+          minimum: 204
+          type: integer
+      required:
+        - code
+        - message
+      type: object
+      x-last-modified: 1665308784
+    IllegalInputError:
+      additionalProperties: false
+      properties:
+        message:
+          maxLength: 32
+          pattern: "^example-[0-9a-z]+$"
+          title: Bad Request
           type: string
         code:
           maximum: 400
           minimum: 400
           type: integer
       required:
-      - code
-      - message
+        - code
+        - message
       type: object
-      x-last-modified: 1665056674054
+      x-last-modified: 1665308784
     UnauthorizedError:
+      additionalProperties: false
       properties:
         message:
-          title: message
+          maxLength: 32
+          pattern: "^example-[0-9a-z]+$"
+          title: Unauthorized access
           type: string
         code:
           maximum: 401
@@ -1704,12 +3564,13 @@ components:
           title: code
           type: integer
       required:
-      - code
-      - message
+        - code
+        - message
       title: UnauthorizedError
       type: object
-      x-last-modified: 1665056676293
+      x-last-modified: 1665308784
     ServerError:
+      additionalProperties: false
       properties:
         message:
           type: string
@@ -1718,38 +3579,29 @@ components:
           minimum: 500
           type: integer
       required:
-      - code
-      - message
+        - code
+        - message
       type: object
-      x-last-modified: 1665056677454
-    Error:
-      example:
-        code: 400
-        message: wrong input
-      properties:
-        message:
-          description: The error message indicating what the issue is
-          type: string
-        code:
-          description: The http status code
-          maximum: 600
-          minimum: 100
-          type: integer
-      required:
-      - code
-      - message
-      type: object
-      x-last-modified: 1665057919920
+      x-last-modified: 1665308784
   securitySchemes:
+    BasicAuth:
+      description: "Example: \n> Authorization: <Sample>"
+      in: header
+      name: BasicAuth
+      type: apiKey
+      x-last-modified: 1665308784
     X-Api-Key:
       description: "Example: \n> X-Api-Key: ZGVtbzpwQDU1dzByZA=="
       in: header
       name: X-Api-Key
       type: apiKey
-      x-last-modified: 1663947718456
+      x-last-modified: 1665308784
     JWTAuth:
       bearerFormat: JWT
       description: "Example: \n> Authorization: Bearer <token>"
       scheme: bearer
       type: http
-      x-last-modified: 1665071628782
+      x-last-modified: 1665308784
+    HttpAuth:
+      type: http
+      scheme: basic

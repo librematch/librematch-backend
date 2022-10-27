@@ -1,0 +1,167 @@
+{
+    "self": {
+        "href": "https://api.librematch.org/v1/profiles/196240"
+    },
+    "teams": [
+        {
+            "href": "https://api.librematch.org/v1/teams/4Y89HG5TKRF7BGMMSQMRPZ6S1B",
+            "rel": [
+                "item"
+            ]
+        }
+    ],
+    "verified": true,
+    "name": "",
+    "alias": "TheViper",
+    "country_code": "no",
+    "profile_id": 196240,
+    "steam_id": "",
+    "leaderboards": [
+        {
+            "self": {
+                "href": "https://api.librematch.org/v1/leaderboards/4Y89HG5TKRF7BGMMSQMRPZ6S1B",
+                "name": "rm_1v1",
+                "rel": [
+                    "collection"
+                ]
+            },
+            "drops": 3,
+            "games": 833,
+            "last_match": 1615410209,
+            "losses": 277,
+            "wins": 556,
+            "rating": {
+                "current": 2408,
+                "highest": 2510,
+                "lowest": 2415
+            },
+            "streak": {
+                "current": -1,
+                "highest": 22,
+                "lowest": -9
+            },
+            "rank": {
+                "current": 18,
+                "highest": 1,
+                "lowest": 2623
+            }
+        },
+        {
+            "self": {
+                "href": "https://api.librematch.org/v1/leaderboards/4Y89HG5TKRF7BGMMSQMRPZ6S1B",
+                "name": "rm_2v2",
+                "rel": [
+                    "collection"
+                ]
+            },
+            "drops": 3,
+            "games": 833,
+            "last_match": 1615410209,
+            "losses": 277,
+            "wins": 556,
+            "rating": {
+                "current": 2408,
+                "highest": 2510,
+                "lowest": 2415
+            },
+            "streak": {
+                "current": -1,
+                "highest": 22,
+                "lowest": -9
+            },
+            "rank": {
+                "current": 18,
+                "highest": 1,
+                "lowest": 2623
+            }
+        }
+    ],
+    "last_matches": [
+        {
+            "aoe2de": {
+                "datetime": "2022-04-19T08:36:35.000Z",
+                "href": "https://api.librematch.org/v1/games/matches/3fa85f64-5717-4562-b3fc-2c963f66afa6"
+            }
+        },
+        {
+            "aoe4": {
+                "datetime": "2022-04-20T08:38:35.000Z",
+                "href": "https://api.librematch.org/v1/games/matches/3fa85f64-5717-4562-b3fc-2c963f66afa6"
+            }
+        }
+    ],
+    "avatars": [
+        {
+            "small": {
+                "href": "https://avatars.akamai.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb.jpg"
+            }
+        },
+        {
+            "medium": {
+                "href": "https://avatars.akamai.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_medium.jpg"
+            }
+        },
+        {
+            "full": {
+                "href": "https://avatars.akamai.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg"
+            }
+        }
+    ],
+    "socials": [
+        {
+            "discord": {
+                "server_invite": {
+                    "href": ""
+                },
+                "user_name": ""
+            }
+        },
+        {
+            "twitter": {
+                "href": ""
+            }
+        },
+        {
+            "youtube": {
+                "href": ""
+            }
+        },
+        {
+            "twitch": {
+                "href": "",
+                "is_live": false
+            }
+        },
+        {
+            "fbgaming": {
+                "href": "",
+                "is_live": false
+            }
+        },
+        {
+            "instagram": {
+                "href": ""
+            }
+        },
+        {
+            "liquipedia": {
+                "href": ""
+            }
+        },
+        {
+            "esportsearnings": {
+                "href": ""
+            }
+        },
+        {
+            "aoeelo": {
+                "href": ""
+            }
+        },
+        {
+            "douyu": {
+                "href": ""
+            }
+        }
+    ]
+}

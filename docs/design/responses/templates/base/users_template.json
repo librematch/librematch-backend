@@ -1,0 +1,23 @@
+{
+    "settings": [
+        {
+            "api_key": {
+                "self": {
+                    "value": "",
+                    "valid_until_timestamp": 19654984956,
+                    "valid_until_datetime": "2022-04-20T08:38:35.000Z"
+                }
+            }
+        },
+        {
+            "rate_limit": {
+                "activated": true,
+                "self": {
+                    "unit": "minute",
+                    "requests_per_unit": 7,
+                    "algorithm": "Sliding window counter algorithm"
+                }
+            }
+        }
+    ]
+}

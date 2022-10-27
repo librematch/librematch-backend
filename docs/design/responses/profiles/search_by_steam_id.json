@@ -1,0 +1,132 @@
+{
+    "contentVersion": "v1",
+    "self": {
+        "href": "https://api.librematch.org/v1/profiles/search?steam_id=196243121513410",
+        "rel": [
+            "collection"
+        ]
+    },
+    "desc": "Showing 1 of 1 profile.",
+    "offset": 0,
+    "limit": 25,
+    "size": 1,
+    "first": null,
+    "previous": null,
+    "next": null,
+    "last": null,
+    "parameters": {
+        "alias": null,
+        "steam_id": 196243121513410,
+        "exact": false
+    },
+    "value": [
+        {
+            "self": {
+                "href": "https://api.librematch.org/v1/profiles/196240"
+            },
+            "teams": [
+                {
+                    "href": "https://api.librematch.org/v1/teams/4Y89HG5TKRF7BGMMSQMRPZ6S1B",
+                    "rel": [
+                        "item"
+                    ]
+                }
+            ],
+            "verified": true,
+            "first_name": "",
+            "last_name": "",
+            "alias": "TheViper",
+            "country_code": "no",
+            "profile_id": 196240,
+            "steam_id": "",
+            "last_matches": [
+                {
+                    "aoe2de": {
+                        "datetime": "2022-04-19T08:36:35.000Z",
+                        "timestamp": 13801284901123,
+                        "href": "https://api.librematch.org/v1/profiles/196240/matches?single_match=3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                    }
+                },
+                {
+                    "aoe4": {
+                        "datetime": "2022-04-20T08:38:35.000Z",
+                        "timestamp": 13801284901123,
+                        "href": "https://api.librematch.org/v1/profiles/196240/matches?single_match=3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                    }
+                }
+            ],
+            "avatars": [
+                {
+                    "small": {
+                        "href": "https://avatars.akamai.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb.jpg"
+                    }
+                },
+                {
+                    "medium": {
+                        "href": "https://avatars.akamai.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_medium.jpg"
+                    }
+                },
+                {
+                    "full": {
+                        "href": "https://avatars.akamai.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg"
+                    }
+                }
+            ],
+            "socials": [
+                {
+                    "discord": {
+                        "server_invite": {
+                            "href": ""
+                        },
+                        "user_name": ""
+                    }
+                },
+                {
+                    "twitter": {
+                        "href": ""
+                    }
+                },
+                {
+                    "youtube": {
+                        "href": ""
+                    }
+                },
+                {
+                    "twitch": {
+                        "href": ""
+                    }
+                },
+                {
+                    "fbgaming": {
+                        "href": ""
+                    }
+                },
+                {
+                    "instagram": {
+                        "href": ""
+                    }
+                },
+                {
+                    "liquipedia": {
+                        "href": ""
+                    }
+                },
+                {
+                    "esportsearnings": {
+                        "href": ""
+                    }
+                },
+                {
+                    "aoeelo": {
+                        "href": ""
+                    }
+                },
+                {
+                    "douyu": {
+                        "href": ""
+                    }
+                }
+            ]
+        }
+    ]
+}

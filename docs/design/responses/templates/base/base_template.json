@@ -1,0 +1,33 @@
+{
+    "contentVersion": "v1",
+    "self": {
+        "href": "https://api.librematch.org/v1/<endpoint>",
+        "rel": [
+            "item",
+            "collection"
+        ]
+    },
+    "desc": "Showing X of Y item(s).",
+    "offset": 0,
+    "limit": 25,
+    "size": 1,
+    "first": null,
+    "previous": null,
+    "next": null,
+    "last": null,
+    "parameters": {
+        "uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "languages": [
+            "en",
+            "fr"
+        ],
+        "style": "compact",
+        "last_match": false,
+        "status": null,
+        "game": null,
+        "start": null,
+        "count": null,
+        "since": null
+    },
+    "value": []
+}
